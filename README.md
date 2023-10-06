@@ -12,6 +12,10 @@ informatique et en programmation.
 Plusieurs niveaux de difficulté sont proposés aux joueurs afin d’accompagner au mieux un débutant, 
 de consolider les connaissances d’un profil intermédiaire et de challenger les experts.
 
+## Aperçu d'un niveau du jeu
+
+![](./Specification/apercu-niveau.jpeg)
+
 ## Organisation des dossiers
 * backend
 * frontend
