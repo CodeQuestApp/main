@@ -13,14 +13,22 @@ Plusieurs niveaux de difficulté sont proposés aux joueurs afin d’accompagner
 de consolider les connaissances d’un profil intermédiaire et de challenger les experts.
 
 ## Aperçu d'un niveau du jeu
-
 ![](./Specification/apercu-niveau.jpeg)
 
 ## Organisation des dossiers
-* backend
-* frontend
-* .gitignore
-* index.html
+* Algorithmes :
+  contient tous les algorithmes du projet.
+* Docs : 
+  contient la documentation liée au projet.
+* Spécifiaction 
+* Src :
+  * backend :
+    contient les fichiers du backend de l'application.
+  * frontend :
+    contient les fichiers du frontend de l'application.
+    (le javascript, les images)
+  * .gitignore
+  * index.html
 
 ## Equipe projet
 * [Dumolié Alexis](https://github.com/Alexis-Dumolie)
@@ -30,8 +38,10 @@ de consolider les connaissances d’un profil intermédiaire et de challenger le
 * [Moreno Alex](https://github.com/KyoooCode)
 
 ## Langages utilisés
+### Frontend :
 * Html
 * Css
 * Javascript
+### Backend :
 * Php
 
