@@ -31,7 +31,7 @@ de consolider les connaissances d’un profil intermédiaire et de challenger le
   * index.html
 
 ## Equipe projet
-* [Dumolié Alexis](https://github.com/Alexis-Dumolie)
+* [Dumolié Alexis](https://github.com/AlexisDumolie)
 * [Gratchev Grigori](https://github.com/jrijori)
 * [Kessentini Nour](https://github.com/nourkessentini)
 * [Laborde Romain](https://github.com/RomLabo)
