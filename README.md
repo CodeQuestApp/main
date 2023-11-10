@@ -17,7 +17,13 @@ de consolider les connaissances d’un profil intermédiaire et de challenger le
 
 ## Organisation des dossiers
 * Algorithmes :
-  contient tous les algorithmes du projet.
+  * Probleme_1_Dessin_algorithme :
+    - algo_1 ( algorithme principal de cette problématique )
+    - algo_1.1 ( création des éléments graphiques représentants les noeuds à déplacer )
+    - algo_1.2 ( création des éléments graphiques représentants les zones de drop )
+    - algo_1.3 ( création des objets représentants les noeuds )
+    - algo_1.4 ( dessiner tous les noeuds sur leur élément graphique respectif )
+  * Probleme_2_Interpretation_reponses_utilisateur :
 * Docs : 
   contient la documentation liée au projet.
 * Spécifiaction 
