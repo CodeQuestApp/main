@@ -1,0 +1,194 @@
+{
+    "id": 32,
+    "difficulte": 9,
+    "txt": [
+        "Bienvenue sur CodeQuest, je m'appelle Algorithmix et je suis là pour t'aider et t'accompagner tout au long de cette aventure !"
+    ],
+    "answer": { "dt1":"item0", "dt2":"item1", "dt3":"item2", "dt4":"item3" },
+    "log": "Avancer de 4 cases \nTourner à gauche\nRépéter 5 fois \nAvancer de 1 case",
+    "succ": [],
+    "nodes": [
+        {
+            "x": 548,
+            "y": 212,
+            "id": "1",
+            "txt": [
+                [
+                    ""
+                ],
+                [
+                    "Atteindre B"
+                ],
+                [
+                    ""
+                ]
+            ],
+            "type": "issue",
+            "height": 32,
+            "size": [
+                0,
+                106,
+                0
+            ],
+            "width": 106,
+            "clickArea": [
+                106
+            ],
+            "func": "",
+            "val": 3,
+            "allCoord": [
+                495
+            ],
+            "output": [
+                [
+                    1,
+                    2,
+                    4,
+                    5
+                ]
+            ]
+        },
+        {
+            "x": 293,
+            "y": 413,
+            "id": "2",
+            "txt": [
+                [
+                    "Avancer de",
+                    "3 cases"
+                ]
+            ],
+            "type": "assignment",
+            "height": 48,
+            "size": [
+                105
+            ],
+            "width": 105,
+            "clickArea": [
+                105
+            ],
+            "allCoord": [
+                241
+            ],
+            "output": [
+                []
+            ],
+            "func": "move",
+            "val": 3
+        },
+        {
+            "x": 462,
+            "y": 407,
+            "id": "3",
+            "txt": [
+                [
+                    "Répéter 5",
+                    "fois"
+                ]
+            ],
+            "type": "loop",
+            "height": 36,
+            "size": [
+                46
+            ],
+            "width": 46,
+            "clickArea": [
+                46
+            ],
+            "allCoord": [
+                439
+            ],
+            "output": [
+                [
+                    3
+                ]
+            ],
+            "func": "repeat",
+            "val": 5
+        },
+        {
+            "x": 462,
+            "y": 545,
+            "id": "4",
+            "txt": [
+                [
+                    "Avancer de",
+                    "1 case"
+                ]
+            ],
+            "type": "assignment",
+            "height": 48,
+            "size": [
+                105
+            ],
+            "width": 105,
+            "clickArea": [
+                105
+            ],
+            "allCoord": [
+                410
+            ],
+            "output": [
+                []
+            ],
+            "func": "move",
+            "val": 1
+        },
+        {
+            "x": 651,
+            "y": 416,
+            "id": "5",
+            "txt": [
+                [
+                    "Tourner à",
+                    "gauche"
+                ]
+            ],
+            "type": "assignment",
+            "height": 48,
+            "size": [
+                92
+            ],
+            "width": 92,
+            "clickArea": [
+                92
+            ],
+            "allCoord": [
+                605
+            ],
+            "output": [
+                []
+            ],
+            "func": "turn",
+            "val": "left"
+        },
+        {
+            "x": 819,
+            "y": 416,
+            "id": "6",
+            "txt": [
+                [
+                    "Avancer de",
+                    "2 cases"
+                ]
+            ],
+            "type": "assignment",
+            "height": 48,
+            "size": [
+                105
+            ],
+            "width": 105,
+            "clickArea": [
+                105
+            ],
+            "allCoord": [
+                767
+            ],
+            "output": [
+                []
+            ],
+            "func": "move",
+            "val": 2
+        }
+    ]
+}

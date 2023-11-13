@@ -29,13 +29,21 @@ de consolider les connaissances d’un profil intermédiaire et de challenger le
 * Spécifiaction 
 * Src :
   * backend :
-    contient les fichiers du backend de l'application.
+    - algoMain.json ( fichier de données pour simuler la récupération en base de données )
   * frontend :
-    contient les fichiers du frontend de l'application.
-    (le javascript, les images)
+    * img :
+      - perso.png ( personnage principal du level algorithmique )
+      - symboles.png ( symboles utilisés pour le dessin des noeuds )
+    * js :
+      - App.js ( fichier contenant le code javascript princpal de l'application )
+      - LevelAlgo.js ( fichier contenant le code javascript nécessaire au level algorithmique )
+      - Node.js ( fichier contenant le code de la class Node représentant un noeud algorithmique )
+      - Utilities.js ( fichier contenant des fonctions utilitaires qui sont utilisées dans l'application )    
   * .gitignore
   * index.html
-
+  * level_algo.html
+  * style.css
+  
 ## Equipe projet
 * [Dumolié Alexis](https://github.com/AlexisDumolie)
 * [Gratchev Grigori](https://github.com/jrijori)
