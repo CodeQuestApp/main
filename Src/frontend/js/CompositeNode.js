@@ -8,21 +8,8 @@
  * an algorithm corresponding to a loop.
  */
 class Loop extends Node {
-    constructor(canvas, node, perso, caseSize) {
-        super(canvas, node, perso, caseSize);
-
-        this.allFunc = {
-            "repeat": {
-                functionName: "repeat",
-                args: this._val
-            }
-        }                                         
-    }
-
-    repeat(arg) {
-        for (let i = 0; i < arg; i++) {
-            this._myNodes.forEach(childNode => childNode.exec());
-        }
+    constructor(canvas, node) {
+        super(canvas, node);                                       
     }
 
     isComposed() {
@@ -83,10 +70,11 @@ class Loop extends Node {
         }
     }
 
-    exec() {
-        console.log("repeat");
-        const { functionName, args } = this.allFunc[this.funcToExec];
-        return this[functionName](args);
+    exec(character) {
+        console.log(`repeat ${this.valForFunc}`);
+        for (let i = 0; i < this.valForFunc; i++) {
+            this._myNodes.forEach(childNode => childNode.exec(character));
+        }
     }
 }
 
@@ -96,19 +84,8 @@ class Loop extends Node {
  * an algorithm corresponding to an issue.
  */
 class Issue extends Node {
-    constructor(canvas, node, perso, caseSize) {
-        super(canvas, node, perso, caseSize);
-        
-        this.allFunc = {
-            "move": {
-                functionName: "move",
-                args: this._val
-            },
-            "turn": {
-                functionName: "turn",
-                args: this._val
-            }
-        }
+    constructor(canvas, node) {
+        super(canvas, node);
     }
 
     isComposed() {
@@ -159,13 +136,6 @@ class Issue extends Node {
             });
         }
         console.log(this._myNodes);
-    }
-
-    exec() {
-        console.log("Démarrage algo");
-        if (this._myNodes.length > 0) {
-            this._myNodes.forEach(nodeChild => nodeChild.exec());
-        }
     }
 
     draw() {
@@ -235,6 +205,13 @@ class Issue extends Node {
             }
         }
     }
+
+    exec(character) {
+        console.log("Démarrage algo");
+        if (this._myNodes.length > 0) {
+            this._myNodes.forEach(nodeChild => nodeChild.exec(character));
+        }
+    }
 }
 
 /**
@@ -243,10 +220,8 @@ class Issue extends Node {
  * an algorithm corresponding to a condition.
  */
 class Condition extends Node {
-    constructor(canvas, node, perso, caseSize) {
-        super(canvas, node, perso, caseSize);
-        
-        this.allFunc = {};
+    constructor(canvas, node) {
+        super(canvas, node);
     }
 
     isComposed() {
@@ -299,6 +274,10 @@ class Condition extends Node {
             this.y
         );
     }
+
+    exec(character) {
+        return;
+    }
 }
 
 /**
@@ -307,10 +286,8 @@ class Condition extends Node {
  * an algorithm corresponding to a switch.
  */
 class Switch extends Node {
-    constructor(canvas, node, perso, caseSize) {
-        super(canvas, node, perso, caseSize);
-        
-        this.allFunc = {};
+    constructor(canvas, node) {
+        super(canvas, node);
     }
 
     isComposed() {
@@ -319,26 +296,6 @@ class Switch extends Node {
 
     addNode(node) {
         this._myNodes.push(node);
-    }
-
-    calculWidth(arrayOfSize) {
-        let width = (
-            arrayOfSize.reduce((a,b) => a + b, 0) 
-            - arrayOfSize[arrayOfSize.length - 1]
-        );
-
-        if (arrayOfSize[arrayOfSize.length - 1] > width) {
-            width = arrayOfSize[arrayOfSize.length - 1];
-        }
-        return width;
-    }
-
-    calculClickArea(arrayOfSize) {
-        let clickArea = [];
-        for (let i = 0; i < arrayOfSize.length -1; i++) {
-            clickArea.push(arrayOfSize[i])
-        }
-        return clickArea;
     }
 
     draw() {
@@ -405,8 +362,7 @@ class Switch extends Node {
         );
     }
 
-    exec() {
-        const { functionName, args } = this.allFunc[this.funcToExec];
-        return this[functionName](args);
+    exec(character) {
+        return;
     }
 }

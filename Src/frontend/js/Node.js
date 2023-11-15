@@ -23,11 +23,9 @@ class Node {
 
     /**
      * @param {HTMLCanvasElement} canvas 
-     * @param {Number} x 
-     * @param {Number} y 
-     * @param {Array} txt // Array of string 
+     * @param {Object} node
      */
-    constructor(canvas, node, perso, caseSize) {
+    constructor(canvas, node) {
 
         if (this.constructor == Node) {
             throw new Error("Abstract classes can't be instantiated.");
@@ -47,8 +45,6 @@ class Node {
         this._val = node.val;
         this._funcToExec = node.func;
         this._output = node.output;
-        this._caseSize = caseSize;
-        this._perso = perso;
 
         this._myNodes = [];
         
@@ -58,13 +54,7 @@ class Node {
 
         this._txtHeight = 16;
         this._txtTopMargin = 22;
-        this._txtLeftMargin = 8;
-
-        this._map = document.getElementById("map");
-        this._mapCtx = this._map.getContext("2d");
-        
-        
-        this.allFunc;
+        this._txtLeftMargin = 8;        
 
         this._symbol = SYMBOL_IMG;
         this._symbolParam = SYMBOL_IMG_PARAMS;
@@ -86,9 +76,7 @@ class Node {
     set funcToExec(val) { this._funcToExec = val }
 
     get valForFunc() { return this._val }
-
-    get caseSize() { return this._caseSize }
-    set caseSize(val) { this._caseSize = val }
+    set valForFunc(val) { this._val = val }
 
     get type() { return this._type }
     set type(type) { this._type = type }
@@ -214,7 +202,7 @@ class Node {
     /**
      * 
      */
-    exec() {
+    exec(character) {
         throw this.#methodError;
     }
 }

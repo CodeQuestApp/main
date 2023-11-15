@@ -4,14 +4,30 @@
  */
 class Character {
     #x; #y; #taillePas;
-    #or; #arrivalCoordinate;
+    #orientation; #arrivalCoordinate;
     
     constructor(x ,y , taillePas, arrivalCoordinate) {
         this.#x = x;
         this.#y = y;
         this.#taillePas = taillePas;
-        this.#or = 2;
+        this.#orientation = 2;
         this.#arrivalCoordinate = arrivalCoordinate;
+
+        this._map = document.getElementById("map");
+        this._mapCtx = this._map.getContext("2d");
+
+        this.valForFunc = null;
+        this.funcToExec = null;
+        this.allFunc = {
+            "move": {
+                functionName: "move",
+                args: this.valForFunc
+            },
+            "turn": {
+                functionName: "turn",
+                args: this.valForFunc
+            }
+        }
     }
 
     get x() { return this.#x }
@@ -20,16 +36,22 @@ class Character {
     get y() { return this.#y }
     set y(val) { this.#y = val }
 
-    get or() { return this.#or }
-    set or(val) { this.#or = val }
+    get orientation() { return this.#orientation }
+    set orientation(val) { this.#orientation = val }
 
     get arrivalCoordinate() { return this.#arrivalCoordinate }
     set arrivalCoordinate(val) { this.#arrivalCoordinate = val }
+
+    get taillePas() {return this.#taillePas }
+    set taillePas(val) { this.#taillePas = val }
+
+    set valFunc(val) { this.valForFunc = val }
+    set funcTo(val) { this.funcToExec = val }
    
     resetPosition() {
         this.#x = 0;
         this.#y = 0;
-        this.#or = 2;
+        this.#orientation = 2;
     }
 
     isArrived() {
@@ -37,5 +59,73 @@ class Character {
             return true;
         }  
         return false; 
+    }
+
+    turn(orientation) {
+        console.log(`turn ${orientation}`);
+        if (orientation === "right") {
+            this.orientation = (this.orientation + 1) % 4;
+        } else if (orientation === "left") {
+            this.orientation = (this.orientation - 1) % 4;
+        }
+    }
+
+    move(val) {
+        console.log(`move ${val}`);
+        for (let i = 0; i < val; i++) {
+            switch (this.orientation) {
+                case 3:
+                    this.x = this.x - this.taillePas;
+                    break;
+                case 2:
+                    this.y = this.y + this.taillePas;
+                    break;
+                case 1:
+                    this.x = this.x + this.taillePas;
+                    break;
+                default:
+                    this.y = this.y - this.taillePas;
+                    break;
+            }
+            this._mapCtx.fillRect(this.x, this.y, this.taillePas, this.taillePas);
+        }
+    }
+
+    async moveWithTempo(val, character) {
+        return new Promise((resolve) => {
+            
+            const previousMove = movePromise;
+            console.log(`move ${val}`);
+
+            movePromise = previousMove.then(async () => {
+                for (let i = 0; i < val; i++) {
+                    await wait(150);
+                    switch (character.orientation) {
+                        case 3:
+                            character.x = character.x - character.taillePas;
+                            break;
+                        case 2:
+                            character.y = character.y + character.taillePas;
+                            break;
+                        case 1:
+                            character.x = character.x + character.taillePas;
+                            break;
+                        default:
+                            character.y = character.y - character.taillePas;
+                            break;
+                    }
+                    this._mapCtx.fillRect(character.x, character.y, character.taillePas, character.taillePas);
+                }
+            }).then(() => {
+                resolve();
+            });
+
+        })
+    }
+
+    do(funcToExec, val) {
+        this.allFunc[funcToExec].args = val;
+        const { functionName, args } = this.allFunc[funcToExec];
+        return this[functionName](args);
     }
 }
