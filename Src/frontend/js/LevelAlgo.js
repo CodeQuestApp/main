@@ -15,12 +15,26 @@ let algoExec = [];
 
 
 /* Global constants */
+const allGraphicNodes = document.getElementById("graphic-nodes__wrapper");
+const allGraphicDropZones = document.getElementById("graphic-dropzone__wrapper");
+
+const mainCanvas = document.getElementById("main");
+const mainContext = mainCanvas.getContext("2d");
+const map = document.getElementById("map");
+const mapCtx = map.getContext("2d");
+const MARGIN = 8;
+ // ====> A changer ne taille relative par rapport à l'écran <=====
+const DROP_ZONE_SIZE = 42; // ====> A changer ne taille relative par rapport à l'écran <=====
 
 
+// Paramétrage de mainCanvas et map
+mainCanvas.width = window.innerWidth*.7;
+mainCanvas.height = window.innerHeight;
+map.width = window.innerWidth*.3;
+map.height = window.innerHeight;
+map.lineWidth = 1;
 
-
-
-
+const CASE_SIZE = map.width*.1;
 
 
 // -- Problématique Algorithmique 1 -- 
@@ -122,3 +136,189 @@ function creationElementsGraphiques() {
 
 
 // -- Problématique Algorithmique 2 -- 
+
+/* Interpréter les réponses de l'utilisateur */
+function interpreterReponsesUtilisateur() {
+    /* 
+        Construire un arbre de départ
+    */
+    console.log(allNodes);
+    for (let i = 0; i < allNodes.length ; i++) {
+        if (allNodes[i].output[0].length !== 0) {
+            for (let z = 0; z < allNodes[i].output[0].length; z++) {
+                allNodes[i].addNode(allNodes[allNodes[i].output[0][z]]);
+            }
+        }
+    }
+
+    /*
+        Déterminer quel graphicNode est
+        déplacé par l'utilisateur
+    */
+    for (const node of allGraphicNodes.children) {
+        node.addEventListener("dragstart", function(e) {
+            e.stopPropagation();
+            movedNode = this;
+            elmParentPrecedent = movedNode.parentElement;
+        })
+    }
+
+    /*
+        Lancer pour chaque dropZone un écouteur
+        de déplacement
+    */
+    for (const dropZone of allGraphicDropZones.children) {
+        
+        dropZone.addEventListener("dragover", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        })
+
+        dropZone.addEventListener("drop", function(e) {
+            e.preventDefault(); 
+            e.stopPropagation();
+
+            /*
+                Vérifier si il n'y a pas déjà un graphicNode
+                dans la dropZone.
+            */
+            if (this.children.length === 0) {
+                /*
+                    Recentrer la dropZone en fonction de la taille
+                    du noeud qu'elle contient
+                    ( AJUSTEMENT GRAPHIQUE )
+                */
+                if (elmParentPrecedent.id !== this.id) {
+                    elmParentPrecedent.style.left = elmParentPrecedent.getAttribute("data-x");
+                    elmParentPrecedent.style.top = elmParentPrecedent.getAttribute("data-y");
+                }
+
+                this.style.left = `${(Number(this.style.left.split("px")[0])+18) - (movedNode.clientWidth/2)}px`;
+                this.style.top = `${(Number(this.style.top.split("px")[0])+18) - (movedNode.clientHeight/2)}px`;
+
+                /*
+                    Ajouter le movedNode dans 
+                    la dropZone
+                */
+                this.appendChild(movedNode);
+
+                /* 
+                    Récupérer l'id du movedNode (graphique)
+                    et l'id de la dropZone
+                */
+                idDropZone = this.id.split("-")[1];
+                idMovedNode = movedNode.id.split("-")[1];
+                
+                if (idDropZone !== idMovedNode) {
+                    /*
+                        Mette à jour l'id de la dropZone
+                    */
+                    document.getElementById(`dz-${idDropZone}`).setAttribute("id","dz-x");
+                    document.getElementById(`dz-${idMovedNode}`).setAttribute("id",`dz-${idDropZone}`);
+                    document.getElementById("dz-x").setAttribute("id",`dz-${idMovedNode}`);
+
+                    /*
+                        Récupérer la position dans le tableau noeudAlgo
+                        du noeud dont son id est idMovedNode
+                    */
+                    for (let i = 0; i < allNodes.length; i++) {
+                        if (allNodes[i].id === idMovedNode) {
+                            positionMovedNode = i;
+                        }
+                        
+                    }
+                    
+                    /* 
+                        Remplacer dans l'arbre le noeud par
+                        le movedNode
+                    */
+                    allNodes[0].replaceNode(idDropZone,allNodes[positionMovedNode]);
+                }
+            }
+            
+            /*
+                Vérifier si tout les noeuds graphiques
+                ont été positionnés
+            */
+            if (allGraphicNodes.children.length === 0) {
+                /* 
+                    Si oui,
+                    Démarrer l'exécution de l'algorithme
+                */
+                allNodes[0].exec();
+
+                /* 
+                    Vérifier si une erreur
+                    dans l'éxécution a été détectée
+                */
+            }
+        })
+    }
+
+    allGraphicNodes.addEventListener("dragover", function(e) { e.preventDefault()});
+
+    allGraphicNodes.addEventListener("drop", function(a) {
+        a.preventDefault();
+        a.stopPropagation();
+
+        if (allGraphicNodes.children.length === 0) {
+            /* 
+                Remettre à zéro la position
+                du character
+            */
+            character.resetPosition();
+            
+            /*
+                Effacer la map
+            */
+            eraseCanvas(map, mapCtx);
+
+            /*
+                Redessiner la grille sur
+                la map
+            */
+            drawGrid(map, mapCtx, CASE_SIZE);
+        }
+
+        /*
+            Repositionner la dropZone dont
+            l'élément qu'il contenait vient
+            d'être placé dans allGraphicNodes
+            ( AJUSTEMENT GRAPHIQUE )
+        */
+        if (elmParentPrecedent.id !== "z0" && elmParentPrecedent.id !== this.id) {
+            elmParentPrecedent.style.left = elmParentPrecedent.getAttribute("data-x");
+            elmParentPrecedent.style.top = elmParentPrecedent.getAttribute("data-y");
+        }
+
+        /*
+            Ajouter le movedNode dans
+            le allGraphicNodes
+        */
+        this.appendChild(movedNode);
+    })
+    
+    
+
+    /* 
+        Vérifier l'ordre des noeuds et le
+        comparer à l'ordre d'exécution attendu
+    */
+}
+
+
+
+// -- Lancement du niveau --
+
+/* 
+    Simulation récupération des données
+*/
+fetch("./data/algoMain.json")
+.then(res => res.json())
+.then(data => {
+    algo = data;
+    creationElementsGraphiques();
+    eraseCanvas(map, mapCtx);
+    drawGrid(map, mapCtx, CASE_SIZE);
+    interpreterReponsesUtilisateur();
+})
