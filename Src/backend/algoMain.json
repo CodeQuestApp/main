@@ -7,6 +7,10 @@
     "answer": { "dt1":"item0", "dt2":"item1", "dt3":"item2", "dt4":"item3" },
     "log": "Avancer de 4 cases \nTourner à gauche\nRépéter 5 fois \nAvancer de 1 case",
     "succ": [],
+    "arrivalCoordinate": {
+        "x": 50,
+        "y": 20
+    },
     "nodes": [
         {
             "x": 548,

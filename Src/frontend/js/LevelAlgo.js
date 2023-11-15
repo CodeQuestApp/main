@@ -10,7 +10,7 @@
 /* Global variables */
 let algo, graphicNode, dropZone, nodeParams;
 let allNodes, character, positionMovedNode;
-let movedNode, elmParentPrecedent, idDropZone, idMovedNode;
+let movedNode, movedNodeWrapper, idDropZone, idMovedNode;
 let algoExec = [];
 
 
@@ -45,7 +45,7 @@ function creationElementsGraphiques() {
         Initialisation des variables 
     */ 
     allNodes = [];
-    character = new Character(0,0,CASE_SIZE);
+    character = new Character(0,0,CASE_SIZE, algo.arrivalCoordinate);
 
     /* 
         Création des éléments graphiques
@@ -88,31 +88,24 @@ function creationElementsGraphiques() {
         les noeuds
     */
     for (let i = 0; i < allGraphicNodes.children.length; i++) {
-        nodeParams = [
-            allGraphicNodes.children[i],
-            algo.nodes[i],
-            character,
-            CASE_SIZE
-        ];
-    
         switch (algo.nodes[i].type) {
             case "issue":
-                allNodes.push(new Issue(...nodeParams));
+                allNodes.push(new Issue(allGraphicNodes.children[i],algo.nodes[i]));
                 break;
             case "assignment":
-                allNodes.push(new Assignment(...nodeParams));
+                allNodes.push(new Assignment(allGraphicNodes.children[i],algo.nodes[i]));
                 break;
             case "switch":
-                allNodes.push(new Switch(...nodeParams));
+                allNodes.push(new Switch(allGraphicNodes.children[i],algo.nodes[i]));
                 break;
             case "loop":
-                allNodes.push(new Loop(...nodeParams));
+                allNodes.push(new Loop(allGraphicNodes.children[i],algo.nodes[i]));
                 break;
             case "condition":
-                allNodes.push(new Condition(...nodeParams));
+                allNodes.push(new Condition(allGraphicNodes.children[i],algo.nodes[i]));
                 break;
             default:
-                allNodes.push(new Break(...nodeParams));
+                allNodes.push(new Break(allGraphicNodes.children[i],algo.nodes[i]));
                 break;
         }
     }
@@ -159,13 +152,59 @@ function interpreterReponsesUtilisateur() {
         node.addEventListener("dragstart", function(e) {
             e.stopPropagation();
             movedNode = this;
-            elmParentPrecedent = movedNode.parentElement;
+            movedNodeWrapper = movedNode.parentElement;
         })
     }
 
     /*
-        Lancer pour chaque dropZone un écouteur
-        de déplacement
+        Déterminer quel graphicNode est replacé 
+        dans son conteneur de départ
+    */
+    allGraphicNodes.addEventListener("dragover", function(e) { e.preventDefault()});
+    allGraphicNodes.addEventListener("drop", function(a) {
+        a.preventDefault();
+        a.stopPropagation();
+
+        if (allGraphicNodes.children.length === 0) {
+            /* 
+                Remettre à zéro la position
+                du character
+            */
+            character.resetPosition();
+            
+            /*
+                Effacer la map
+            */
+            eraseCanvas(map, mapCtx);
+
+            /*
+                Redessiner la grille sur
+                la map
+            */
+            drawGrid(map, mapCtx, CASE_SIZE);
+        }
+
+        /*
+            Repositionner la dropZone dont
+            l'élément qu'il contenait vient
+            d'être placé dans allGraphicNodes
+            ( AJUSTEMENT GRAPHIQUE )
+        */
+        if (movedNodeWrapper.id !== "z0" && movedNodeWrapper.id !== this.id) {
+            movedNodeWrapper.style.left = movedNodeWrapper.getAttribute("data-x");
+            movedNodeWrapper.style.top = movedNodeWrapper.getAttribute("data-y");
+        }
+
+        /*
+            Ajouter le movedNode dans
+            le allGraphicNodes
+        */
+        this.appendChild(movedNode);
+    })
+    
+
+    /*
+        Déterminer quel drop zone a reçu un noeud graphique
     */
     for (const dropZone of allGraphicDropZones.children) {
         
@@ -188,9 +227,9 @@ function interpreterReponsesUtilisateur() {
                     du noeud qu'elle contient
                     ( AJUSTEMENT GRAPHIQUE )
                 */
-                if (elmParentPrecedent.id !== this.id) {
-                    elmParentPrecedent.style.left = elmParentPrecedent.getAttribute("data-x");
-                    elmParentPrecedent.style.top = elmParentPrecedent.getAttribute("data-y");
+                if (movedNodeWrapper.id !== this.id) {
+                    movedNodeWrapper.style.left = movedNodeWrapper.getAttribute("data-x");
+                    movedNodeWrapper.style.top = movedNodeWrapper.getAttribute("data-y");
                 }
 
                 this.style.left = `${(Number(this.style.left.split("px")[0])+18) - (movedNode.clientWidth/2)}px`;
@@ -245,65 +284,26 @@ function interpreterReponsesUtilisateur() {
                     Si oui,
                     Démarrer l'exécution de l'algorithme
                 */
-                allNodes[0].exec();
+                allNodes[0].exec(character);
 
                 /* 
                     Vérifier si une erreur
                     dans l'éxécution a été détectée
                 */
+
+                // A FAIRE =============================
             }
         })
+
+
     }
 
-    allGraphicNodes.addEventListener("dragover", function(e) { e.preventDefault()});
-
-    allGraphicNodes.addEventListener("drop", function(a) {
-        a.preventDefault();
-        a.stopPropagation();
-
-        if (allGraphicNodes.children.length === 0) {
-            /* 
-                Remettre à zéro la position
-                du character
-            */
-            character.resetPosition();
-            
-            /*
-                Effacer la map
-            */
-            eraseCanvas(map, mapCtx);
-
-            /*
-                Redessiner la grille sur
-                la map
-            */
-            drawGrid(map, mapCtx, CASE_SIZE);
-        }
-
-        /*
-            Repositionner la dropZone dont
-            l'élément qu'il contenait vient
-            d'être placé dans allGraphicNodes
-            ( AJUSTEMENT GRAPHIQUE )
-        */
-        if (elmParentPrecedent.id !== "z0" && elmParentPrecedent.id !== this.id) {
-            elmParentPrecedent.style.left = elmParentPrecedent.getAttribute("data-x");
-            elmParentPrecedent.style.top = elmParentPrecedent.getAttribute("data-y");
-        }
-
-        /*
-            Ajouter le movedNode dans
-            le allGraphicNodes
-        */
-        this.appendChild(movedNode);
-    })
     
-    
-
     /* 
-        Vérifier l'ordre des noeuds et le
-        comparer à l'ordre d'exécution attendu
+        Vérifier que le personnage est arrivé
     */
+
+    // A FAIRE ==================================
 }
 
 
@@ -313,7 +313,7 @@ function interpreterReponsesUtilisateur() {
 /* 
     Simulation récupération des données
 */
-fetch("./data/algoMain.json")
+fetch("./backend/algoMain.json")
 .then(res => res.json())
 .then(data => {
     algo = data;

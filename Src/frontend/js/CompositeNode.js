@@ -25,7 +25,7 @@ class Loop extends Node {
         }
     }
 
-    jeSuisComposee() {
+    isComposed() {
         return true; 
     }
 
@@ -50,7 +50,7 @@ class Loop extends Node {
         }
 
         if (id1 > -1 && id2 > -1) {
-            if (this._myNodes[id1].jeSuisComposee() === this._myNodes[id2].jeSuisComposee()) {
+            if (this._myNodes[id1].isComposed() === this._myNodes[id2].isComposed()) {
                 let aux = this._myNodes[id1];
                 this._myNodes[id1] = this._myNodes[id2];
                 this._myNodes[id2] = aux;
@@ -111,7 +111,7 @@ class Issue extends Node {
         }
     }
 
-    jeSuisComposee() {
+    isComposed() {
         return true; 
     }
 
@@ -137,7 +137,7 @@ class Issue extends Node {
         console.log(id1, id2);
         if (id1 > -1 && id2 > -1) {
             console.log("change");
-            if (this._myNodes[id1].jeSuisComposee() == this._myNodes[id2].jeSuisComposee()) {
+            if (this._myNodes[id1].isComposed() == this._myNodes[id2].isComposed()) {
                 let aux = this._myNodes[id1];
                 this._myNodes[id1] = this._myNodes[id2];
                 this._myNodes[id2] = aux; 
@@ -249,7 +249,7 @@ class Condition extends Node {
         this.allFunc = {};
     }
 
-    jeSuisComposee() {
+    isComposed() {
         return true; 
     }
 
@@ -313,7 +313,7 @@ class Switch extends Node {
         this.allFunc = {};
     }
 
-    jeSuisComposee() {
+    isComposed() {
         return true; 
     }
 
