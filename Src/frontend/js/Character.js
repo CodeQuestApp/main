@@ -6,11 +6,11 @@ class Character {
     #x; #y; #taillePas;
     #orientation; #arrivalCoordinate;
     
-    constructor(x ,y , taillePas, arrivalCoordinate) {
-        this.#x = x;
-        this.#y = y;
+    constructor(x, y, taillePas, arrivalCoordinate) {
+        this.#x = x + 5 * CASE_SIZE;
+        this.#y = y - CASE_SIZE;
         this.#taillePas = taillePas;
-        this.#orientation = 2;
+        this.#orientation = 0;
         this.#arrivalCoordinate = arrivalCoordinate;
 
         this._map = document.getElementById("map");
@@ -50,8 +50,8 @@ class Character {
    
     resetPosition() {
         this.#x = 0;
-        this.#y = 0;
-        this.#orientation = 2;
+        this.#y = this._map.clientHeight;
+        this.#orientation = 0;
     }
 
     isArrived() {
@@ -61,37 +61,57 @@ class Character {
         return false; 
     }
 
-    turn(orientation) {
+    async turn(orientation) {
+        /*
+            orientation ==> {0 : haut ; 1 : droite ; 2 : bas ; 3 : gauche}
+        */
+
+        await this.move();
         console.log(`turn ${orientation}`);
         if (orientation === "right") {
             this.orientation = (this.orientation + 1) % 4;
         } else if (orientation === "left") {
-            this.orientation = (this.orientation - 1) % 4;
-        }
-    }
-
-    move(val) {
-        console.log(`move ${val}`);
-        for (let i = 0; i < val; i++) {
-            switch (this.orientation) {
-                case 3:
-                    this.x = this.x - this.taillePas;
-                    break;
-                case 2:
-                    this.y = this.y + this.taillePas;
-                    break;
-                case 1:
-                    this.x = this.x + this.taillePas;
-                    break;
-                default:
-                    this.y = this.y - this.taillePas;
-                    break;
+            if(this.orientation === 0)
+                this.orientation = 3;
+            else{
+                this.orientation = this.orientation - 1;
             }
-            this._mapCtx.fillRect(this.x, this.y, this.taillePas, this.taillePas);
         }
     }
 
-    async moveWithTempo(val, character) {
+    async move(val) {
+        return new Promise((resolve) => {            
+            const previousMove = movePromise;        
+            console.log(`move ${val}`);
+            //console.log(this._map.clientHeight);
+            movePromise = previousMove.then(async () => {
+                for (let i = 0; i < val; i++) {
+                    await wait(200);
+                    console.log(this.orientation);
+                    switch (this.orientation) {
+                        case 3:
+                            this.x = this.x - this.taillePas;
+                            break;
+                        case 2:
+                            this.y = this.y + this.taillePas;
+                            break;
+                        case 1:
+                            this.x = this.x + this.taillePas;
+                            break;
+                        case 0:
+                            this.y = this.y - this.taillePas;
+                            break;
+                    }
+                    this._mapCtx.fillRect(this.x, this.y, this.taillePas, this.taillePas);
+                }
+            }).then(() => {
+                resolve();
+            });
+
+        })
+    }
+
+    /*async moveWithTempo(val, character) {
         return new Promise((resolve) => {
             
             const previousMove = movePromise;
@@ -121,7 +141,7 @@ class Character {
             });
 
         })
-    }
+    }*/
 
     do(funcToExec, val) {
         this.allFunc[funcToExec].args = val;

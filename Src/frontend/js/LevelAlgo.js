@@ -45,7 +45,8 @@ function creationElementsGraphiques() {
         Initialisation des variables 
     */ 
     allNodes = [];
-    character = new Character(0,0,CASE_SIZE, algo.arrivalCoordinate);
+    character = new Character(0,map.height,CASE_SIZE, algo.arrivalCoordinate);
+    //console.log(map.height);
 
     /* 
         Création des éléments graphiques

@@ -23,7 +23,7 @@ const CANVAS_COLOR_2 = "#1c1c1c";
  * @returns 
  */
 function wait(ms) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             resolve(ms)
         }, ms)
@@ -75,8 +75,8 @@ function drawLine(ctx, x1, y1, x2, y2) {
 function drawGrid(cnv, ctx, caseWidth) {
     for (let i = 0; i < (cnv.width / caseWidth); i++) {
         for (let j = 0; j < (cnv.height / caseWidth); j++) {
-            // Draws horizontal lines
-            drawLine(ctx, 0, j * caseWidth, cnv.width, j * caseWidth);
+            // Draws horizontal liness
+            drawLine(ctx, 0, cnv.height - (j * caseWidth) , cnv.width, cnv.height - (j * caseWidth));
             // Draws vertical lines
             drawLine(ctx, i * caseWidth, 0, i * caseWidth, cnv.height);
         }
