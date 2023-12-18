@@ -330,7 +330,6 @@ function interpreterReponsesUtilisateur() {
 fetch("http://lakartxela.iutbayonne.univ-pau.fr/~rlaborde003/getNodes.php")
 .then(res => res.json())
 .then(data => {
-    algo = data;
     data.nodes.forEach(node => algo.nodes.push(transformDataFromBD(node)))
     creationElementsGraphiques();
     eraseCanvas(map, mapCtx);
