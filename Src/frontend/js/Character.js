@@ -49,8 +49,8 @@ class Character {
     set funcTo(val) { this.funcToExec = val }
    
     resetPosition() {
-        this.#x = 0;
-        this.#y = this._map.clientHeight;
+        this.#x = 5 * CASE_SIZE;
+        this.#y = this._map.height - CASE_SIZE;
         this.#orientation = 0;
     }
 
