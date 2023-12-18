@@ -312,9 +312,9 @@ function interpreterReponsesUtilisateur() {
 // -- Lancement du niveau --
 
 /* 
-    Simulation récupération des données
+    Simulation récupération des données en local
 */
-fetch("./backend/algoMain.json")
+/*fetch("./backend/algoMain.json")
 .then(res => res.json())
 .then(data => {
     algo = data;
@@ -322,4 +322,38 @@ fetch("./backend/algoMain.json")
     eraseCanvas(map, mapCtx);
     drawGrid(map, mapCtx, CASE_SIZE);
     interpreterReponsesUtilisateur();
+})*/
+
+/* 
+    Simulation récupération des données depuis base de données
+*/
+fetch("http://lakartxela.iutbayonne.univ-pau.fr/~rlaborde003/getNodes.php")
+.then(res => res.json())
+.then(data => {
+    algo = data;
+    data.nodes.forEach(node => algo.nodes.push(transformDataFromBD(node)))
+    creationElementsGraphiques();
+    eraseCanvas(map, mapCtx);
+    drawGrid(map, mapCtx, CASE_SIZE);
+    interpreterReponsesUtilisateur();
 })
+
+/*
+let algo = {};
+algo.nodes = [];
+const transformDataFromBD = (data) => {
+    return {
+        id: data.id,x: Number(data.coordX),y: Number(data.coordY),
+        txt: JSON.parse(data.texte),type: data.type,
+        height: Number(data.hauteur),width: Number(data.largeur),
+        output: JSON.parse(data.sortie),allCoord: JSON.parse(data.coords),
+        clickArea: JSON.parse(data.zoneClick),size: JSON.parse(data.taille),
+        func: data.fonction == null ? "" : data.fonction,val: Number(data.valeur)
+    }
+}
+
+fetch("./backend/getNodes.php", {method : 'get'})
+.then(res => res.json())
+.then(data => data.nodes.forEach(node => algo.nodes.push(transformDataFromBD(node))))
+.then(() => console.log(algo.nodes))
+.catch(err => test.textContent = err)*/

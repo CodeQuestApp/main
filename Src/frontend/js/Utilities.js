@@ -172,3 +172,22 @@ function drawLinkBetweenNodes(ctx, nodeArray, node) {
         } 
     }
 }
+
+/**
+ * @function transformDataFromBD
+ * @description Used to draw links
+ * between the nodes of an algorithm.
+ *  
+ * @param {Node} data // Node from which links are drawn
+ * @return {Object} ..
+ */
+function transformDataFromBD(data) {
+    return {
+        id: data.id,x: Number(data.coordX),y: Number(data.coordY),
+        txt: JSON.parse(data.texte),type: data.type,
+        height: Number(data.hauteur),width: Number(data.largeur),
+        output: JSON.parse(data.sortie),allCoord: JSON.parse(data.coords),
+        clickArea: JSON.parse(data.zoneClick),size: JSON.parse(data.taille),
+        func: data.fonction == null ? "" : data.fonction,val: Number(data.valeur)
+    }
+}
