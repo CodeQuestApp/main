@@ -25,7 +25,7 @@ class Node {
      * @param {HTMLCanvasElement} canvas 
      * @param {Object} node
      */
-    constructor(canvas, node) {
+    constructor(canvas, node, character) {
 
         if (this.constructor == Node) {
             throw new Error("Abstract classes can't be instantiated.");
@@ -45,6 +45,7 @@ class Node {
         this._val = node.val;
         this._funcToExec = node.func;
         this._output = node.output;
+        this._character = character;
 
         this._myNodes = [];
         
@@ -202,7 +203,7 @@ class Node {
     /**
      * 
      */
-    exec(character) {
+    exec() {
         throw this.#methodError;
     }
 }

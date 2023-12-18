@@ -91,22 +91,22 @@ function creationElementsGraphiques() {
     for (let i = 0; i < allGraphicNodes.children.length; i++) {
         switch (algo.nodes[i].type) {
             case "issue":
-                allNodes.push(new Issue(allGraphicNodes.children[i],algo.nodes[i]));
+                allNodes.push(new Issue(allGraphicNodes.children[i],algo.nodes[i], character));
                 break;
             case "assignment":
-                allNodes.push(new Assignment(allGraphicNodes.children[i],algo.nodes[i]));
+                allNodes.push(new Assignment(allGraphicNodes.children[i],algo.nodes[i], character));
                 break;
             case "switch":
-                allNodes.push(new Switch(allGraphicNodes.children[i],algo.nodes[i]));
+                allNodes.push(new Switch(allGraphicNodes.children[i],algo.nodes[i], character));
                 break;
             case "loop":
-                allNodes.push(new Loop(allGraphicNodes.children[i],algo.nodes[i]));
+                allNodes.push(new Loop(allGraphicNodes.children[i],algo.nodes[i], character));
                 break;
             case "condition":
-                allNodes.push(new Condition(allGraphicNodes.children[i],algo.nodes[i]));
+                allNodes.push(new Condition(allGraphicNodes.children[i],algo.nodes[i], character));
                 break;
             default:
-                allNodes.push(new Break(allGraphicNodes.children[i],algo.nodes[i]));
+                allNodes.push(new Break(allGraphicNodes.children[i],algo.nodes[i], character));
                 break;
         }
     }
@@ -285,7 +285,7 @@ function interpreterReponsesUtilisateur() {
                     Si oui,
                     Démarrer l'exécution de l'algorithme
                 */
-                allNodes[0].exec(character);
+                allNodes[0].exec();
 
                 /* 
                     Vérifier si une erreur

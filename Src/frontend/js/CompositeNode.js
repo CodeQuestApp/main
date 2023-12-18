@@ -8,8 +8,8 @@
  * an algorithm corresponding to a loop.
  */
 class Loop extends Node {
-    constructor(canvas, node) {
-        super(canvas, node);                                       
+    constructor(canvas, node,character) {
+        super(canvas, node, character);                                       
     }
 
     isComposed() {
@@ -70,10 +70,10 @@ class Loop extends Node {
         }
     }
 
-    exec(character) {
+    exec() {
         console.log(`repeat ${this.valForFunc}`);
         for (let i = 0; i < this.valForFunc; i++) {
-            this._myNodes.forEach(childNode => childNode.exec(character));
+            this._myNodes.forEach(childNode => childNode.exec());
         }
     }
 }
@@ -84,8 +84,8 @@ class Loop extends Node {
  * an algorithm corresponding to an issue.
  */
 class Issue extends Node {
-    constructor(canvas, node) {
-        super(canvas, node);
+    constructor(canvas, node, character) {
+        super(canvas, node, character);
     }
 
     isComposed() {
@@ -206,10 +206,10 @@ class Issue extends Node {
         }
     }
 
-    exec(character) {
+    exec() {
         console.log("Démarrage algo");
         if (this._myNodes.length > 0) {
-            this._myNodes.forEach(nodeChild => nodeChild.exec(character));
+            this._myNodes.forEach(nodeChild => nodeChild.exec());
         }
     }
 }
@@ -220,8 +220,8 @@ class Issue extends Node {
  * an algorithm corresponding to a condition.
  */
 class Condition extends Node {
-    constructor(canvas, node) {
-        super(canvas, node);
+    constructor(canvas, node, character) {
+        super(canvas, node, character);
     }
 
     isComposed() {
@@ -275,7 +275,7 @@ class Condition extends Node {
         );
     }
 
-    exec(character) {
+    exec() {
         return;
     }
 }
@@ -286,8 +286,8 @@ class Condition extends Node {
  * an algorithm corresponding to a switch.
  */
 class Switch extends Node {
-    constructor(canvas, node) {
-        super(canvas, node);
+    constructor(canvas, node, character) {
+        super(canvas, node, character);
     }
 
     isComposed() {
@@ -362,7 +362,7 @@ class Switch extends Node {
         );
     }
 
-    exec(character) {
+    exec() {
         return;
     }
 }

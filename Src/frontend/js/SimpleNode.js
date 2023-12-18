@@ -8,8 +8,8 @@
  * an algorithm corresponding to an assignment.
  */
 class Assignment extends Node {
-    constructor(canvas, node) {
-        super(canvas, node);
+    constructor(canvas, node, character) {
+        super(canvas, node, character);
     }
 
     draw() {
@@ -28,8 +28,8 @@ class Assignment extends Node {
         }
     }
 
-    exec(character) {
-        character.do(this.funcToExec, this.valForFunc);
+    exec() {
+        this._character.do(this.funcToExec, this.valForFunc);
     }
 }
 
@@ -39,8 +39,8 @@ class Assignment extends Node {
  * an algorithm corresponding to a loop output.
  */
 class Break extends Node {
-    constructor(canvas, node) {
-        super(canvas, node);
+    constructor(canvas, node, character) {
+        super(canvas, node, character);
     }
 
     draw() {
@@ -54,7 +54,7 @@ class Break extends Node {
         );
     }
 
-    exec(character) {
+    exec() {
         return;
     }
 }
