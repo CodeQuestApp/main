@@ -8,11 +8,12 @@
 
 
 /* Global variables */
-let algo, graphicNode, dropZone, nodeParams;
+let graphicNode, dropZone, nodeParams;
 let allNodes, character, positionMovedNode;
 let movedNode, movedNodeWrapper, idDropZone, idMovedNode;
 let algoExec = [];
-
+let algo = {};
+algo.nodes = [];
 
 /* Global constants */
 const allGraphicNodes = document.getElementById("graphic-nodes__wrapper");
@@ -41,6 +42,7 @@ const CASE_SIZE = map.width*.1;
 
 /* Créer l'interface d'un niveau algorithmique */
 function creationElementsGraphiques() {
+    console.log(algo.nodes);
     /* 
         Initialisation des variables 
     */ 
@@ -308,51 +310,18 @@ function interpreterReponsesUtilisateur() {
 }
 
 
-
-// -- Lancement du niveau --
-
-/* 
-    Simulation récupération des données en local
-*/
-/*fetch("./backend/algoMain.json")
-.then(res => res.json())
-.then(data => {
-    algo = data;
-    creationElementsGraphiques();
-    eraseCanvas(map, mapCtx);
-    drawGrid(map, mapCtx, CASE_SIZE);
-    interpreterReponsesUtilisateur();
-})*/
-
 /* 
     Simulation récupération des données depuis base de données
 */
-fetch("http://lakartxela.iutbayonne.univ-pau.fr/~rlaborde003/getNodes.php")
+fetch("./backend/getNodes.php", {method : 'get'})
 .then(res => res.json())
 .then(data => {
-    data.nodes.forEach(node => algo.nodes.push(transformDataFromBD(node)))
+    for (let i = 0; i < data.nodes.length; i++) {
+        algo.nodes.push(transformDataFromBD(data.nodes[i]));  
+    }
     creationElementsGraphiques();
     eraseCanvas(map, mapCtx);
     drawGrid(map, mapCtx, CASE_SIZE);
     interpreterReponsesUtilisateur();
 })
-
-/*
-let algo = {};
-algo.nodes = [];
-const transformDataFromBD = (data) => {
-    return {
-        id: data.id,x: Number(data.coordX),y: Number(data.coordY),
-        txt: JSON.parse(data.texte),type: data.type,
-        height: Number(data.hauteur),width: Number(data.largeur),
-        output: JSON.parse(data.sortie),allCoord: JSON.parse(data.coords),
-        clickArea: JSON.parse(data.zoneClick),size: JSON.parse(data.taille),
-        func: data.fonction == null ? "" : data.fonction,val: Number(data.valeur)
-    }
-}
-
-fetch("./backend/getNodes.php", {method : 'get'})
-.then(res => res.json())
-.then(data => data.nodes.forEach(node => algo.nodes.push(transformDataFromBD(node))))
-.then(() => console.log(algo.nodes))
-.catch(err => test.textContent = err)*/
+.catch(err => console.log(err))

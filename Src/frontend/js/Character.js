@@ -63,14 +63,14 @@ class Character {
 
     async turn(orientation) {
         /*
-            orientation ==> {0 : haut ; 1 : droite ; 2 : bas ; 3 : gauche}
+            this.orientation ==> {0 : haut ; 1 : droite ; 2 : bas ; 3 : gauche}
         */
 
         await this.move();
-        console.log(`turn ${orientation}`);
-        if (orientation === "right") {
+        //console.log(typeof orientation);
+        if (orientation == 1) {
             this.orientation = (this.orientation + 1) % 4;
-        } else if (orientation === "left") {
+        } else if (orientation == -1) {
             if(this.orientation === 0)
                 this.orientation = 3;
             else{
