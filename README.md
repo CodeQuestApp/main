@@ -16,7 +16,7 @@ de consolider les connaissances d’un profil intermédiaire et de challenger le
 ![](./Specification/apercu-niveau.jpeg)
 
 ## Lien vers le prototype
-[Tester le prototype](https://codequestapp.github.io/main/Src/index.html)
+[Tester le prototype](http://lakartxela.iutbayonne.univ-pau.fr/~rlaborde003/index.html)
 
 ## Organisation des dossiers
 * Algorithmes :
