@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: CompositeNode.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: CompositeNode.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* 
+    -- Node Compose --
+*/
+
+/**
+ * @class Loop
+ * @description Represents the node of 
+ * an algorithm corresponding to a loop.
+ */
+class Loop extends Node {
+    constructor(canvas, node,character) {
+        super(canvas, node, character);                                       
+    }
+
+    isComposed() {
+        return true; 
+    }
+
+    addNode(node) {
+        this._myNodes.push(node);
+    }
+
+    replaceNode(idOfNode, node) {
+        let id1 = -1;
+        let id2 = -1;
+        let res = null;
+        for (let i = 0; i &lt; this._myNodes.length; i++) {
+            if (this._myNodes[i].id === node.id) {
+                id1 = i;
+            }
+        }
+
+        for (let i = 0; i &lt; this._myNodes.length; i++) {
+            if (this._myNodes[i].id === idOfNode) {
+                id2 = i;
+            }
+        }
+
+        if (id1 > -1 &amp;&amp; id2 > -1) {
+            if (this._myNodes[id1].isComposed() === this._myNodes[id2].isComposed()) {
+                let aux = this._myNodes[id1];
+                this._myNodes[id1] = this._myNodes[id2];
+                this._myNodes[id2] = aux;
+            } 
+        } else if (id1 == -1 &amp;&amp; id2 > -1) {
+            res = this._myNodes[id2];
+            this._myNodes[id2] = node;
+        } else if (id1 == -1 &amp;&amp; id2 == -1) {
+            this._myNodes.forEach(n => n.replaceNode(idOfNode, node));
+        }
+        console.log(this._myNodes);
+        return res;
+    }
+
+    draw() {
+        this._context.drawImage(
+            this._symbol, 
+            ...this._symbolParam.loop, 
+            4, 4, 
+            this.size[0], 
+            this.height
+        );
+        
+        for (let i = 0; i &lt; this.txt[0].length; i++) {
+            this._context.fillText(
+                `${this.txt[0][i]}`, 
+                8 + this.txtLeftMargin + this.symbolParam.loop[3],
+                4 + this.txtTopMargin  + (i * this.txtHeight)
+            );
+        }
+    }
+
+    exec() {
+        console.log(`repeat ${this.valForFunc}`);
+        for (let i = 0; i &lt; this.valForFunc; i++) {
+            this._myNodes.forEach(childNode => childNode.exec());
+        }
+    }
+}
+
+/**
+ * @class Issue
+ * @description Represents the node of 
+ * an algorithm corresponding to an issue.
+ */
+class Issue extends Node {
+    constructor(canvas, node, character) {
+        super(canvas, node, character);
+    }
+
+    isComposed() {
+        return true; 
+    }
+
+    addNode(node) {
+        this._myNodes.push(node);
+    }
+
+    replaceNode(idOfNode, node) {
+        let id1 = -1;
+        let id2 = -1;
+        for (let i = 0; i &lt; this._myNodes.length; i++) {
+            if (this._myNodes[i].id === node.id) {
+                id1 = i;
+            }
+        }
+
+        for (let i = 0; i &lt; this._myNodes.length; i++) {
+            if (this._myNodes[i].id === idOfNode) {
+                id2 = i;
+            }
+        }
+
+        console.log(id1, id2);
+        if (id1 > -1 &amp;&amp; id2 > -1) {
+            console.log("change");
+            if (this._myNodes[id1].isComposed() == this._myNodes[id2].isComposed()) {
+                let aux = this._myNodes[id1];
+                this._myNodes[id1] = this._myNodes[id2];
+                this._myNodes[id2] = aux; 
+            } 
+        } else if (id1 == -1 &amp;&amp; id2 > -1) {
+            console.log("new");
+            this._myNodes.forEach(n => {
+                n.replaceNode(node.id, this._myNodes[id2]);
+            })
+            this._myNodes[id2] = node;
+        } else if (id2 == -1) {
+            console.log("no");
+            let res;
+            this._myNodes.forEach(n => {
+                res = n.replaceNode(idOfNode, node);
+                if (res != null) {
+                    this._myNodes[id1] = res;
+                }
+            });
+        }
+        console.log(this._myNodes);
+    }
+
+    draw() {
+        let dataSize = 0;
+
+        if (this.size[0] > 0) {
+            dataSize = this.size[0] + (this.symbolParam.leftBracket[2] *2);
+            this.drawBrackets(
+                this.height, 
+                (
+                    this.x - ((this.symbolParam.leftBracket[2] * 2) 
+                    + this.size[0] + ((this.size[1])/2))
+                )|0, 
+                (
+                    this.x - (this.symbolParam.leftBracket[2] 
+                    + ((this.size[1])/2))
+                )|0, 
+                (this.y - (this.height/2))|0
+            );
+            for (let i = 0; i &lt; this.txt[0].length; i++) {
+                this._context.fillText(
+                    `${this.txt[0][i]}`, 
+                    (
+                        this.x - (this.symbolParam.leftBracket[2] 
+                        + this.size[0] + ((this.size[1])/2)) 
+                        + this.txtLeftMargin
+                    )|0, 
+                    (this.y - 10 + (i * this.txtHeight))|0
+                );
+            }
+        }
+
+        this._context.strokeRect(
+            4 + dataSize, 
+            4, 
+            (this.size[1])|0, 
+            this.height
+        );
+
+        for (let i = 0; i &lt; this.txt[1].length; i++) {
+            this._context.fillText(
+                `${this.txt[1][i]}`, 
+                4 + this.txtLeftMargin, 
+                4 + this.txtTopMargin + (i * this.txtHeight)
+            );
+        }
+
+        if (this.size[2] > 0) {
+            this.drawBrackets(
+                this.height, 
+                (this.x + (this.size[1])/2)|0, 
+                (
+                    this.x + (this.symbolParam.leftBracket[2] 
+                    + this.size[2] + ((this.size[1])/2))
+                )|0, 
+                (this.y - (this.height/2))|0
+            );
+            for (let i = 0; i &lt; this.txt[2].length; i++) {
+                this._context.fillText(
+                    `${this.txt[2][i]}`, 
+                    (
+                        this.x + (this.symbolParam.leftBracket[2] 
+                        + ((this.size[1])/2)) + this.txtLeftMargin
+                    )|0, 
+                    (this.y - 10 + (i * this.txtHeight))|0
+                );
+            }
+        }
+    }
+
+    exec() {
+        console.log("Démarrage algo");
+        if (this._myNodes.length > 0) {
+            this._myNodes.forEach(nodeChild => nodeChild.exec());
+        }
+    }
+}
+
+/**
+ * @class Condition
+ * @description Represents the node of 
+ * an algorithm corresponding to a condition.
+ */
+class Condition extends Node {
+    constructor(canvas, node, character) {
+        super(canvas, node, character);
+    }
+
+    isComposed() {
+        return true; 
+    }
+
+    addNode(node) {
+        this._myNodes.push(node);
+    }
+
+    removeNode(index) {
+        this._myNodes.splice(index,1);
+    }
+
+    draw() {
+        this._context.strokeRect(
+            (this.x - ((this.width)/2))|0, 
+            (this.y - (this.height/2))|0, 
+            this.width|0, 
+            this.height
+        );
+
+        for (let j = 0; j &lt; this.allCoord.length; j++) {
+            for (let i = 0; i &lt; this.txt[j].length; i++) {
+                this._context.fillText(
+                    `${this.txt[j][i]}`, 
+                    (this.allCoord[j] + this.txtLeftMargin)|0, 
+                    (((this.y - (this.height/2))|0) 
+                        + this.txtTopMargin 
+                        + (i * this.txtHeight)
+                    )
+                );
+            }
+            if (j &lt; this.allCoord.length -1) {
+                this.drawLine(
+                    this.allCoord[j+1],
+                    ((this.y - (this.height/2))|0), 
+                    this.allCoord[j+1],
+                    ((this.y + (this.height/2))|0)
+                );
+            }
+        }
+
+        this.drawCorner(
+            this.height,
+            (this.x - (((this.width)/2) 
+                + (this.symbolParam.leftCorner[2] - 2))
+            ),
+            this.x + (((this.width)/2) - 2),
+            this.y
+        );
+    }
+
+    exec() {
+        return;
+    }
+}
+
+/**
+ * @class Switch
+ * @description Represents the node of 
+ * an algorithm corresponding to a switch.
+ */
+class Switch extends Node {
+    constructor(canvas, node, character) {
+        super(canvas, node, character);
+    }
+
+    isComposed() {
+        return true; 
+    }
+
+    addNode(node) {
+        this._myNodes.push(node);
+    }
+
+    draw() {
+        this._context.strokeRect(
+            (this.x - ((this.width)/2))|0, 
+            (this.y - (this.height/2))|0, 
+            this.width,
+            this.height
+        );
+
+        for (let j = 0; j &lt; this.allCoord.length; j++) {
+            for (let i = 0; i &lt; this.txt[j].length; i++) {
+                this._context.fillText(
+                    `${this.txt[j][i]}`, 
+                    this.allCoord[j] + this.txtLeftMargin, 
+                    (
+                        this.y + this.txtTopMargin 
+                        + (i * this.txtHeight)
+                    )
+                );
+            }
+            if (j &lt; this.allCoord.length -1) {
+                this.drawLine(
+                    this.allCoord[j+1], 
+                    this.y, 
+                    this.allCoord[j+1], 
+                    (this.y + (this.height/2))|0
+                );
+            }
+        }
+
+        for (let i = 0; i &lt; this.txt[this.txt.length-1].length; i++) {
+            this._context.fillText(
+                `${this.txt[this.txt.length-1][i]}`, 
+                (
+                    this.x - (this.size[this.txt.length-1]/2) 
+                    + this.txtLeftMargin
+                )|0, 
+                this.y - 10
+            );
+        }
+
+        this.drawCorner(
+            this.height,
+            (
+                this.x - (((this.width)/2) 
+                + this.symbolParam.leftCorner[2] - 2)
+            ),
+            this.x + (((this.width)/2) - 2),
+            this.y
+        );
+
+        this.drawLine(
+            (
+                this.x - (((this.width)/2) 
+                + this.symbolParam.leftCorner[2] - 2)
+            )|0, 
+            this.y, 
+            (
+                this.x + ((this.width)/2) 
+                + this.symbolParam.leftCorner[2] - 2
+            )|0, 
+            this.y
+        );
+    }
+
+    exec() {
+        return;
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Assignment.html">Assignment</a></li><li><a href="Break.html">Break</a></li><li><a href="Character.html">Character</a></li><li><a href="Condition.html">Condition</a></li><li><a href="Issue.html">Issue</a></li><li><a href="Loop.html">Loop</a></li><li><a href="Node.html">Node</a></li><li><a href="Switch.html">Switch</a></li><li><a href="TxtAnim.html">TxtAnim</a></li></ul><h3>Global</h3><ul><li><a href="global.html#drawGrid">drawGrid</a></li><li><a href="global.html#drawLine">drawLine</a></li><li><a href="global.html#drawLinkBetweenNodes">drawLinkBetweenNodes</a></li><li><a href="global.html#eraseCanvas">eraseCanvas</a></li><li><a href="global.html#transformDataFromBD">transformDataFromBD</a></li><li><a href="global.html#wait">wait</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Dec 21 2023 17:31:25 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
