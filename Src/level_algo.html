@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Level algo</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/symboles.png" type="image/png">
-    <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/perso.png" type="image/png">
-</head>
-<body>
-    <canvas id="map"></canvas>
-    <canvas id="main"></canvas>
-    <div id="graphic-nodes__wrapper"></div>
-    <div id="graphic-dropzone__wrapper"></div>
-    <img id="perso" src="./frontend/img/perso.png" alt="" srcset="">
-    <div id="t2" class="txt__wrapper">
-        <p id="txt"></p>
-        <button id="txt__btn">></button>
-    </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Level algo</title>
+        
+        <link rel="stylesheet" href="./frontend/css/style.css">
+        <!-- <link rel="stylesheet" href="./frontend/css/prefixed/style.css"> -->
 
-    <!-- Scripts js-->
-    <script src="./frontend/js/Utilities.js"></script>
-    <script src="./frontend/js/Character.js"></script>
-    <script src="./frontend/js/Node.js"></script>
-    <script src="./frontend/js/CompositeNode.js"></script>
-    <script src="./frontend/js/SimpleNode.js"></script>
-    <script src="./frontend/js/TxtAnim.js"></script>
-    <script src="./frontend/js/LevelAlgo.js"></script>
-</body>
+        <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/background.jpg" type="image/jpg">
+        <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/symboles.png" type="image/png">
+        <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/perso.png" type="image/png">
+    </head>
+    <body>
+        <img id="bg-img" src="./frontend/img/background.jpg" alt="" srcset="">
+        <canvas id="map"></canvas>
+        <canvas id="draw"></canvas>
+        <div id="graphic-nodes__wrapper"></div>
+        <div id="graphic-dropzone__wrapper"></div>
+        <img id="perso" src="./frontend/img/perso.png" alt="" srcset="">
+        <div id="t2" class="txt__wrapper">
+            <p id="txt"></p>
+            <button id="txt__btn">></button>
+        </div>
+
+        <!-- Scripts js-->
+        <script src="./frontend/js/Utilities.js"></script>
+        <script src="./frontend/js/Character.js"></script>
+        <script src="./frontend/js/Node.js"></script>
+        <script src="./frontend/js/CompositeNode.js"></script>
+        <script src="./frontend/js/SimpleNode.js"></script>
+        <script src="./frontend/js/TxtAnim.js"></script>
+        <script src="./frontend/js/LevelAlgo.js"></script>
+    </body>
 </html>
 
 

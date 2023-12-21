@@ -1,0 +1,23 @@
+@mixin desktop-only {
+    @media screen and (min-width: 1000px){
+        @content;
+    }
+}
+
+@mixin tablet-only {
+    @media screen and (min-width: 600px) and (max-width: 999px){
+        @content;
+    }
+}
+
+@mixin box-shadow($color: $card-shadow-color, $shadow-size: $card-shadow-size, $shadow-blur: $card-shadow-blur) {
+    box-shadow: $shadow-size $shadow-size $shadow-blur $color;
+}
+
+@mixin card-style($name) {
+    $style: map-get($card-style, $name);
+    width: map-get($style, width);
+    height: map-get($style, height);
+    border-radius: map-get($style, bd-rad);
+    background-color: map-get($style, bg);
+}

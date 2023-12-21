@@ -19,7 +19,7 @@ algo.nodes = [];
 const allGraphicNodes = document.getElementById("graphic-nodes__wrapper");
 const allGraphicDropZones = document.getElementById("graphic-dropzone__wrapper");
 
-const mainCanvas = document.getElementById("main");
+const mainCanvas = document.getElementById("draw");
 const mainContext = mainCanvas.getContext("2d");
 const map = document.getElementById("map");
 const mapCtx = map.getContext("2d");
@@ -324,4 +324,25 @@ fetch("./backend/getNodes.php", {method : 'get'})
     drawGrid(map, mapCtx, CASE_SIZE);
     interpreterReponsesUtilisateur();
 })
-.catch(err => console.log(err))
+.catch(err => {
+    console.log(err)
+
+    /*
+        Récupèration du fichier de test pour 
+        les manipulations en locales
+        /!\ 
+            A SUPPRIMER LORS DU DEPLOIEMENT FINAL
+        /!\
+    */
+    fetch("./backend/algoMain.json")
+    .then(res => res.json())
+    .then(data => {
+        algo = data;
+        creationElementsGraphiques();
+        eraseCanvas(map, mapCtx);
+        drawGrid(map, mapCtx, CASE_SIZE);
+        interpreterReponsesUtilisateur();
+    })
+    .catch(err => console.log(err))
+})
+

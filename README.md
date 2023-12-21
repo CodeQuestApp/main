@@ -31,12 +31,17 @@ de consolider les connaissances d’un profil intermédiaire et de challenger le
     - algo_1.4 ( dessiner tous les noeuds sur leur élément graphique respectif )
   * Probleme_2_Interpretation_reponses_utilisateur :
 * Docs : 
-  contient la documentation liée au projet.
+    - contient le code de la documentation généré avec jsdoc ( voir lien ci-dessus ).
 * Spécifiaction 
 * Src :
   * backend :
     - algoMain.json ( fichier de données pour simuler la récupération en base de données )
   * frontend :
+    * css : 
+      * prefixed : 
+        - style.css ( fichier css minifié et préfixé pour la compatibilité navigateur )
+      - style.css ( fichier css principal minifié )
+      - style.css.map ( fichier généré lors de la minification )
     * img :
       - perso.png ( personnage principal du level algorithmique )
       - symboles.png ( symboles utilisés pour le dessin des noeuds )
@@ -44,11 +49,24 @@ de consolider les connaissances d’un profil intermédiaire et de challenger le
       - App.js ( fichier contenant le code javascript princpal de l'application )
       - LevelAlgo.js ( fichier contenant le code javascript nécessaire au level algorithmique )
       - Node.js ( fichier contenant le code de la class Node représentant un noeud algorithmique )
-      - Utilities.js ( fichier contenant des fonctions utilitaires qui sont utilisées dans l'application )    
+      - Utilities.js ( fichier contenant des fonctions utilitaires qui sont utilisées dans l'application ) 
+    * sass :
+      * base : 
+        - animations.scss ( contient toutes les animations css )
+        - base.scss ( contient les instructions css communes à toutes les pages )
+      * layout :
+        - footer.scss ( contient les instructions css du pied de page )
+        - header.scss ( contient les instruction css de l'entête )
+      * pages :
+        - home.scss ( contient les instructions css de la page d'accueil )
+        - level.scss ( contient les instructions css de la page level ) 
+      * utils :
+        - variables.scss ( contient les variables css globales )
+        - mixins.scss ( contient des morceaux de code paramétrable et réutilisable)
+      - main.scss ( fichier scss principal contenant toutes les inclusions )
   * .gitignore
   * index.html
   * level_algo.html
-  * style.css
   
 ## Equipe projet
 * [Dumolié Alexis](https://github.com/AlexisDumolie)

@@ -1,22 +1,54 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeQuestApp</title>
-    <meta name="description" content="CodeQuestApp est un jeu ludique pour apprendre les concepts de l'informatique">
-</head>
-<body>
-    <header id="header">
-        <nav id="header__nav">
-            <button class="header__btn"></button>
-            <button class="header__btn"></button>
-            <button class="header__btn"></button>
-        </nav>
-    </header>
-    <main id="main">
-        <a href="./level_algo.html">Level Algorithmique</a>
-    </main>
-    <script src="./frontend/js/App.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CodeQuestApp</title>
+
+        <link rel="stylesheet" href="./frontend/css/style.css">
+        <!-- <link rel="stylesheet" href="./frontend/css/prefixed/style.css"> -->
+
+        <meta name="description" content="CodeQuestApp est un jeu ludique pour apprendre les concepts de l'informatique">
+        <!-- <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/background.jpg" type="image/jpg">
+        <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/symboles.png" type="image/png">
+        <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/perso.png" type="image/png"> -->
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <nav class="header__nav">
+                <a href="./level_algo.html" class="header__btn">Level Algo</a>
+                <a href="#" class="header__btn">Se Connecter</a>
+                <a href="#" class="header__btn">S'inscrire</a>
+            </nav>
+        </header>
+
+        <!-- Main content -->
+        <main id="main">
+
+        </main>
+
+        <!-- footer -->
+        <footer class="footer">
+            <ul class="footer__list">
+                <li class="footer__item">
+                    <i class="fas fa-utensils size-m"></i>
+                    <a href="#">Signaler un bug</a>
+                </li>
+                <li class="footer__item">
+                    <i class="fas fa-hands-helping size-s"></i>
+                    <a href="#">Politique de confidentialité</a>
+                </li>
+                <li class="footer__item">
+                    <a href="#">Mentions légales</a>
+                </li>
+                <li class="footer__item">
+                    <a href="mailto:zzzzz@zzzz.fr">Contact</a>
+                </li>
+            </ul>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="./frontend/js/App.js"></script>
+    </body>
 </html>

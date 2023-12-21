@@ -1,0 +1,90 @@
+@keyframes load {
+    0% {
+        opacity: 0.9;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+ 
+@keyframes move {
+    0% {
+       transform: translateY(0);
+       opacity: 0.5;
+    }
+    60% {
+       transform: translateY(10px);
+       opacity: 0.7;
+    }
+    100% {
+       transform: translateY(14px);
+       opacity: 1;
+    }
+}
+
+@keyframes appear {
+    from {
+        transform: translateY(6rem);
+        opacity: .2;
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+@keyframes width {
+    from {
+        width: 0;
+    }
+    to {
+        width: 20%;
+    }
+}
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes heart {
+    0% {
+        opacity: 0.1;
+    }
+    25% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    75% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0px);
+    }
+    25% {
+        transform: translateX(3px);
+    }
+    50% {
+        transform: translateX(-3px);
+    }
+    75% {
+        transform: translateX(3px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
