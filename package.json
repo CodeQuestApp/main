@@ -1,0 +1,21 @@
+{
+  "name": "codequest",
+  "version": "1.0.0",
+  "description": "L’application CodeQuest est un jeu permettant d’apprendre l’informatique tout en s’amusant. Le contenu présenté dans l’application est basé sur la même approche que le programme universitaire  que nous suivons en BUT Informatique, pour ce qui relève de l’algorithmique et plusieurs langages  de programmation mais aussi les bonnes pratiques.",
+  "main": "/Src/frontend/js/App.js",
+  "scripts": {
+    "jsdoc": "jsdoc -c jsdoc.json",
+    "sass": "sass --watch ./Src/frontend/sass/main.scss:Src/frontend/css/style.css --style compressed",
+    "prefix": "postcss ./Src/frontend/css/style.css --use autoprefixer -d Src/frontend/css/prefixed/"
+  },
+  "author": "",
+  "license": "ISC",
+  "browserslist": "last 4 versions",
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "jsdoc": "^4.0.2",
+    "postcss": "^8.4.32",
+    "postcss-cli": "^11.0.0",
+    "sass": "^1.69.5"
+  }
+}

@@ -17,7 +17,7 @@ const CANVAS_COLOR_2 = "#1c1c1c";
 
 /**
  * @function wait
- * @description ...
+ * @description used to stop programme
  * 
  * @param {*} ms 
  * @returns 
