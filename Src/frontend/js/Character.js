@@ -7,14 +7,25 @@ class Character {
     #orientation; #arrivalCoordinate;
     
     constructor(x, y, taillePas, arrivalCoordinate) {
-        this.#x = x + 5 * CASE_SIZE;
-        this.#y = y - CASE_SIZE;
+        this.#x = x + 5 * taillePas;
+        this.#y = y - (taillePas*3);
+        
         this.#taillePas = taillePas;
         this.#orientation = 0;
         this.#arrivalCoordinate = arrivalCoordinate;
 
         this._map = document.getElementById("map");
         this._mapCtx = this._map.getContext("2d");
+        this._img = new Image();
+        this._img.src = "./frontend/img/perso-test.png";
+        this._img.addEventListener("load", () => {
+            this._mapCtx.drawImage(
+                this._img, this._imgIdx * this._persoSize, 0, this._persoSize, this._img.height, 
+                this.x, this.y, this.taillePas, this.taillePas*2
+            );
+        })
+        this._imgIdx = 0;
+        this._persoSize = 297;
 
         this.valForFunc = null;
         this.funcToExec = null;
@@ -49,9 +60,15 @@ class Character {
     set funcTo(val) { this.funcToExec = val }
    
     resetPosition() {
-        this.#x = 5 * CASE_SIZE;
-        this.#y = this._map.height - CASE_SIZE;
-        this.#orientation = 0;
+        this.x = (5 * this.taillePas);
+        this.y = map.height - (this.taillePas*3);
+        this.orientation = 0;
+        this._imgIdx = 0;
+
+        this._mapCtx.drawImage(
+            this._img, this._imgIdx * this._persoSize, 0, this._persoSize, this._img.height, 
+            this.x, this.y, this.taillePas, this.taillePas*2
+        );
     }
 
     isArrived() {
@@ -67,10 +84,11 @@ class Character {
         */
 
         await this.move();
-        //console.log(typeof orientation);
         if (orientation == 1) {
+            this._imgIdx = 2;
             this.orientation = (this.orientation + 1) % 4;
         } else if (orientation == -1) {
+            this._imgIdx = 1;
             if(this.orientation === 0)
                 this.orientation = 3;
             else{
@@ -82,12 +100,11 @@ class Character {
     async move(val) {
         return new Promise((resolve) => {            
             const previousMove = movePromise;        
-            console.log(`move ${val}`);
-            //console.log(this._map.clientHeight);
             movePromise = previousMove.then(async () => {
+                
                 for (let i = 0; i < val; i++) {
                     await wait(200);
-                    console.log(this.orientation);
+                    eraseCanvas(this._map, this._mapCtx);
                     switch (this.orientation) {
                         case 3:
                             this.x = this.x - this.taillePas;
@@ -102,7 +119,12 @@ class Character {
                             this.y = this.y - this.taillePas;
                             break;
                     }
-                    this._mapCtx.fillRect(this.x, this.y, this.taillePas, this.taillePas);
+                    
+                    this._mapCtx.drawImage(
+                        this._img, this._imgIdx * this._persoSize, 0, this._persoSize, this._img.height, 
+                        this.x, this.y, this.taillePas, this.taillePas*2
+                    );
+                    // this._mapCtx.fillRect(this.x, this.y, this.taillePas, this.taillePas);
                 }
             }).then(() => {
                 resolve();

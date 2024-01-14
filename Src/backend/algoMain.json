@@ -2,7 +2,10 @@
     "id": 32,
     "difficulte": 9,
     "txt": [
-        "Bienvenue sur CodeQuest, je m'appelle Algorithmix et je suis là pour t'aider et t'accompagner tout au long de cette aventure !"
+        "Bienvenue sur CodeQuest, je m'appelle Algorithmix et je suis là pour t'aider et t'accompagner tout au long de cette aventure !",
+        "L'objectif de ce niveau est de reconstruire l'algorithme afin que Programix atteigne le coffre.",
+        "Quand tu penses que ton algorithme est correct, démarre son exécution en cliquant sur START.",
+        "A toi de jouer maintenant !!"
     ],
     "answer": { "dt1":"item0", "dt2":"item1", "dt3":"item2", "dt4":"item3" },
     "log": "Avancer de 4 cases \nTourner à gauche\nRépéter 5 fois \nAvancer de 1 case",
@@ -21,14 +24,15 @@
                     ""
                 ],
                 [
-                    "Atteindre B"
+                    "Atteindre",
+                    "le coffre"
                 ],
                 [
                     ""
                 ]
             ],
             "type": "issue",
-            "height": 32,
+            "height": 48,
             "size": [
                 0,
                 106,

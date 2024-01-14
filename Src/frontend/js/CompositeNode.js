@@ -48,7 +48,7 @@ class Loop extends Node {
         } else if (id1 == -1 && id2 == -1) {
             this._myNodes.forEach(n => n.replaceNode(idOfNode, node));
         }
-        console.log(this._myNodes);
+        
         return res;
     }
 
@@ -71,7 +71,6 @@ class Loop extends Node {
     }
 
     exec() {
-        console.log(`repeat ${this.valForFunc}`);
         for (let i = 0; i < this.valForFunc; i++) {
             this._myNodes.forEach(childNode => childNode.exec());
         }
@@ -111,22 +110,18 @@ class Issue extends Node {
             }
         }
 
-        console.log(id1, id2);
         if (id1 > -1 && id2 > -1) {
-            console.log("change");
             if (this._myNodes[id1].isComposed() == this._myNodes[id2].isComposed()) {
                 let aux = this._myNodes[id1];
                 this._myNodes[id1] = this._myNodes[id2];
                 this._myNodes[id2] = aux; 
             } 
         } else if (id1 == -1 && id2 > -1) {
-            console.log("new");
             this._myNodes.forEach(n => {
                 n.replaceNode(node.id, this._myNodes[id2]);
             })
             this._myNodes[id2] = node;
         } else if (id2 == -1) {
-            console.log("no");
             let res;
             this._myNodes.forEach(n => {
                 res = n.replaceNode(idOfNode, node);
@@ -135,7 +130,6 @@ class Issue extends Node {
                 }
             });
         }
-        console.log(this._myNodes);
     }
 
     draw() {
@@ -207,7 +201,6 @@ class Issue extends Node {
     }
 
     exec() {
-        console.log("Démarrage algo");
         if (this._myNodes.length > 0) {
             this._myNodes.forEach(nodeChild => nodeChild.exec());
         }

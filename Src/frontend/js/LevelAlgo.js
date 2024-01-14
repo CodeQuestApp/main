@@ -13,11 +13,14 @@ let allNodes, character, positionMovedNode;
 let movedNode, movedNodeWrapper, idDropZone, idMovedNode;
 let algoExec = [];
 let algo = {};
+let txtAnim;
 algo.nodes = [];
 
 /* Global constants */
 const allGraphicNodes = document.getElementById("graphic-nodes__wrapper");
 const allGraphicDropZones = document.getElementById("graphic-dropzone__wrapper");
+const startAnimBtn = document.getElementById("start");
+startAnimBtn.removeAttribute("disabled");
 
 const mainCanvas = document.getElementById("draw");
 const mainContext = mainCanvas.getContext("2d");
@@ -48,7 +51,6 @@ function creationElementsGraphiques() {
     */ 
     allNodes = [];
     character = new Character(0,map.height,CASE_SIZE, algo.arrivalCoordinate);
-    //console.log(map.height);
 
     /* 
         Création des éléments graphiques
@@ -61,10 +63,18 @@ function creationElementsGraphiques() {
         */
         // Création du noeud graphique et paramétrage de ses attributs
         graphicNode = document.createElement("canvas");
-        graphicNode.width = algo.nodes[i].width + MARGIN;
-        graphicNode.height = algo.nodes[i].height + MARGIN;
+        if (algo.nodes[i].type === "loop") {
+            graphicNode.width = algo.nodes[i].width+ 80 + MARGIN;
+            graphicNode.height = algo.nodes[i].height + 10 + MARGIN;
+        } else {
+            graphicNode.width = algo.nodes[i].width + MARGIN;
+            graphicNode.height = algo.nodes[i].height + MARGIN;
+        }
+        
         graphicNode.setAttribute("class", "graphicNode");
         graphicNode.setAttribute("id", `gn-${algo.nodes[i].id}`);
+        graphicNode.setAttribute("data-w", `${algo.nodes[i].width}`);
+        graphicNode.setAttribute("data-h", `${algo.nodes[i].height}`);
         graphicNode.setAttribute("draggable",true);
         // Ajouter à allGraphicNodes le noeud graphique
         allGraphicNodes.appendChild(graphicNode);
@@ -138,7 +148,6 @@ function interpreterReponsesUtilisateur() {
     /* 
         Construire un arbre de départ
     */
-    console.log(allNodes);
     for (let i = 0; i < allNodes.length ; i++) {
         if (allNodes[i].output[0].length !== 0) {
             for (let z = 0; z < allNodes[i].output[0].length; z++) {
@@ -169,22 +178,15 @@ function interpreterReponsesUtilisateur() {
         a.stopPropagation();
 
         if (allGraphicNodes.children.length === 0) {
+            /*
+                Effacer la map
+            */
+            eraseCanvas(map, mapCtx);
             /* 
                 Remettre à zéro la position
                 du character
             */
             character.resetPosition();
-            
-            /*
-                Effacer la map
-            */
-            eraseCanvas(map, mapCtx);
-
-            /*
-                Redessiner la grille sur
-                la map
-            */
-            drawGrid(map, mapCtx, CASE_SIZE);
         }
 
         /*
@@ -235,8 +237,11 @@ function interpreterReponsesUtilisateur() {
                     movedNodeWrapper.style.top = movedNodeWrapper.getAttribute("data-y");
                 }
 
-                this.style.left = `${(Number(this.style.left.split("px")[0])+18) - (movedNode.clientWidth/2)}px`;
-                this.style.top = `${(Number(this.style.top.split("px")[0])+18) - (movedNode.clientHeight/2)}px`;
+                let width = Number(movedNode.getAttribute("data-w"));
+                let height = Number(movedNode.getAttribute("data-h"));
+
+                this.style.left = `${(Number(this.style.left.split("px")[0])+18) - (width/2)}px`;
+                this.style.top = `${(Number(this.style.top.split("px")[0])+18) - (height/2)}px`;
 
                 /*
                     Ajouter le movedNode dans 
@@ -277,29 +282,30 @@ function interpreterReponsesUtilisateur() {
                     allNodes[0].replaceNode(idDropZone,allNodes[positionMovedNode]);
                 }
             }
-            
-            /*
-                Vérifier si tout les noeuds graphiques
-                ont été positionnés
-            */
-            if (allGraphicNodes.children.length === 0) {
-                /* 
-                    Si oui,
-                    Démarrer l'exécution de l'algorithme
-                */
-                allNodes[0].exec();
-
-                /* 
-                    Vérifier si une erreur
-                    dans l'éxécution a été détectée
-                */
-
-                // A FAIRE =============================
-            }
         })
 
 
     }
+
+    startAnimBtn.addEventListener("click", (e) => {
+        /*
+            Vérifier si tout les noeuds graphiques
+            ont été positionnés
+        */
+        if (allGraphicNodes.children.length === 0) {
+            /* 
+                Si oui,
+                Démarrer l'exécution de l'algorithme
+            */
+            allNodes[0].exec();
+            /* 
+                Vérifier si une erreur
+                dans l'éxécution a été détectée
+            */
+
+            // A FAIRE =============================
+        }
+    })
 
     
     /* 
@@ -321,8 +327,13 @@ fetch("./backend/getNodes.php", {method : 'get'})
     }
     creationElementsGraphiques();
     eraseCanvas(map, mapCtx);
-    drawGrid(map, mapCtx, CASE_SIZE);
     interpreterReponsesUtilisateur();
+    let txtAnim = new TxtAnim(
+        "txt",
+        "txt__btn",
+        algo.txt
+    )
+    txtAnim.start();
 })
 .catch(err => {
     console.log(err)
@@ -340,9 +351,13 @@ fetch("./backend/getNodes.php", {method : 'get'})
         algo = data;
         creationElementsGraphiques();
         eraseCanvas(map, mapCtx);
-        drawGrid(map, mapCtx, CASE_SIZE);
         interpreterReponsesUtilisateur();
+        let txtAnim = new TxtAnim(
+            "txt",
+            "txt__btn",
+            algo.txt
+        )
+        txtAnim.start();
     })
     .catch(err => console.log(err))
 })
-

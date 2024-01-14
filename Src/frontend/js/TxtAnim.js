@@ -18,7 +18,7 @@ class TxtAnim {
     #animTxt; #index;
     #txtBtn;
 
-    constructor(idOfparagraphElm, idOfNextBtn, txt, delay = 100) {
+    constructor(idOfparagraphElm, idOfNextBtn, txt, delay = 30) {
         this.#txtArray = txt;
         this.#txtElm = document.getElementById(idOfparagraphElm);
         this.#txtBtn = document.getElementById(idOfNextBtn);

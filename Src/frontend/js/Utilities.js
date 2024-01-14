@@ -14,6 +14,8 @@ let movePromise = Promise.resolve();
 const DRAWING_MARGIN_1 = 2;
 const CANVAS_COLOR_1 = "#009a17";
 const CANVAS_COLOR_2 = "#1c1c1c";
+const MAP_BG = new Image();
+MAP_BG.src = "./frontend/img/mapGround.png";
 
 /**
  * @function wait
@@ -44,6 +46,8 @@ function eraseCanvas(cnv, ctx) {
     ctx.fillRect(0, 0, cnv.width, cnv.height);
     // Restore the default drawing colour
     ctx.fillStyle = CANVAS_COLOR_2;
+    // Draw Map ground
+    ctx.drawImage(MAP_BG,0,0, MAP_BG.width, MAP_BG.height, 0,0, cnv.width, cnv.height);
 }
 
 /**
