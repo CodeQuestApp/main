@@ -105,6 +105,7 @@ class Character {
                 for (let i = 0; i < val; i++) {
                     await wait(200);
                     eraseCanvas(this._map, this._mapCtx);
+                    drawGrid(this._map, this._mapCtx, this.#taillePas);
                     switch (this.orientation) {
                         case 3:
                             this.x = this.x - this.taillePas;

@@ -12,8 +12,8 @@ let movePromise = Promise.resolve();
 
 /* Global constants */
 const DRAWING_MARGIN_1 = 2;
-const CANVAS_COLOR_1 = "#009a17";
-const CANVAS_COLOR_2 = "#1c1c1c";
+const CANVAS_COLOR_1 = "#fefefe";
+const CANVAS_COLOR_2 = "#fefefe";
 const MAP_BG = new Image();
 MAP_BG.src = "./frontend/img/mapGround.png";
 
@@ -80,6 +80,8 @@ function drawGrid(cnv, ctx, caseWidth) {
     for (let i = 0; i < (cnv.width / caseWidth); i++) {
         for (let j = 0; j < (cnv.height / caseWidth); j++) {
             // Draws horizontal liness
+            ctx.fillStyle = "#fefefe";
+            ctx.lineWidth = 0.1;
             drawLine(ctx, 0, cnv.height - (j * caseWidth) , cnv.width, cnv.height - (j * caseWidth));
             // Draws vertical lines
             drawLine(ctx, i * caseWidth, 0, i * caseWidth, cnv.height);

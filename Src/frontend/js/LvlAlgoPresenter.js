@@ -44,6 +44,7 @@ class LvlAlgoPresenter {
             this._txtAnim.start();
             
             this._view.eraseMap();
+            drawGrid(this._view.map, this._view.mapCtx, this._view.caseSize);
             this._model.createTreeNodes();
 
             // Lauch all events listener of the view
@@ -114,6 +115,7 @@ class LvlAlgoPresenter {
     handleDropNodes = val => {
         if (this._view.graphicNodesIsEmpty) {
             this._view.eraseMap();
+            drawGrid(this._view.map, this._view.mapCtx, this._view.caseSize);
             this._model.character.resetPosition();
         }
 

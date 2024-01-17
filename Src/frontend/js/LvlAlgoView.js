@@ -25,6 +25,7 @@ class LvlAlgoView {
     get graphicNodes() { return this._allGraphicNodes }
     get map() { return this._map }
     get caseSize() { return this._caseSize }
+    get mapCtx() { return this._mapCtx }
 
     /**
      * @description ...
