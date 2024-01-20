@@ -1,17 +1,22 @@
-/* 
-    -- Node Simple --
-*/
-
 /**
- * @class Assignment
- * @description Represents the node of 
- * an algorithm corresponding to an assignment.
+ * Class representing the node of an
+ * algorithm corresponding to an assignment.
+ * @extends Node
  */
 class Assignment extends Node {
+    /**
+     * Create an assignment.
+     * @param {HTMLCanvasElement} canvas 
+     * @param {Node} node 
+     * @param {Character} character 
+     */
     constructor(canvas, node, character) {
         super(canvas, node, character);
     }
 
+    /**
+     * Draw the node on canvas context.
+     */
     draw() {
         this._context.strokeRect(
             4, 4, 
@@ -28,21 +33,35 @@ class Assignment extends Node {
         }
     }
 
+    /**
+     * Calls the character's "do" method to execute 
+     * its "this.funcToExec" function with 
+     * the value "this.valForFunc".
+     */
     exec() {
         this._character.do(this.funcToExec, this.valForFunc);
     }
 }
 
 /**
- * @class Break 
- * @description Represents the node of 
- * an algorithm corresponding to a loop output.
+ * Class representing the node of an
+ * algorithm corresponding to a loop output.
+ * @extends Node
  */
 class Break extends Node {
+    /**
+     * Create a break.
+     * @param {HTMLCanvasElement} canvas 
+     * @param {Node} node 
+     * @param {Character} character 
+     */
     constructor(canvas, node, character) {
         super(canvas, node, character);
     }
 
+    /**
+     * Draw the node on canvas context.
+     */
     draw() {
         this._context.drawImage(
             this._symbol,
@@ -54,6 +73,9 @@ class Break extends Node {
         );
     }
 
+    /**
+     * Interrupts execution of its parent loop node.
+     */
     exec() {
         return;
     }

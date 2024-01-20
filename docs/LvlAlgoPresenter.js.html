@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: LvlAlgoPresenter.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: LvlAlgoPresenter.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @class LvlAlgoPresenter
+ * @description ...
+ */
+class LvlAlgoPresenter {
+    constructor(model, view) {
+        this._model = model;
+        this._view = view;
+
+        this._txtAnim;
+        this._movedNodeId;
+        this._movedNodeWrapperId;
+
+        this._model.getData().then( data => {
+            // Create all graphics nodes
+            this._view.createAllGraphicsElms(data);
+
+            // Create character
+            this._model.character = new Character(
+                0,
+                this._view.map.height,
+                this._view.caseSize, 
+                data.arrivalCoordinate
+            );
+            
+
+            // Create all nodes
+            for (let i = 0; i &lt; this._view.nbGraphicNodes; i++) {
+                this._model.addNode(
+                    data.nodes[i].type, 
+                    this._view.graphicNodes.children[i],
+                    data.nodes[i]
+                );
+            }
+
+            this._model.drawAlgo();
+            
+            // Create txt animation and lauch them
+            this._txtAnim = new TxtAnim(
+                "txt",
+                "txt__btn",
+                data.txt
+            )
+            this._txtAnim.start();
+            
+            this._view.eraseMap();
+            drawGrid(this._view.map, this._view.mapCtx, this._view.caseSize);
+            this._model.createTreeNodes();
+
+            // Lauch all events listener of the view
+            this._view.bindDragStart(this.handleDragStart);
+            this._view.bindDragOverNodes(this.handleDragOverNodes);
+            this._view.bindDragOverZones(this.handleDragOverZones);
+            this._view.bindDropZones(this.handleDropZones);
+            this._view.bindDropNodes(this.handleDropNodes);
+            this._view.bindClickStart(this.handleClickStart);
+        })
+        .catch(err => console.log(err)); 
+        /* 
+            PENSER A AFFICHER UN MESSAGE D'ERREUR /!\ 
+        */
+    }
+
+    /**
+     * @description ...
+     * @param {*} val 
+     */
+    handleDragStart = (nodeId, nodeWrapperId) => {
+        this._movedNodeId = nodeId;
+        this._movedNodeWrapperId = nodeWrapperId;
+    }
+
+    /**
+     * @description ...
+     * @param {*} val 
+     */
+    handleDragOverNodes = val => {
+        
+    }
+
+    /**
+     * @description ...
+     * @param {*} val 
+     */
+    handleDragOverZones = val => {
+        if (!this._view.graphicNodesIsEmpty) {
+            this._view.disableStartBtn();   
+        }
+    }
+
+    /**
+     * @description ...
+     * @param {*} val 
+     */
+    handleDropZones = val => {
+        if (this._view.addElementOnZone(val, this._movedNodeId, this._movedNodeWrapperId)) {
+            if (this._view.graphicNodesIsEmpty) {
+                this._view.enableStartBtn(); 
+            }
+
+            let zoneId = val.split("-")[1];
+            let nodeId = this._movedNodeId.split("-")[1];
+
+            if (zoneId !== nodeId) {
+                this._view.updateDropZoneId(zoneId, nodeId);
+                this._model.replaceNode(zoneId, nodeId);
+            }
+        };   
+    }
+    
+    /**
+     * @description ...
+     * @param {*} val 
+     */
+    handleDropNodes = val => {
+        if (this._view.graphicNodesIsEmpty) {
+            this._view.eraseMap();
+            drawGrid(this._view.map, this._view.mapCtx, this._view.caseSize);
+            this._model.character.resetPosition();
+        }
+
+        this._view.addElementOnNodesWrapper(
+            this._movedNodeId, 
+            this._movedNodeWrapperId
+        );
+
+    }
+
+    /**
+     * 
+     * @param {*} val 
+     */
+    handleClickStart = val => {
+        this._view.disableStartBtn();
+        this._model.startAlgoExec();
+    }
+}
+
+const app = new LvlAlgoPresenter(
+    new LvlAlgoModel(), 
+    new LvlAlgoView()
+);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Assignment.html">Assignment</a></li><li><a href="Break.html">Break</a></li><li><a href="Character.html">Character</a></li><li><a href="Condition.html">Condition</a></li><li><a href="Issue.html">Issue</a></li><li><a href="Loop.html">Loop</a></li><li><a href="LvlAlgoModel.html">LvlAlgoModel</a></li><li><a href="LvlAlgoPresenter.html">LvlAlgoPresenter</a></li><li><a href="LvlAlgoView.html">LvlAlgoView</a></li><li><a href="Node.html">Node</a></li><li><a href="Switch.html">Switch</a></li><li><a href="TxtAnim.html">TxtAnim</a></li></ul><h3>Global</h3><ul><li><a href="global.html#drawGrid">drawGrid</a></li><li><a href="global.html#drawLine">drawLine</a></li><li><a href="global.html#drawLinkBetweenNodes">drawLinkBetweenNodes</a></li><li><a href="global.html#eraseCanvas">eraseCanvas</a></li><li><a href="global.html#transformDataFromBD">transformDataFromBD</a></li><li><a href="global.html#wait">wait</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Jan 20 2024 08:33:17 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

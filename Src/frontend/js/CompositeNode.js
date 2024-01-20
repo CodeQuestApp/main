@@ -1,25 +1,42 @@
-/* 
-    -- Node Compose --
-*/
-
 /**
- * @class Loop
- * @description Represents the node of 
- * an algorithm corresponding to a loop.
+ * Class representing the node of an
+ * algorithm corresponding to a loop.
+ * @extends Node
  */
 class Loop extends Node {
+    /**
+     * Create a loop.
+     * @param {HTMLCanvasElement} canvas 
+     * @param {Node} node 
+     * @param {Character} character 
+     */
     constructor(canvas, node,character) {
         super(canvas, node, character);                                       
     }
 
+    /**
+     * Determines whether the node is composed of.
+     * @returns {Boolean} Is composed or not.
+     */
     isComposed() {
         return true; 
     }
 
+    /**
+     * Adds a node to its child node array "this._myNodes".
+     * @param {Node} node 
+     */
     addNode(node) {
         this._myNodes.push(node);
     }
 
+    /**
+     * Replaces the "node" node with nodes 
+     * whose id is "idOfNode".
+     * @param {String} idOfNode 
+     * @param {Node} node 
+     * @returns {Node} The replaced node.
+     */
     replaceNode(idOfNode, node) {
         let id1 = -1;
         let id2 = -1;
@@ -52,6 +69,9 @@ class Loop extends Node {
         return res;
     }
 
+    /**
+     * Draw the node on canvas context.
+     */
     draw() {
         this._context.drawImage(
             this._symbol, 
@@ -70,6 +90,10 @@ class Loop extends Node {
         }
     }
 
+    /**
+     * Calls a number of times "this.valForFunc", 
+     * the "exec" method of its child nodes.
+     */
     exec() {
         for (let i = 0; i < this.valForFunc; i++) {
             this._myNodes.forEach(childNode => childNode.exec());
@@ -78,23 +102,44 @@ class Loop extends Node {
 }
 
 /**
- * @class Issue
- * @description Represents the node of 
- * an algorithm corresponding to an issue.
+ * Class representing the node of an
+ * algorithm corresponding to an issue.
+ * @extends Node
  */
 class Issue extends Node {
+    /**
+     * Create an issue.
+     * @param {HTMLCanvasElement} canvas 
+     * @param {Node} node 
+     * @param {Character} character 
+     */
     constructor(canvas, node, character) {
         super(canvas, node, character);
     }
 
+    /**
+     * Determines whether the node is composed of.
+     * @returns {Boolean} Is composed or not.
+     */
     isComposed() {
         return true; 
     }
 
+    /**
+     * Adds a node to its child node array "this._myNodes".
+     * @param {Node} node 
+     */
     addNode(node) {
         this._myNodes.push(node);
     }
 
+    /**
+     * Replaces the "node" node with nodes 
+     * whose id is "idOfNode".
+     * @param {String} idOfNode 
+     * @param {Node} node 
+     * @returns {Node} The replaced node.
+     */
     replaceNode(idOfNode, node) {
         let id1 = -1;
         let id2 = -1;
@@ -132,6 +177,9 @@ class Issue extends Node {
         }
     }
 
+    /**
+     * Draw the node on canvas context.
+     */
     draw() {
         let dataSize = 0;
 
@@ -200,6 +248,9 @@ class Issue extends Node {
         }
     }
 
+    /**
+     * Calls the "exec" method of its child nodes.
+     */
     exec() {
         if (this._myNodes.length > 0) {
             this._myNodes.forEach(nodeChild => nodeChild.exec());
@@ -208,27 +259,49 @@ class Issue extends Node {
 }
 
 /**
- * @class Condition
- * @description Represents the node of 
- * an algorithm corresponding to a condition.
+ * Class representing the node of an
+ * algorithm corresponding to a condition.
+ * @extends Node
  */
 class Condition extends Node {
+    /**
+     * Create an condition.
+     * @param {HTMLCanvasElement} canvas 
+     * @param {Node} node 
+     * @param {Character} character 
+     */
     constructor(canvas, node, character) {
         super(canvas, node, character);
     }
 
+    /**
+     * Determines whether the node is composed of.
+     * @returns {Boolean} Is composed or not.
+     */
     isComposed() {
         return true; 
     }
 
+    /**
+     * Adds a node to its child node array "this._myNodes".
+     * @param {Node} node 
+     */
     addNode(node) {
         this._myNodes.push(node);
     }
 
+    /**
+     * Deletes the child node at position "index" 
+     * in its node array "this._myNodes".
+     * @param {Number} index 
+     */
     removeNode(index) {
         this._myNodes.splice(index,1);
     }
 
+    /**
+     * Draw the node on canvas context.
+     */
     draw() {
         this._context.strokeRect(
             (this.x - ((this.width)/2))|0, 
@@ -268,29 +341,49 @@ class Condition extends Node {
         );
     }
 
+    /**
+     * Not currently implemented.
+     */
     exec() {
         return;
     }
 }
 
 /**
- * @class Switch
- * @description Represents the node of 
- * an algorithm corresponding to a switch.
+ * Class representing the node of an
+ * algorithm corresponding to a switch.
+ * @extends Node
  */
 class Switch extends Node {
+    /**
+     * Create an condition.
+     * @param {HTMLCanvasElement} canvas 
+     * @param {Node} node 
+     * @param {Character} character 
+     */
     constructor(canvas, node, character) {
         super(canvas, node, character);
     }
 
+    /**
+     * Determines whether the node is composed of.
+     * @returns {Boolean} Is composed or not.
+     */
     isComposed() {
         return true; 
     }
 
+    /**
+     * Adds a node to its child node array "this._myNodes".
+     * @param {Node} node 
+     */
     addNode(node) {
         this._myNodes.push(node);
     }
 
+    /**
+     * Draw the node on canvas context.
+     */
     draw() {
         this._context.strokeRect(
             (this.x - ((this.width)/2))|0, 
@@ -355,6 +448,9 @@ class Switch extends Node {
         );
     }
 
+    /**
+     * Not currently implemented.
+     */
     exec() {
         return;
     }

@@ -1,11 +1,19 @@
 /**
- * @class Character
- * @description ...
+ * Class representing the character 
+ * on the game map.
  */
 class Character {
+    // Private properties
     #x; #y; #taillePas;
     #orientation; #arrivalCoordinate;
     
+    /**
+     * Create a character.
+     * @param {Number} x 
+     * @param {Number} y 
+     * @param {Number} taillePas 
+     * @param {Array} arrivalCoordinate 
+     */
     constructor(x, y, taillePas, arrivalCoordinate) {
         this.#x = x + 5 * taillePas;
         this.#y = y - (taillePas*3);
@@ -59,6 +67,10 @@ class Character {
     set valFunc(val) { this.valForFunc = val }
     set funcTo(val) { this.funcToExec = val }
    
+    /**
+     * Resets the character's position to 
+     * its starting value.
+     */
     resetPosition() {
         this.x = (5 * this.taillePas);
         this.y = map.height - (this.taillePas*3);
@@ -71,6 +83,11 @@ class Character {
         );
     }
 
+    /**
+     * Determines whether the character is positioned 
+     * at the arrival coordinate "this.#arrivalCoordinate".
+     * @returns {Boolean} True if it has arrived or not.
+     */
     isArrived() {
         if (this.#x == this.#arrivalCoordinate.x && this.#y == this.#arrivalCoordinate.y) {
             return true;
@@ -78,6 +95,10 @@ class Character {
         return false; 
     }
 
+    /**
+     * Turn the character by changing its orientation.
+     * @param {Number} orientation 
+     */
     async turn(orientation) {
         /*
             this.orientation ==> {0 : haut ; 1 : droite ; 2 : bas ; 3 : gauche}
@@ -97,6 +118,13 @@ class Character {
         }
     }
 
+    /**
+     * Character progress if promise is resolved, 
+     * otherwise displays error in console.
+     * @param {Number} val 
+     * @returns {Promise} Character advancement if 
+     * the promise is resolved, otherwise an error.
+     */
     async move(val) {
         return new Promise((resolve) => {            
             const previousMove = movePromise;        
@@ -125,11 +153,10 @@ class Character {
                         this._img, this._imgIdx * this._persoSize, 0, this._persoSize, this._img.height, 
                         this.x, this.y, this.taillePas, this.taillePas*2
                     );
-                    // this._mapCtx.fillRect(this.x, this.y, this.taillePas, this.taillePas);
                 }
             }).then(() => {
                 resolve();
-            });
+            }).catch(err => console.log(err));
 
         })
     }
@@ -166,6 +193,13 @@ class Character {
         })
     }*/
 
+    /**
+     * Calls its "funcToExec" function with 
+     * a value of "val".
+     * @param {String} funcToExec 
+     * @param {Number} val 
+     * @returns Execution of the function called.
+     */
     do(funcToExec, val) {
         this.allFunc[funcToExec].args = val;
         const { functionName, args } = this.allFunc[funcToExec];

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: LvlAlgoModel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: LvlAlgoModel.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @class LvlAlgoModel
+ * @description ...
+ */
+class LvlAlgoModel {
+    // Privates properties
+    #allNodes; #treeOfNode;
+    #mainCanvas; #mainContext;
+    #character;
+
+    constructor() {
+        this.#mainCanvas = document.getElementById("draw");
+        this.#mainContext = this.#mainCanvas.getContext("2d");
+
+        this.#mainCanvas.width = window.innerWidth*.7;
+        this.#mainCanvas.height = window.innerHeight;
+
+        this.#allNodes = [];
+        this.#treeOfNode = null;
+        this.#character = null;
+        this.algo;
+    }
+
+    get character() { return this.#character }
+    set character(val) { this.#character = val }
+
+    /**
+     * @description fetch data from backend
+     * and return them.
+     * @returns promise
+     */
+    getData() {
+        return fetch("./backend/algoMain.json")
+                .then(res => res.json())
+    }
+
+    /**
+     * @description 
+     */
+    createTreeNodes() {
+        for (let i = 0; i &lt; this.#allNodes.length ; i++) {
+            if (this.#allNodes[i].output[0].length !== 0) {
+                for (let z = 0; z &lt; this.#allNodes[i].output[0].length; z++) {
+                    this.#allNodes[i].addNode(this.#allNodes[this.#allNodes[i].output[0][z]]);
+                }
+            }
+        }
+
+        this.#treeOfNode = this.#allNodes[0];
+    }
+
+    /**
+     * @description Traverses the tree of 
+     * nodes and calls their "exec" method.
+     */
+    startAlgoExec() {
+        this.#treeOfNode.exec();
+    }
+
+    /**
+     * @description Add node.
+     * @param {String} type 
+     * @param {HTMLCanvasElement} graphicElm 
+     * @param {Array} data 
+     * @param {Character} character 
+     */
+    addNode(type, graphicElm, data) {
+        switch (type) {
+            case "issue":
+                this.#allNodes.push(new Issue(graphicElm, data, this.character));
+                break;
+            case "assignment":
+                this.#allNodes.push(new Assignment(graphicElm, data, this.character));
+                break;
+            case "switch":
+                this.#allNodes.push(new Switch(graphicElm, data, this.character));
+                break;
+            case "loop":
+                this.#allNodes.push(new Loop(graphicElm, data, this.character));
+                break;
+            case "condition":
+                this.#allNodes.push(new Condition(graphicElm, data, this.character));
+                break;
+            default:
+                this.#allNodes.push(new Break(graphicElm, data, this.character));
+                break;
+        }
+    }
+
+    /**
+     * @description Draw all nodes on their 
+     * respective graphic elements, as well 
+     * as links between nodes..
+     */
+    drawAlgo() {
+        for (let i = 0; i &lt; this.#allNodes.length; i++) {
+            this.#allNodes[i].draw();
+
+            drawLinkBetweenNodes(
+                this.#mainContext, 
+                this.#allNodes, 
+                this.#allNodes[i]
+            );
+        }
+    }
+
+    /**
+     * @description ...
+     * @param {String} idDropZone 
+     * @param {String} idMovedNode 
+     */
+    replaceNode(idDropZone, idMovedNode) {
+        let positionMovedNode;
+        /*
+            Récupérer la position dans le tableau noeudAlgo
+            du noeud dont son id est idMovedNode
+        */
+        for (let i = 0; i &lt; this.#allNodes.length; i++) {
+            if (this.#allNodes[i].id === idMovedNode) {
+                positionMovedNode = i;
+            }
+            
+        }
+        
+        /* 
+            Remplacer dans l'arbre le noeud par
+            le movedNode
+        */
+        this.#treeOfNode.replaceNode(idDropZone,this.#allNodes[positionMovedNode]);
+    }
+
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Assignment.html">Assignment</a></li><li><a href="Break.html">Break</a></li><li><a href="Character.html">Character</a></li><li><a href="Condition.html">Condition</a></li><li><a href="Issue.html">Issue</a></li><li><a href="Loop.html">Loop</a></li><li><a href="LvlAlgoModel.html">LvlAlgoModel</a></li><li><a href="LvlAlgoPresenter.html">LvlAlgoPresenter</a></li><li><a href="LvlAlgoView.html">LvlAlgoView</a></li><li><a href="Node.html">Node</a></li><li><a href="Switch.html">Switch</a></li><li><a href="TxtAnim.html">TxtAnim</a></li></ul><h3>Global</h3><ul><li><a href="global.html#drawGrid">drawGrid</a></li><li><a href="global.html#drawLine">drawLine</a></li><li><a href="global.html#drawLinkBetweenNodes">drawLinkBetweenNodes</a></li><li><a href="global.html#eraseCanvas">eraseCanvas</a></li><li><a href="global.html#transformDataFromBD">transformDataFromBD</a></li><li><a href="global.html#wait">wait</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Sat Jan 20 2024 08:33:17 GMT+0100 (GMT+01:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
