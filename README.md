@@ -16,6 +16,7 @@ de consolider les connaissances d’un profil intermédiaire et de challenger le
 ![](./Specification/apercu-niveau.jpeg)
 
 ## Lien vers le prototype
+_ Le prototype n'est pas accessible pour des personnes extérieurs à l'IUT de Bayonne et du Pays Basque.
 [Tester le prototype](http://lakartxela.iutbayonne.univ-pau.fr/~rlaborde003/index.html)
 
 ## Lien vers la documentation
