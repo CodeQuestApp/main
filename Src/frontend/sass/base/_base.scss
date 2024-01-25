@@ -12,5 +12,6 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background-color: $home-bg-clr;
+    background-color: $beige-color;
+    font: 100% $font-stack;
 }

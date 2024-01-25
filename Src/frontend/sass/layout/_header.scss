@@ -5,13 +5,18 @@
     // justify-content: space-between;
     justify-content: flex-end;
     align-items: center;
-    background-color: $header-bg-clr;
+    //background-color: $header-bg-clr;
+    background-color: $brown-color;
+    color: $beige-color;
     &__nav {
         width: 40%;
         height: 100%;
         display: flex;
         justify-content: space-around;
         align-items: center;
+    }
+    &__nav a{
+        color: $beige-color;
     }
     &__btn {
         width: 30%;
@@ -21,7 +26,8 @@
         justify-content: center;
         align-items: center;
         &:hover {
-            color: yellow;
+            //color: yellow;
+            color: $light-blue-color;
         }
     }
     &__logo {
