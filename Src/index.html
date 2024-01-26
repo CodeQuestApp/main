@@ -1,65 +1,74 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CodeQuestApp</title>
 
-        <link rel="stylesheet" href="./frontend/css/style.css">
-        <!-- <link rel="stylesheet" href="./frontend/css/prefixed/style.css"> -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeQuestApp</title>
 
-        <meta name="description" content="CodeQuestApp est un jeu ludique pour apprendre les concepts de l'informatique">
-        <!-- <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/background.jpg" type="image/jpg">
+    <link rel="stylesheet" href="./frontend/css/style.css">
+    <!-- <link rel="stylesheet" href="./frontend/css/prefixed/style.css"> -->
+
+    <meta name="description" content="CodeQuestApp est un jeu ludique pour apprendre les concepts de l'informatique">
+    <!-- <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/background.jpg" type="image/jpg">
         <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/symboles.png" type="image/png">
         <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/perso.png" type="image/png"> -->
-        <script src="https://kit.fontawesome.com/5fbdf29340.js" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <!-- Header -->
-        <header class="header">
-            <nav class="header__nav">
-                <a href="./level_algo.html" class="header__btn">Level Algo</a>
-                <a href="#" class="header__btn">Se Connecter</a>
-                <a href="#" class="header__btn">S'inscrire</a>
-            </nav>
-        </header>
+    <script src="https://kit.fontawesome.com/5fbdf29340.js" crossorigin="anonymous"></script>
+</head>
 
-        <!-- Main content -->
-        <main id="main">
-            <h1>Bienvenu dans CodeQuest</h1>
-                <template id="level__model">
-                    <a href="" data-type="level__ref" class="item">
-                        <article data-type="level__content" class="item__content">
-                            <h2 data-type="level__family" class="item__title"> </h2>
-                            <p data-type="level__theme" class="item__text"></p>
-                            <div data-type="level__difficulty" style="width: 2em; height: 2em;" class="item__wrapper">
-                            </div>
-                        </article>
-                    </a>
-                </template>
-        </main>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="header__nav">
+            <a href="./level_algo.html" class="header__btn">Level Algo</a>
+            <a href="#" class="header__btn">Se Connecter</a>
+            <a href="#" class="header__btn">S'inscrire</a>
+        </nav>
+    </header>
 
-        <!-- footer -->
-        <footer class="footer">
-            <ul class="footer__list">
-                <li class="footer__item">
-                    <i class="fas fa-utensils size-m"></i>
-                    <a href="#">Signaler un bug</a>
-                </li>
-                <li class="footer__item">
-                    <i class="fas fa-hands-helping size-s"></i>
-                    <a href="./politique.html">Politique de confidentialité</a>
-                </li>
-                <li class="footer__item">
-                    <a href="#">Mentions légales</a>
-                </li>
-                <li class="footer__item">
-                    <a href="mailto:codequest.app@gmail.com">Contact</a>
-                </li>
-            </ul>
-        </footer>
+    <!-- Main content -->
+    <main id="main">
 
-        <!-- Scripts -->
-        <script src="./frontend/js/App.js"></script>
-    </body>
+
+
+        <template id="level__model">
+            <a href="" data-type="level__ref" class="item">
+                <article data-type="level__content" class="item__content">
+                    <h2 data-type="level__family" class="item__title"> </h2>
+                    <p data-type="level__theme" class="item__text"></p>
+                    <div data-type="level__difficulty" style="width: 2em; height: 2em;" class="item__wrapper">
+                    </div>
+                </article>
+            </a>
+        </template>
+        <h1>Bienvenu dans CodeQuest</h1>
+        <section id="section">  
+
+        </section>
+    </main>
+
+    <!-- footer -->
+    <footer class="footer">
+        <ul class="footer__list">
+            <li class="footer__item">
+                <i class="fas fa-utensils size-m"></i>
+                <a href="#">Signaler un bug</a>
+            </li>
+            <li class="footer__item">
+                <i class="fas fa-hands-helping size-s"></i>
+                <a href="./politique.html">Politique de confidentialité</a>
+            </li>
+            <li class="footer__item">
+                <a href="#">Mentions légales</a>
+            </li>
+            <li class="footer__item">
+                <a href="mailto:codequest.app@gmail.com">Contact</a>
+            </li>
+        </ul>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./frontend/js/App.js"></script>
+</body>
+
 </html>

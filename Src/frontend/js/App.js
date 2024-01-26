@@ -9,10 +9,16 @@ const createLevelElement = (level) => {
         star.setAttribute("class", "fa-solid fa-star");
         copy.querySelector("[data-type='level__difficulty']").appendChild(star);
     }
-    document.getElementById("main").appendChild(copy);
+    for (let i = 0; i < (5-level.difficulty); i++) {
+        let emptyStar = document.createElement("i");
+        emptyStar.setAttribute("class", "fa-regular fa-star"); 
+        copy.querySelector("[data-type='level__difficulty']").appendChild(emptyStar);
+        
+    }
+    document.getElementById("section").appendChild(copy);
 }
 
-/*
+
 fetch("./backend/getNiveaux.php?lim=9", {method : 'get'})
 .then(res => res.json())
 .then(data => {
@@ -24,12 +30,3 @@ fetch("./backend/getNiveaux.php?lim=9", {method : 'get'})
     }
 })
 .catch(err => console.log(err))
-*/
-
-let test = {
-    id: 12,
-    family: 12,
-    theme: 'boucle',
-    difficulty: 3
-}
-createLevelElement(test);
