@@ -13,37 +13,38 @@
     <!-- <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/background.jpg" type="image/jpg">
         <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/symboles.png" type="image/png">
         <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/perso.png" type="image/png"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/5fbdf29340.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <!-- Header -->
     <header class="header">
+        <img class="header__logo" src="./frontend/img/logo.png" alt="" srcset="">
         <nav class="header__nav">
-            <a href="./level_algo.html" class="header__btn">Level Algo</a>
             <a href="#" class="header__btn">Se Connecter</a>
             <a href="#" class="header__btn">S'inscrire</a>
         </nav>
     </header>
+    <img src="./frontend/img/backgroundHeader.png" class="header__img" alt="">
 
     <!-- Main content -->
     <main id="main">
-
-
-
         <template id="level__model">
             <a href="" data-type="level__ref" class="item">
                 <article data-type="level__content" class="item__content">
-                    <h2 data-type="level__family" class="item__title"> </h2>
-                    <p data-type="level__theme" class="item__text"></p>
-                    <div data-type="level__difficulty" style="width: 2em; height: 2em;" class="item__wrapper">
+                    <h2 data-type="level__family" class="item__title"></h2>
+                    <div class="item__info">
+                        <div data-type="level__difficulty" class="item__wrapper"></div>
+                        <p data-type="level__theme" class="item__text"></p>
                     </div>
                 </article>
             </a>
         </template>
-        <h1>Bienvenu dans CodeQuest</h1>
+        <h1>L'aventure vous attend</h1>
         <section id="section">  
-
         </section>
     </main>
 

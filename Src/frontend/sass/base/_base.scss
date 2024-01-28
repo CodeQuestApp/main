@@ -3,15 +3,16 @@
     padding: 0;
     text-decoration: none;
     list-style-type: none;
+    font-family: 'MedievalSharp', cursive;
+    text-shadow: 1px 1px 1px black, -1px 1px 1px black, 1px -1px 1px black, -1px -1px 1px black;
+    color: #915028;
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: auto;
     position: relative;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
-    background-color: $beige-color;
-    font: 100% $font-stack;
+    background: linear-gradient(to bottom, #80c2e2, #7bbdcd, #315b71);
 }

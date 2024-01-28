@@ -19,14 +19,70 @@ const createLevelElement = (level) => {
 }
 
 
-fetch("./backend/getNiveaux.php?lim=9", {method : 'get'})
-.then(res => res.json())
-.then(data => {
-    for (let i = 0; i < data.accessible.length; i++) {
-       createLevelElement(data.accessible[i])
+// fetch("./backend/getNiveaux.php?lim=9", {method : 'get'})
+// .then(res => res.json())
+// .then(data => {
+//     for (let i = 0; i < data.accessible.length; i++) {
+//        createLevelElement(data.accessible[i])
+//     }
+//     for (let i = 0; i < data.bloque.length; i++) {
+//         createLevelElement(data.bloque[i])
+//     }
+// })
+// .catch(err => console.log(err))
+
+
+let data =  [
+    {
+        id: 1,
+        family: "algo",
+        theme: "boucle",
+        difficulty: 3
+    },
+    {
+        id: 1,
+        family: "algo",
+        theme: "boucle",
+        difficulty: 3
+    },
+    {
+        id: 1,
+        family: "algo",
+        theme: "boucle",
+        difficulty: 3
+    },
+    {
+        id: 1,
+        family: "algo",
+        theme: "boucle",
+        difficulty: 3
+    },
+    {
+        id: 1,
+        family: "algo",
+        theme: "boucle",
+        difficulty: 3
+    },
+    {
+        id: 1,
+        family: "algo",
+        theme: "boucle",
+        difficulty: 3
+    },
+    {
+        id: 1,
+        family: "algo",
+        theme: "boucle",
+        difficulty: 3
+    },
+    {
+        id: 1,
+        family: "algo",
+        theme: "boucle",
+        difficulty: 3
     }
-    for (let i = 0; i < data.bloque.length; i++) {
-        createLevelElement(data.bloque[i])
-    }
-})
-.catch(err => console.log(err))
+]
+
+for (let i = 0; i < data.length; i++) {
+    createLevelElement(data[i]);
+}
