@@ -1,7 +1,7 @@
 const createLevelElement = (level) => {
-    let template = document.getElementById("level__model");
+    let template = document.getElementById("item__model");
     let copy = document.importNode(template.content, true);
-    copy.querySelector("[data-type='level__ref']").setAttribute('href', level.id);
+    copy.querySelector("[data-type='level__ref']").setAttribute('href', "./level_algo.html" + level.id);
     copy.querySelector("[data-type='level__family']").textContent=level.family;
     copy.querySelector("[data-type='level__theme']").textContent=level.theme;
     for (let i = 0; i < level.difficulty; i++) {

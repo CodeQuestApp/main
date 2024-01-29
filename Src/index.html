@@ -1,38 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeQuestApp</title>
-
     <link rel="stylesheet" href="./frontend/css/style.css">
     <!-- <link rel="stylesheet" href="./frontend/css/prefixed/style.css"> -->
-
     <meta name="description" content="CodeQuestApp est un jeu ludique pour apprendre les concepts de l'informatique">
-    <!-- <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/background.jpg" type="image/jpg">
-        <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/symboles.png" type="image/png">
-        <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/perso.png" type="image/png"> -->
+    <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/backgroundHeader.png" type="image/png">
+    <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/levelBg.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/5fbdf29340.js" crossorigin="anonymous"></script>
 </head>
-
 <body>
     <!-- Header -->
     <header class="header">
-        <img class="header__logo" src="./frontend/img/logo.png" alt="" srcset="">
+        <a href="./index.html" title="Accueil">
+            <img class="header__logo" src="./frontend/img/logo.png" alt="Logo de l'application">
+         </a>
         <nav class="header__nav">
             <a href="#" class="header__btn">Se Connecter</a>
             <a href="#" class="header__btn">S'inscrire</a>
         </nav>
     </header>
-    <img src="./frontend/img/backgroundHeader.png" class="header__img" alt="">
+    <img src="./frontend/img/backgroundHeader.png" class="header__img" alt="Dessin de château">
 
     <!-- Main content -->
     <main id="main">
-        <template id="level__model">
+        <template id="item__model">
             <a href="" data-type="level__ref" class="item">
                 <article data-type="level__content" class="item__content">
                     <h2 data-type="level__family" class="item__title"></h2>
@@ -71,5 +68,4 @@
     <!-- Scripts -->
     <script src="./frontend/js/App.js"></script>
 </body>
-
 </html>

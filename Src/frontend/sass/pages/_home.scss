@@ -5,18 +5,18 @@
     display: flex;
     gap: 2%;
     flex-direction: column;
-    // background: no-repeat url("../img/backgroundAccueil.jpg");
-    // background-size: 100% 100%;
     align-items: center;
 }
 
 #section {
     display: flex;
     flex-wrap: wrap;
-    gap: 4%;
     width: 90%;
     justify-content: center;
-    // padding: 0 3% 0 3%;
+    gap: 4%;
+    @include mobile-only {
+        gap: 1%;
+    }
 }
 
 

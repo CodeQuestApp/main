@@ -12,7 +12,7 @@ class LvlAlgoModel {
         this.#mainCanvas = document.getElementById("draw");
         this.#mainContext = this.#mainCanvas.getContext("2d");
 
-        this.#mainCanvas.width = window.innerWidth*.7;
+        this.#mainCanvas.width = window.innerWidth;
         this.#mainCanvas.height = window.innerHeight;
 
         this.#allNodes = [];
