@@ -16,6 +16,9 @@
         justify-content: center;
         align-items: center;
         gap: 0.5rem;
+        @include mobile-only{
+            width: 100%;
+        }
         a{
             color: $beige-color;
             text-decoration: none;
