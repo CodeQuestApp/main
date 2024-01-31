@@ -243,17 +243,18 @@ class LvlAlgoView {
      */
     createAllGraphicsElms(data) {
         for (let i = 0; i < data.nodes.length; i++) {
+            let node = transformDataFromBD(data.nodes[i]);
             this.createGraphicNode(
-                data.nodes[i].width,
-                data.nodes[i].height,
-                data.nodes[i].id,
-                data.nodes[i].type
+                node.width,
+                node.height,
+                node.id,
+                node.type
             )
         
             this.createGraphicDropZone(
-                data.nodes[i].x,
-                data.nodes[i].y,
-                data.nodes[i].id
+                node.x,
+                node.y,
+                node.id
             )
         } 
     }

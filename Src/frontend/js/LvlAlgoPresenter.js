@@ -6,7 +6,6 @@ class LvlAlgoPresenter {
     constructor(model, view) {
         this._model = model;
         this._view = view;
-
         this._txtAnim;
         this._movedNodeId;
         this._movedNodeWrapperId;
@@ -26,20 +25,21 @@ class LvlAlgoPresenter {
 
             // Create all nodes
             for (let i = 0; i < this._view.nbGraphicNodes; i++) {
+                let node = transformDataFromBD(data.nodes[i]);
                 this._model.addNode(
-                    data.nodes[i].type, 
+                    node.type, 
                     this._view.graphicNodes.children[i],
-                    data.nodes[i]
+                    node
                 );
             }
 
             this._model.drawAlgo();
-            
+           
             // Create txt animation and lauch them
             this._txtAnim = new TxtAnim(
                 "txt",
                 "txt__btn",
-                data.txt
+                data.txt.split("\n")
             )
             this._txtAnim.start();
             
@@ -55,7 +55,10 @@ class LvlAlgoPresenter {
             this._view.bindDropNodes(this.handleDropNodes);
             this._view.bindClickStart(this.handleClickStart);
         })
-        .catch(err => console.log(err)); 
+        .catch(err => {
+            console.log(err);
+            window.location = "./index.html";
+        }); 
         /* 
             PENSER A AFFICHER UN MESSAGE D'ERREUR /!\ 
         */
