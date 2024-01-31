@@ -16,12 +16,84 @@
      text-align: left;
 
 }
+
+#h3_audit {
+     color: #000;
+     box-sizing: border-box;
+     font-family: 'Roboto';
+     text-align:left;
+     text-shadow: none;
+
+}
+
+#h4_audit {
+     color: #000;
+     box-sizing: border-box;
+     font-family: 'Roboto';
+     text-align:left;
+     text-shadow: none;
+
+}
+
+#li_audit {
+     color: #000;
+     box-sizing: border-box;
+     font-family: 'Roboto';
+     text-align:left;
+     text-shadow: none;
+}
+
+#audit_lien {
+     color: #000;
+     box-sizing: border-box;
+     font-family: 'Roboto';
+     text-align:left;
+     text-shadow: none;
+     text-decoration: underline;
+}
+
+#audit_em {
+     color: #000;
+     box-sizing: border-box;
+     font-family: 'Roboto';
+     text-shadow: none;
+}
+
  #body_audit {
      margin: 0;
      padding: 0;
      background-color: #e8d5ba ;
      background: #e8d5ba;
 }
+
+#body_audit p {
+     color: #000;
+     box-sizing: border-box;
+     font-family: 'Roboto';
+     text-align:justify;
+     font-size: 1em;
+     text-shadow: none;
+}
+
+#th_audit {
+     color: #000;
+     box-sizing: border-box;
+     font-family: 'Roboto';
+     text-align:justify;
+     font-size: 1em;
+     text-shadow: none;
+}
+
+#td_audit {
+     color: #000;
+     box-sizing: border-box;
+     font-family: 'Roboto';
+     text-align:justify;
+     font-size: 1em;
+     text-shadow: none;
+}
+
+
  #main_audit{
      min-width: 200px;
      max-width: 800px;
@@ -173,23 +245,35 @@
  #logo {
      width: 300px;
 }
+#sig_elsa {
+     width: 150px
+}
+
+#sig_aylin {
+     width: 150px
+}
+
+#personnage {
+     width: 250px;
+}
+
  #inpi {
-     width: 780px;
+     width: 800px;
 }
  #infogreffe {
-     width: 780px;
+     width: 800px;
 }
  #dnstwister {
-     width: 780px;
+     width: 800px;
 }
  #rgpd1{
-     width: 780px;
+     width: 800px;
 }
  #rgpd2 {
-     width: 780px;
+     width: 800px;
 }
  #newsletter{
-     width: 780px;
+     width: 800px;
 }
  @media only screen and (max-width: 600px) {
      @import url(https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap);
@@ -242,3 +326,8 @@
 
 }
  
+.content{
+     display: flex;
+     flex-direction: column;
+     gap: 1.5em;
+}
