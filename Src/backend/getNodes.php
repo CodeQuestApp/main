@@ -12,41 +12,46 @@ $id_niveau = $_GET['id'];
  * 
  * */
 function getNodes($id) {
-
-    $user = "adumolie_bd";                       //
-    $pass = "adumolie_bd";                       //  Infos pour la connexion 
-    $bdd = "adumolie_bd";                        //  à la BD
-    $host = "lakartxela.iutbayonne.univ-pau.fr"; //
+    if (isset ($_SESSION['auth'])) {
+        $user = "adumolie_bd";                       //
+        $pass = "adumolie_bd";                       //  Infos pour la connexion 
+        $bdd = "adumolie_bd";                        //  à la BD
+        $host = "lakartxela.iutbayonne.univ-pau.fr"; //
     
-    $connexion = mysqli_connect($host, $user, $pass, $bdd); // connexion à la BD
+        $connexion = mysqli_connect($host, $user, $pass, $bdd); // connexion à la BD
 
+        //teste si l'utilisateur a accès à ce niveau
+        $accesNiveau= "SELECT COUNT (id) FROM NIVEAU WHERE $id <=( SELECT MAX(id_niveau+1) FROM COMPLETER WHERE id_utilisateur = ".$_SESSION['auth'] . ") OR id=1; ";
+        $resultat = mysqli_query($connexion, $accesNiveau);      // exécution de la requête
 
-    $algo = new stdClass(); // Création d'un objet algo qui va contenir les différents noeuds
-
-    $requete = "SELECT * FROM ALGORITHME WHERE id=$id;"; // requête récupérant un texte à afficher dans le niveau
-    $resultat = mysqli_query($connexion, $requete);      // exécution de la requête
-
-    $ligne = mysqli_fetch_assoc($resultat); // Récupération du texte
-    $algo->txt = utf8_encode($ligne['texte']);    // du theme demandé
-
+        if ($resultat !="") {
+            $algo = new stdClass(); // Création d'un objet algo qui va contenir les différents noeuds
+            $requete = "SELECT * FROM ALGORITHME WHERE id=$id;"; // requête récupérant un texte à afficher dans le niveau
+            $resultat = mysqli_query($connexion, $requete);      // exécution de la requête
     
-    $nodes = array();
-
-    try {
-        $conn = new PDO('mysql:host='.$host.';dbname='.$bdd,$user,$pass); // connexion à la BD
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $res = $conn->query("SELECT S.* FROM SOMMET S JOIN POSSEDER P ON S.id = P.id_sommet WHERE P.id_algorithme = $id;"); // requête qui récupère les infos sur les noeuds en BD
-        $res->setFetchMode(PDO::FETCH_OBJ);
-
-        while ($tuple = $res->fetch()) {
-            array_push($nodes,$tuple); // Ajout des infos dans $nodes (liste des noeuds)
+            $ligne = mysqli_fetch_assoc($resultat); // Récupération du texte
+            $algo->txt = utf8_encode($ligne['texte']);    // du theme demandé
+    
+        
+            $nodes = array();
+    
+            try {
+                $conn = new PDO('mysql:host='.$host.';dbname='.$bdd,$user,$pass); // connexion à la BD
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $res = $conn->query("SELECT S.* FROM SOMMET S JOIN POSSEDER P ON S.id = P.id_sommet WHERE P.id_algorithme = $id;"); // requête qui récupère les infos sur les noeuds en BD
+                $res->setFetchMode(PDO::FETCH_OBJ);
+    
+                while ($tuple = $res->fetch()) {
+                    array_push($nodes,$tuple); // Ajout des infos dans $nodes (liste des noeuds)
+                }
+    
+                $algo->nodes = $nodes;
+                print_r(json_encode($algo, JSON_UNESCAPED_UNICODE));
+                return json_encode($algo, JSON_UNESCAPED_UNICODE); // On retourne $algo au format JSON
+            } catch (Exception $e) {
+                print 'Error : '.$e->getMessage().'<br>';
+            }
         }
-
-        $algo->nodes = $nodes;
-        print_r(json_encode($algo, JSON_UNESCAPED_UNICODE));
-        return json_encode($algo, JSON_UNESCAPED_UNICODE); // On retourne $algo au format JSON
-    } catch (Exception $e) {
-        print 'Error : '.$e->getMessage().'<br>';
     }
 }
 

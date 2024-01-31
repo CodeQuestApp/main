@@ -30,7 +30,7 @@ class LvlAlgoModel {
      * @returns promise
      */
     getData() {
-        return fetch("./backend/algoMain.json")
+        return fetch("./backend/getNodes.php?id="+ window.location.serach.substring(4), {method: 'get'})
                 .then(res => res.json())
     }
 
