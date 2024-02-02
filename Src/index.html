@@ -21,14 +21,60 @@
             <img class="header__logo" src="./frontend/img/logo.png" alt="Logo de l'application">
          </a>
         <nav class="header__nav">
-            <a href="#" class="header__btn">Se Connecter</a>
-            <a href="#" class="header__btn">S'inscrire</a>
+            <a href="#" class="header__btn" id="login__btn">Se Connecter</a>
+            <a href="#" class="header__btn" id="register__btn">S'inscrire</a>
         </nav>
     </header>
     <img src="./frontend/img/backgroundHeader.png" class="header__img" alt="Dessin de château">
 
+    <!-- Login wrapper -->
+    <div id="login" style="z-index: -100;opacity: 0;">
+        <button id="login__close" class="quit">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <form action="backend/connexion.php" method="post" id="login__form">
+            <h2>Connexion</h2>
+            <div class="login__input">
+                <i class="fa-solid fa-envelope" id="mail-icon"></i>
+                <input type="text" name="login-email" onkeydown="if(event.keyCode==32) return false;" id="login__input__email">
+                <label class="form-label label-mail" for="login-email">Email (obligatoire)</label>
+            </div>
+            <div class="login__input">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" name="login-password" onkeydown="if(event.keyCode==32) return false;" id="login__input__password">
+                <label class="form-label label-password" for="login-password">Mot de Passe (obligatoire)</label>
+            </div>
+            <button type="submit" class="login-register-btn">Se connecter</button>
+            <p>Pas encore inscrit ? <a href="#" id="register__link">Inscris toi !</a></p> 
+        </form>
+    </div>
+    <!-- Register wrapper -->
+    <div id="register" style="z-index: -100;opacity: 0;">
+        <button id="register__close" class="quit">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <form action="backend/inscription.php" method="post" id="register__form">
+            <h2>Inscription</h2>
+            <div class="register__input">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="text" name="register-email" onkeydown="if(event.keyCode==32) return false;" id="register__input__email">
+                <label class="form-label label-mail" for="register-email">Email (obligatoire)</label>
+            </div>
+            <div class="register__input">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" name="register-password" onkeydown="if(event.keyCode==32) return false;" id="register__input__password">
+                <label class="form-label label-password" for="register-password">Mot de Passe (obligatoire)</label>
+            </div>
+            <div class="register__login">
+                <button type="submit" class="login-register-btn">S'inscrire</button>
+                <p>Déjà inscrit ? <a href="#" id="login__link">Connecte toi !</a></p> 
+            </div>
+        </form>
+    </div>
+    <div id="mask" style="z-index: -100;opacity: 0;"></div>
     <!-- Main content -->
     <main id="main">
+        <!-- Cartes niveaux wrapper -->
         <template id="item__model">
             <a href="" data-type="level__ref" class="item">
                 <article data-type="level__content" class="item__content">
@@ -67,5 +113,6 @@
 
     <!-- Scripts -->
     <script src="./frontend/js/App.js"></script>
+    <script src="./frontend/js/LoginRegister.js"></script>
 </body>
 </html>
