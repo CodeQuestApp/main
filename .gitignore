@@ -4,3 +4,4 @@ docs/.DS_Store
 Spécification/.DS_Store
 src/.DS_Store
 node_modules
+debug.log
