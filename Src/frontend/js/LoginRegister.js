@@ -86,20 +86,41 @@ function isEmpty(input) {
 }
 
 const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+const pwd = /^[a-zA-Z]+$/;
 let inputControlerMail;
+let inputControlerPwd;
 
-const checkMailIsValid = () => {
-    loginMailInput.addEventListener("input", function(e) {
-        if (emailRegex.test(e.target.value)) {
-            loginMailInput.style.borderBottom = '2px solid green';
-            emailIcon.style.color = 'green';
-            inputControlerMail = true;
-        } else {
-            loginMailInput.style.borderBottom = '2px solid red';
-            emailIcon.style.color = 'red';
-            inputControlerMail = false;
-        }
-    })
+const checkFormIsComplete = () => {
+    console.log(inputControlerMail,inputControlerPwd);
+    if (inputControlerMail && inputControlerPwd) {
+        document.getElementById("valid-login").removeAttribute("disabled");
+    } else {
+        document.getElementById("valid-login").setAttribute("disabled", true);
+    }
 }
 
-checkMailIsValid();
+loginMailInput.addEventListener("input", function(e) {
+    if (emailRegex.test(e.target.value)) {
+        loginMailInput.style.borderBottom = '2px solid green';
+        emailIcon.style.color = 'green';
+        inputControlerMail = true;
+    } else {
+        loginMailInput.style.borderBottom = '2px solid red';
+        emailIcon.style.color = 'red';
+        inputControlerMail = false;
+    }
+    checkFormIsComplete();
+})
+
+loginPasswordInput.addEventListener("input", (e) => {
+    if (pwd.test(e.target.value)) {
+        loginPasswordInput.style.borderBottom = '2px solid green';
+        //emailIcon.style.color = 'green';
+        inputControlerPwd = true;
+    } else {
+        loginPasswordInput.style.borderBottom = '2px solid red';
+        //emailIcon.style.color = 'red';
+        inputControlerPwd = false;
+    }
+    checkFormIsComplete();
+})

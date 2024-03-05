@@ -51,10 +51,9 @@ function getNiveaux() {
     $Niveau->bloque = array();      // liste contenant des niveaux accessibles
 
     $limiteAffichage = $_GET['lim']; // Limite du nombre de vignette à afficher
-
+    
     // ------- Si l'utilisateur est connecté ------- \\
     if (isset($_SESSION['auth'])) {
-        
         // requête récupérant les infos des niveaux disponibles pour un joueur
         $requete = "SELECT * FROM NIVEAU WHERE id <= (SELECT MAX(id_niveau+1) FROM COMPLETER WHERE id_utilisateur = ". $_SESSION['auth'] ." ) OR id = 1 LIMIT $limiteAffichage;";
         $resultat = mysqli_query($connexion, $requete); // exécution de la requête
@@ -68,7 +67,7 @@ function getNiveaux() {
             array_push($Niveau->accessible,$item);          //
         }
 
-        $dernierId = end($Niveau->accessible);                              //  définition de la nouvelle limite en
+        $dernierId = end($Niveau->accessible)->id;                              //  définition de la nouvelle limite en
         $nouvelleLimite = $limiteAffichage - count($Niveau->accessible);    //  fonction du nombre de vignettes disponibles
 
         $requete = "SELECT * FROM NIVEAU WHERE id > $dernierId LIMIT $nouvelleLimite;"; //  requête récupérant les infos des niveaux

@@ -1,5 +1,5 @@
 <?php
-
+    session_start();
     function inscription(){
         $usr = "adumolie_bd";
         $pw = "adumolie_bd";
@@ -32,7 +32,7 @@
     }
 
     inscription();
-    
+    header('Location: ../');
 
 
 ?>
