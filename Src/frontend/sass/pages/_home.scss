@@ -62,3 +62,7 @@
 .item__wrapper {
     display: flex;
 }
+
+.inaccessible {
+    filter: grayscale(0.7);
+}
