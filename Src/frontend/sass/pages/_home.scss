@@ -64,5 +64,21 @@
 }
 
 .inaccessible {
+    color: #000;
+    font-style: italic;
+    width: 15em;
+    height: 20em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1.2em;
+    margin: 2% 0 0 0;
+    transition: transform .2s ease-in-out;
     filter: grayscale(0.7);
+    &:hover {
+        transform: scale(1);
+        filter: brightness(1);
+        filter: grayscale(0.7);
+    }
+    
 }

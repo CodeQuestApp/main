@@ -57,7 +57,7 @@ class LvlAlgoPresenter {
         })
         .catch(err => {
             console.log(err);
-            window.location = "./index.html";
+            window.location = "./";
         }); 
         /* 
             PENSER A AFFICHER UN MESSAGE D'ERREUR /!\ 
