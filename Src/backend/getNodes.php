@@ -34,6 +34,8 @@ function getNodes($id) {
     
             $ligne = mysqli_fetch_assoc($resultat); // Récupération du texte
             $algo->txt = utf8_encode($ligne['texte']);    // du theme demandé
+
+            mysqli_close($resultat);
     
             $nodes = array();
             
@@ -50,12 +52,21 @@ function getNodes($id) {
                 }
                 
                 $algo->nodes = $nodes;
-                //print_r($algo);
+
+                $conn = NULL;
+                $res = NULL;
+
                 print_r(json_encode($algo, JSON_UNESCAPED_UNICODE)); // On retourne $algo au format JSON
             } catch (Exception $e) {
                 print 'Error : '.$e->getMessage().'<br>';
             }
+            
+            
         }
+
+       
+        mysqli_close($connexion);
+
     }
 }
 

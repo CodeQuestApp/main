@@ -28,7 +28,10 @@
                 }
             }
         }
-        //print "problemm\n\n";
+        
+        mysqli_close($verifMail);
+        mysqli_close($conn);
+
         return FALSE; 
     }
 

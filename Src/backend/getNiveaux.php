@@ -24,7 +24,7 @@ function getNomTheme($id){
     $resultat = mysqli_query($connexion, $requete);     // exécution de la requête
 
     $ligne = mysqli_fetch_assoc($resultat); // Récupération du nom
-    $nom_theme = $ligne['nom'];             // du theme demandé
+    $nom_theme = utf8_encode($ligne['nom']);             // du theme demandé
 
     return $nom_theme;
 }
@@ -67,6 +67,7 @@ function getNiveaux() {
             array_push($Niveau->accessible,$item);          //
         }
 
+
         $dernierId = end($Niveau->accessible)->id;                              //  définition de la nouvelle limite en
         $nouvelleLimite = $limiteAffichage - count($Niveau->accessible);    //  fonction du nombre de vignettes disponibles
 
@@ -102,8 +103,12 @@ function getNiveaux() {
         
     }
 
-    return json_encode($Niveau); // on retourne l'objet niveau au format JSON
+    return json_encode($Niveau, JSON_UNESCAPED_UNICODE); // on retourne l'objet niveau au format JSON
 }
 
 echo getNiveaux();
+
+
+
+
 ?>
