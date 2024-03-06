@@ -33,6 +33,25 @@ fetch("./backend/getNiveaux.php?lim=9", { method: 'get' })
     .catch(err => console.log(err))
 
 
+fetch("./backend/verifSession.php", { method: 'get' })
+.then(res => res.json())
+.then(data => {
+    if (data.active == "true") {
+        let header = document.body.querySelector(".header__nav");
+        header.innerHTML = `<a href="#" class="header__btn" id="logout__btn">Se Déconnecter</a>`;
+
+        let btn_logout = document.body.querySelector("#logout__btn");
+
+        btn_logout.addEventListener('click', () => {
+            fetch("./backend/logout.php")
+            .then(location.reload())
+        });
+    }
+})
+
+
+
+
 
 
 
