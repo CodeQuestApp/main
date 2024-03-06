@@ -74,6 +74,7 @@
     border-radius: 1.2em;
     margin: 2% 0 0 0;
     transition: transform .2s ease-in-out;
+    cursor: not-allowed;
     filter: grayscale(0.7);
     &:hover {
         transform: scale(1);
