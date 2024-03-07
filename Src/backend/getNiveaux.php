@@ -8,6 +8,7 @@ $host = "lakartxela.iutbayonne.univ-pau.fr";        //
 $GLOBALS['connexion'] = mysqli_connect($host, $user, $pass, $bdd); // connexion à la BD en global pour pouvoir l'utiliser dans les différentes fonctions
 
 
+
 /*** getNomTheme ***\
  * 
  * description :  Permet de connaître l'intitulé 
@@ -17,17 +18,6 @@ $GLOBALS['connexion'] = mysqli_connect($host, $user, $pass, $bdd); // connexion 
  * output : nom du theme demandé
  * 
  * */
-function getNomTheme($id){
-    $connexion = $GLOBALS['connexion'];
-
-    $requete = "SELECT nom FROM THEME WHERE id=$id;";   // requête de récupération du nom du theme
-    $resultat = mysqli_query($connexion, $requete);     // exécution de la requête
-
-    $ligne = mysqli_fetch_assoc($resultat); // Récupération du nom
-    $nom_theme = utf8_encode($ligne['nom']);             // du theme demandé
-
-    return $nom_theme;
-}
 
 
 
@@ -45,6 +35,7 @@ function getNiveaux() {
     session_start();
 
     $connexion = $GLOBALS['connexion'];
+    $nom_theme = array("","C++","Python","HTML,CSS","C#","Algorithmique","Swift","Ruby");
     
     $Niveau =  new stdClass;        // Création d'un objet qui va contenir les infos d'un niveau
     $Niveau->accessible = array();  // liste contenant les niveaux disponibles
@@ -55,32 +46,43 @@ function getNiveaux() {
     // ------- Si l'utilisateur est connecté ------- \\
     if (isset($_SESSION['auth'])) {
         // requête récupérant les infos des niveaux disponibles pour un joueur
-        $requete = "SELECT * FROM NIVEAU WHERE id <= (SELECT MAX(id_niveau+1) FROM COMPLETER WHERE id_utilisateur = ". $_SESSION['auth'] ." ) OR id = 1 LIMIT $limiteAffichage;";
-        $resultat = mysqli_query($connexion, $requete); // exécution de la requête
+        $requete = "SELECT * FROM NIVEAU WHERE id <= (SELECT MAX(id_niveau+1) FROM COMPLETER WHERE id_utilisateur = ". $_SESSION['auth'] ." ) OR id = 1 LIMIT ?;";
 
-        while ($ligne = mysqli_fetch_assoc($resultat)){     //  
-            $item = new stdClass();                         //  Ajout des informations
-            $item->id =  $ligne['id'];                      //  des niveaux disponibles
-            $item->family = utf8_encode($ligne['nom']);     //  dans la liste accessible de
-            $item->difficulty =$ligne['difficulte'];        //  l'objet Niveau
-            $item->theme = getNomTheme($ligne['id_theme']); //
-            array_push($Niveau->accessible,$item);          //
+        $resultat = mysqli_prepare($connexion, $requete); // exécution de la requête
+        mysqli_stmt_bind_param($resultat, "s",  $limiteAffichage);
+        mysqli_stmt_execute($resultat);
+
+        mysqli_stmt_bind_result($resultat, $id, $nom, $difficulte, $score_max, $id_theme);
+
+        while ( mysqli_stmt_fetch($resultat)){      //  
+            $item = new stdClass();                 //  Ajout des informations
+            $item->id =  $id;                       //  des niveaux indisponibles
+            $item->family = utf8_encode($nom);      //  dans la liste accessible 
+            $item->difficulty = $difficulte;        //  de l'objet Niveau
+            $item->theme = $nom_theme[$id_theme];   //
+            array_push($Niveau->accessible,$item);  //
         }
+        
+        mysqli_stmt_close($resultat);
 
 
-        $dernierId = end($Niveau->accessible)->id;                              //  définition de la nouvelle limite en
+        $dernierId = end($Niveau->accessible)->id;                          //  définition de la nouvelle limite en
         $nouvelleLimite = $limiteAffichage - count($Niveau->accessible);    //  fonction du nombre de vignettes disponibles
 
-        $requete = "SELECT * FROM NIVEAU WHERE id > $dernierId LIMIT $nouvelleLimite;"; //  requête récupérant les infos des niveaux
-        $resultat = mysqli_query($connexion, $requete);                                 //  non disponibles pour un joueur et exécution de celle-ci
- 
-        while ($ligne = mysqli_fetch_assoc($resultat)){     //  
-            $item = new stdClass();                         //  Ajout des informations
-            $item->id =  $ligne['id'];                      //  des niveaux indisponibles
-            $item->family = utf8_encode($ligne['nom']);     //  dans la liste bloque de
-            $item->difficulty =$ligne['difficulte'];        //  l'objet Niveau
-            $item->theme = getNomTheme($ligne['id_theme']); //
-            array_push($Niveau->bloque,$item);              //
+        $requete = "SELECT * FROM NIVEAU WHERE id > $dernierId LIMIT ?;";   //  requête récupérant les infos des niveaux
+        $resultat = mysqli_prepare($connexion, $requete);                   // exécution de la requête
+        mysqli_stmt_bind_param($resultat, "s",  $limiteAffichage);
+        mysqli_stmt_execute($resultat);
+
+        mysqli_stmt_bind_result($resultat, $id, $nom, $difficulte, $score_max, $id_theme);
+
+        while ( mysqli_stmt_fetch($resultat)){      //  
+            $item = new stdClass();                 //  Ajout des informations
+            $item->id =  $id;                       //  des niveaux indisponibles
+            $item->family = utf8_encode($nom);      //  dans la liste bloque de
+            $item->difficulty = $difficulte;        //  l'objet Niveau
+            $item->theme = $nom_theme[$id_theme];   //
+            array_push($Niveau->bloque,$item);  //
         }
 
     }
@@ -89,17 +91,24 @@ function getNiveaux() {
 
         // l'utilisateur n'étant pas connecté tout les niveaux sont donc bloqués
 
-        $requete = "SELECT * FROM NIVEAU LIMIT $limiteAffichage;";  // récupération des infos pour un niveau
-        $resultat = mysqli_query($connexion, $requete);             // et exécution de la requête
+        $requete = "SELECT * FROM NIVEAU LIMIT ?;";  // récupération des infos pour un niveau
      
-        while ($ligne = mysqli_fetch_assoc($resultat)){     //  
+        $resultat = mysqli_prepare($connexion, $requete);
+        mysqli_stmt_bind_param($resultat, "s",  $limiteAffichage);
+        mysqli_stmt_execute($resultat);
+
+        mysqli_stmt_bind_result($resultat, $id, $nom, $difficulte, $score_max, $id_theme);
+
+        while ( mysqli_stmt_fetch($resultat)){     //  
             $item = new stdClass();                         //  Ajout des informations
-            $item->id =  $ligne['id'];                      //  des niveaux indisponibles
-            $item->family = utf8_encode($ligne['nom']);     //  dans la liste bloque de
-            $item->difficulty =$ligne['difficulte'];        //  l'objet Niveau
-            $item->theme = getNomTheme($ligne['id_theme']); //
+            $item->id =  $id;                      //  des niveaux indisponibles
+            $item->family = utf8_encode($nom);     //  dans la liste bloque de
+            $item->difficulty = $difficulte;        //  l'objet Niveau
+            $item->theme = $nom_theme[$id_theme]; //
             array_push($Niveau->bloque,$item);              //
         }
+
+        mysqli_stmt_close($resultat);
         
     }
 

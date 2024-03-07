@@ -41,7 +41,9 @@ function getNodes($id) {
                 
                 $conn = new PDO('mysql:host='.$host.';dbname='.$bdd,$user,$pass); // connexion à la BD
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $res = $conn->query("SELECT S.* FROM SOMMET S JOIN POSSEDER P ON S.id = P.id_sommet WHERE P.id_algorithme = $id;"); // requête qui récupère les infos sur les noeuds en BD
+                $res = $conn->prepare("SELECT S.* FROM SOMMET S JOIN POSSEDER P ON S.id = P.id_sommet WHERE P.id_algorithme = ?;"); // requête qui récupère les infos sur les noeuds en BD
+                $res->bindParam(1,$id);
+                $res->execute();
                 $res->setFetchMode(PDO::FETCH_OBJ);
     
                 while ($tuple = $res->fetch()) {
