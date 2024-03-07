@@ -26,8 +26,7 @@
         $requete = $conn->prepare("INSERT INTO UTILISATEUR VALUES(NULL, ?, ?)");
         $requete->bind_param("ss", $email, $password);
         $requete->execute();
-        $requete->close();
-        $connexion->close();
+        
 
         return TRUE;
     }
