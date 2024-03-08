@@ -34,7 +34,8 @@ function getNiveaux() {
 
     session_start();
 
-    $connexion = $GLOBALS['connexion'];
+    include './connexionBD.php';
+    
     $nom_theme = array("","C++","Python","HTML,CSS","C#","Algorithmique","Swift","Ruby");
     
     $Niveau =  new stdClass;        // Création d'un objet qui va contenir les infos d'un niveau
@@ -116,7 +117,7 @@ function getNiveaux() {
 }
 
 echo getNiveaux();
-
+mysqli_close($connexion);
 
 
 

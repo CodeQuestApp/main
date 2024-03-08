@@ -15,12 +15,8 @@ $id_niveau = $_GET['id'];
 function getNodes($id) {
 
     if (isset ($_SESSION['auth'])) {
-        $user = "adumolie_bd";                       //
-        $pass = "adumolie_bd";                       //  Infos pour la connexion 
-        $bdd = "adumolie_bd";                        //  à la BD
-        $host = "lakartxela.iutbayonne.univ-pau.fr"; //
-    
-        $connexion = mysqli_connect($host, $user, $pass, $bdd); // connexion à la BD
+       
+        include './connexionBD.php';
 
         //teste si l'utilisateur a accès à ce niveau
         $accesNiveau= "SELECT MAX(id) AS id_niv FROM NIVEAU WHERE id <=( SELECT MAX(id_niveau+1) FROM COMPLETER WHERE id_utilisateur = ".$_SESSION['auth'] . ") OR id=1; ";
@@ -62,9 +58,13 @@ function getNodes($id) {
             } 
         }
 
+        mysqli_close($connexion);
+
     }
 
 }
 
 getNodes($id_niveau); // appel de getNodes avec l'id du niveau demandé
+
+
 ?>
