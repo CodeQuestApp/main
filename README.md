@@ -12,15 +12,18 @@ informatique et en programmation.
 Plusieurs niveaux de difficulté sont proposés aux joueurs afin d’accompagner au mieux un débutant, 
 de consolider les connaissances d’un profil intermédiaire et de challenger les experts.
 
-## Aperçu d'un niveau du jeu
-![](./Specification/apercu-niveau.jpeg)
-
 ## Lien vers le prototype
-_ Le prototype n'est pas accessible pour des personnes extérieurs à l'IUT de Bayonne et du Pays Basque.
+***Le prototype n'est pas accessible pour des personnes extérieurs à l'IUT de Bayonne et du Pays Basque.***
 [Tester le prototype](http://lakartxela.iutbayonne.univ-pau.fr/~rlaborde003/index.html)
+
+## Tester le prototype via Docker
+`docker-compose up -d`
 
 ## Lien vers la documentation
 [Documentation](https://codequestapp.github.io/main/)
+
+## Aperçu d'un niveau du jeu
+![](./Specification/apercu-niveau.jpeg)
 
 ## Organisation des dossiers
 * Algorithmes :

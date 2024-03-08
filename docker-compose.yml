@@ -1,0 +1,29 @@
+version: '1'
+services:
+  web-env:
+    container_name: web 
+    build: Src
+    ports:
+      - 8000:80
+    networks:
+      - codequestnet
+    depends_on: 
+      - db-env
+    volumes:
+      - ./Src:/var/www/html/
+  db-env:
+    container_name: lakartxela.iutbayonne.univ-pau.fr
+    build: Db
+    restart: always
+    volumes:
+      - db-data:/docker-entrypoint-initdb.d/
+    networks:
+      - codequestnet
+    environment:
+      MARIADB_ROOT_PASSWORD: example
+      MARIADB_USER: adumolie_bd
+      MARIADB_PASSWORD: adumolie_bd
+volumes:
+  db-data: {}
+networks:
+  codequestnet: {}

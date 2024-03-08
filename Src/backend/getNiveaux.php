@@ -1,14 +1,4 @@
 <?php
-
-$user = "adumolie_bd";                              //
-$pass = "adumolie_bd";                              //  Infos pour la connexion 
-$bdd = "adumolie_bd";                               //  à la BD
-$host = "lakartxela.iutbayonne.univ-pau.fr";        //
-
-$GLOBALS['connexion'] = mysqli_connect($host, $user, $pass, $bdd); // connexion à la BD en global pour pouvoir l'utiliser dans les différentes fonctions
-
-
-
 /*** getNomTheme ***\
  * 
  * description :  Permet de connaître l'intitulé 
@@ -112,13 +102,10 @@ function getNiveaux() {
         mysqli_stmt_close($resultat);
         
     }
-
+    mysqli_close($connexion);
     return json_encode($Niveau, JSON_UNESCAPED_UNICODE); // on retourne l'objet niveau au format JSON
 }
 
 echo getNiveaux();
-mysqli_close($connexion);
-
-
 
 ?>

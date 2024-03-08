@@ -135,7 +135,7 @@ function isEmpty(input) {
 }
 
 const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-const pwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[?!%$@#+_\-&])[a-zA-Z\d?!%$@#+_\-&]{8,30}$/;
+const pwd = /^[a-zA-Z0-9?!&@#-_]{8,30}$/;
 let inputControlerMail;
 let inputControlerPwd;
 
