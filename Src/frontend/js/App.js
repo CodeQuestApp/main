@@ -27,6 +27,12 @@ const createLevelElement = (level) => {
         copy.querySelector("[data-type='level__ref']").setAttribute('id', "level" + element.id);
         copy.querySelector("[data-type='level__family']").textContent=element.family;
         copy.querySelector("[data-type='level__theme']").textContent=element.theme;
+
+        let padlockImg = document.createElement("img");
+        padlockImg.src = "./frontend/img/padlock.png";
+        padlockImg.setAttribute('class', "lock__icon");
+        copy.querySelector(".lock").appendChild(padlockImg);
+
         for (let i = 0; i < element.difficulty; i++) {
             let star = document.createElement("i");
             star.setAttribute("class", "fa-solid fa-star");

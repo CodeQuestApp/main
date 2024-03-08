@@ -35,14 +35,16 @@
         h2{
             text-align: center;
             font-size: 2em;
-            color: white;
+            color: $brown-color;
+            text-shadow: none;
+            border-style: none;
         }
         input{
             width: 100%;
             height: 50px;
             background-color: transparent;
             border: none;
-            border-bottom: solid 2px #ffffff;
+            border-bottom: solid 2px $brown-color;
             outline: none;
             color: #ffffff;
             font-size: 1.2em;
@@ -50,36 +52,47 @@
                 outline: none;
                 top: -63px;
             }
+            &::placeholder{
+                color: lightgrey;
+            }
         }
         i{
             position: relative;
             top: 39px;
             left: 95%;
-            color: white;
+            color: $brown-color;
+            text-shadow: none;
             z-index: 150;
         }
         button{
             height: 50px;
             width: 100%;
+            font-size: 1.2em;
+            text-shadow: none;
             background-color: rgba($color: #000000, $alpha: 0.4);
             border-radius: 25px;
             outline: none;
             border: none;
-            color: white;
+            color: whitesmoke;
         }
         label{
             position: relative;
             top: -32px;
             transition: ease .2s;
             z-index: -5516;
-            color: #ffffff;
+            color: $brown-color;
+            text-shadow: none;
+            font-weight: bold;
         }
         p{
             text-align: center;
-            color: #ffffff;
+            color: $brown-color;
+            text-shadow: none;
+            font-weight: bold;
         }
         a{
-            color: #ffffff;
+            color: $brown-color;
+            text-shadow: none;
             text-decoration: underline;
         }
     }

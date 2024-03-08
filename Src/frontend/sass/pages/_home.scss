@@ -75,11 +75,31 @@
     margin: 2% 0 0 0;
     transition: transform .2s ease-in-out;
     cursor: not-allowed;
-    filter: grayscale(0.7);
     &:hover {
         transform: scale(1);
         filter: brightness(1);
-        filter: grayscale(0.7);
-    }
-    
+    } 
+}
+
+.inaccessible .item__content{
+    filter: brightness(35%) blur(2px) grayscale(50%);
+}
+
+.lock{
+    width: 15em;
+    height: 19.2em;
+    position: absolute;
+}
+
+.lock__icon{
+    position: absolute;
+    top: calc(50% - 60px);
+    left: calc(50% - 100px);
+    z-index: 5;
+    filter: blur(0%);
+    text-shadow: none;
+    height: 120px;
+    width: 200px;
+    position: absolute;
+    pointer-events: none;
 }
