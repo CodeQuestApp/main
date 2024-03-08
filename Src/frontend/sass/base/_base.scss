@@ -3,7 +3,6 @@
     padding: 0;
     text-decoration: none;
     list-style-type: none;
-    font-family: 'MedievalSharp', cursive;
     text-shadow: 1px 1px 1px black, -1px 1px 1px black, 1px -1px 1px black, -1px -1px 1px black;
     color: #915028;
 }
@@ -15,4 +14,5 @@ body {
     display: flex;
     flex-direction: column;
     background: linear-gradient(to bottom, #80c2e2, #7bbdcd, #315b71);
+    font-family: $font-text;
 }
