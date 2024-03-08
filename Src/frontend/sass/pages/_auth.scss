@@ -46,14 +46,16 @@
             border: none;
             border-bottom: solid 2px $brown-color;
             outline: none;
-            color: #ffffff;
+            text-shadow: none;
+            color: $brown-color;
             font-size: 1.2em;
             &:focus~label{
                 outline: none;
                 top: -63px;
             }
             &::placeholder{
-                color: lightgrey;
+                color: #a57f72;
+                text-shadow: none;
             }
         }
         i{
