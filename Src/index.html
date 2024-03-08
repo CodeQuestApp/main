@@ -36,13 +36,13 @@
             <h2>Connexion</h2>
             <div class="login__input">
                 <i class="fa-solid fa-envelope" id="mail-icon"></i>
-                <input type="text" name="login-email" onkeydown="if(event.keyCode==32) return false;" id="login__input__email">
-                <label class="form-label label-mail" for="login-email">Email (obligatoire)</label>
+                <input type="text" name="login-email" onkeydown="if(event.keyCode==32) return false;" id="login__input__email" placeholder="">
+                <label class="form-label" for="login-email" id="label__login__email">Email (obligatoire)</label>
             </div>
             <div class="login__input">
                 <i class="fa-solid fa-key"></i>
                 <input type="password" name="login-password" onkeydown="if(event.keyCode==32) return false;" id="login__input__password">
-                <label class="form-label label-password" for="login-password">Mot de Passe (obligatoire)</label>
+                <label class="form-labe" for="login-password" id="label__login__password">Mot de Passe (obligatoire)</label>
             </div>
             <button id="valid-login" type="submit" class="login-register-btn">Se connecter</button>
             <p>Pas encore inscrit ? <a href="#" id="register__link">Inscris toi !</a></p> 
@@ -58,12 +58,12 @@
             <div class="register__input">
                 <i class="fa-solid fa-envelope"></i>
                 <input type="text" name="register-email" onkeydown="if(event.keyCode==32) return false;" id="register__input__email">
-                <label class="form-label label-mail" for="register-email">Email (obligatoire)</label>
+                <label class="form-label" for="register-email" id="label__register__email">Email (obligatoire)</label>
             </div>
             <div class="register__input">
                 <i class="fa-solid fa-key"></i>
-                <input type="password" name="register-password" onkeydown="if(event.keyCode==32) return false;" id="register__input__password">
-                <label class="form-label label-password" for="register-password">Mot de Passe (obligatoire)</label>
+                <input type="password" name="register-password" onkeydown="if(event.keyCode==32) return false;" id="register__input__password" placeholder="">
+                <label class="form-label" for="register-password" id="label__register__password">Mot de Passe (obligatoire)</label>
             </div>
             <div class="register__login">
                 <button type="submit" class="login-register-btn">S'inscrire</button>

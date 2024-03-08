@@ -4,17 +4,23 @@ let loginBtn = document.getElementById("login__btn");
 let registerBtn = document.getElementById("register__btn");
 let loginLink = document.getElementById("login__link");
 let registerLink = document.getElementById("register__link");
+
 let loginWrapper = document.getElementById("login");
 let registerWrapper = document.getElementById("register");
+
 let mask = document.getElementById("mask");
-let registerInput = document.querySelectorAll(".register__input");
-let labelInputMail = document.querySelectorAll(".label-mail");
-let labelInputPassword = document.querySelectorAll(".label-password");
+
+let loginLabelInputMail = document.getElementById("label__login__email");
+let loginLabelInputPassword = document.getElementById("label__login__password");
 let loginMailInput = document.getElementById("login__input__email");
 let loginPasswordInput = document.getElementById("login__input__password");
+
+let registerLabelInputMail = document.getElementById("label__register__email");
+let registerLabelInputPassword = document.getElementById("label__register__password");
 let registerMailInput = document.getElementById("register__input__email");
 let registerPasswordInput = document.getElementById("register__input__password");
-let emailIcon = document.getElementById("mail-icon")
+
+let emailIcon = document.getElementById("mail-icon");
 
 function appearElement(elt, zIndex){
     document.body.style.overflowY = "hidden";
@@ -67,19 +73,62 @@ registerLink.addEventListener('click', ()=> {
     appearElement(registerWrapper, 100);
 })
 
-
 loginMailInput.addEventListener("click", () => {
-    labelInputMail[0].style.top = '-62px';
-    loginMailInput.addEventListener("input", () => {
-        if (!isEmpty(loginMailInput)) {
-            labelInputMail[0].style.top = '-62px';
+    loginLabelInputMail.style.top = '-62px';
+    loginMailInput.placeholder = "Ex: xyz@mail.fr";
+    loginMailInput.addEventListener("focusout", () => {
+        if (loginMailInput.value) {
+            loginLabelInputMail.style.top = '-62px';
         }
         else{
-            labelInputMail[0].style.top = '-32px'
+            loginMailInput.placeholder = "";
+            loginLabelInputMail.style.top = '-32px';
         }
     })
 })
 
+loginPasswordInput.addEventListener("click", () => {
+    console.log("password input");
+    loginLabelInputPassword.style.top = '-62px';
+    loginPasswordInput.placeholder = "Ex: Tototutu@27841";
+    loginPasswordInput.addEventListener("focusout", () => {
+        if (loginPasswordInput.value) {
+            loginLabelInputPassword.style.top = '-62px';
+        }
+        else{
+            loginPasswordInput.placeholder = "";
+            loginLabelInputPassword.style.top = '-32px';
+        }
+    })
+})
+
+registerMailInput.addEventListener("click", () => {
+    registerLabelInputMail.style.top = '-62px';
+    registerMailInput.placeholder = "Ex: xyz@mail.fr";
+    registerMailInput.addEventListener("focusout", () => {
+        if (registerMailInput.value) {
+            registerLabelInputMail.style.top = '-62px';
+        }
+        else{
+            registerMailInput.placeholder = "";
+            registerLabelInputMail.style.top = '-32px';
+        }
+    })
+})
+
+registerPasswordInput.addEventListener("click", () => {
+    registerLabelInputPassword.style.top = '-62px';
+    registerPasswordInput.placeholder = "Ex: Tototutu@27841";
+    registerPasswordInput.addEventListener("focusout", () => {
+        if (registerPasswordInput.value) {
+            registerLabelInputPassword.style.top = '-62px';
+        }
+        else{
+            registerPasswordInput.placeholder = "";
+            registerLabelInputPassword.style.top = '-32px';
+        }
+    })
+})
 
 function isEmpty(input) {
     return input.value.trim() === '';
@@ -99,6 +148,8 @@ const checkFormIsComplete = () => {
     }
 }
 
+const loginDiv = document.querySelector(".login__input");
+
 loginMailInput.addEventListener("input", function(e) {
     if (emailRegex.test(e.target.value)) {
         loginMailInput.style.borderBottom = '2px solid green';
@@ -106,6 +157,7 @@ loginMailInput.addEventListener("input", function(e) {
         inputControlerMail = true;
     } else {
         loginMailInput.style.borderBottom = '2px solid red';
+        loginDiv.children[0].classList[1] = 'fa-circle-xmark';
         emailIcon.style.color = 'red';
         inputControlerMail = false;
     }
