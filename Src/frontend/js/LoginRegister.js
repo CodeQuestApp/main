@@ -42,6 +42,105 @@ let rcpwdIcon = document.getElementById("rcpwd-icon");
 let validRcpwd = document.getElementById("valid-rcpwd");
 let invalidRcpwd = document.getElementById("invalid-rcpwd");
 
+const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+const pwd = /^[a-zA-Z0-9\\?\\@\\#\\&\\!]{8,16}$/u;
+
+// Pour le control formulaire complet login
+let inputControlerMail = false;
+let inputControlerPwd = false;
+
+// Pour le control formulaire complet register
+let inputControlerRMail = false;
+let inputControlerRPwd = false;
+let inputControlerRcPwd = false;
+
+const allPlaceholderTxt = {
+    mail: "Ex: xyz@mail.fr",
+    pwd: "Ex: Tototutu@27841"
+};
+
+function displayInputPlaceholder(htmlInputElm, placeholderTxt) {
+    htmlInputElm.placeholder = placeholderTxt;
+}
+
+function resetPlaceholderValue(htmlInputElm) {
+    htmlInputElm.placeholder = "";
+}
+
+function displayInputLabel(htmlLabelElm) {
+    htmlLabelElm.style.top = '3px';
+}
+
+function hiddenInputLabel(htmlLabelElm) {
+    htmlLabelElm.style.top = '70px';
+}
+
+function resetLoginControls() {
+    inputControlerMail = false;
+    inputControlerPwd = false;
+}
+
+function resetRegisterControls() {
+    inputControlerRMail = false;
+    inputControlerRPwd = false;
+    inputControlerRcPwd = false;
+}
+
+function resetLoginFormStyle() {
+    lmailIcon.style.opacity = 1;
+    lpwdIcon.style.opacity = 1;
+
+    validLmail.style.opacity = 0;
+    invalidLmail.style.opacity = 0;
+    validLpwd.style.opacity = 0;
+    invalidLpwd.style.opacity = 0;
+
+    hiddenInputLabel(loginLabelInputMail);
+    hiddenInputLabel(loginLabelInputPassword);
+    
+    resetPlaceholderValue(loginMailInput);
+    resetPlaceholderValue(loginPasswordInput);
+}
+
+function resetRegisterFormStyle() {
+    rmailIcon.style.opacity = 1;
+    rpwdIcon.style.opacity = 1;
+    rcpwdIcon.style.opacity = 1;
+
+    validRmail.style.opacity = 0;
+    invalidRmail.style.opacity = 0;
+    invalidRpwd.style.opacity = 0;
+    validRpwd.style.opacity = 0;
+    validRcpwd.style.opacity = 0;
+    invalidRcpwd.style.opacity = 0;
+
+    hiddenInputLabel(registerLabelInputMail)
+    hiddenInputLabel(registerLabelInputPassword)
+    hiddenInputLabel(registerLabelInputPasswordConfirm);
+
+    resetPlaceholderValue(registerMailInput);
+    resetPlaceholderValue(registerPasswordInput);
+    resetPlaceholderValue(registerPasswordConfirmInput);
+}
+
+
+function checkLoginFormIsComplet() {
+    if (inputControlerMail && inputControlerPwd) {
+        document.getElementById("valid-login").removeAttribute("disabled");
+    } else {
+        document.getElementById("valid-login").setAttribute("disabled", true);
+    }
+}
+
+function checkRegisterFormIsComplet() {
+    if (inputControlerRMail && inputControlerRPwd 
+         && inputControlerRcPwd) {
+        document.getElementById("valid-register").removeAttribute("disabled");
+    } else {
+        document.getElementById("valid-register").setAttribute("disabled", true);
+    }
+}
+
 function appearElement(elt, zIndex){
     document.body.style.overflowY = "hidden";
     elt.style.zIndex = zIndex;
@@ -54,158 +153,201 @@ function disappearElement(elt, zIndex){
     elt.style.opacity = 0;
 }
 
+
+
+function animInput(htmlInputElm, htmlLabelElm, bool) {
+    if (bool) {
+        displayInputLabel(htmlLabelElm);
+    } else {
+        resetPlaceholderValue(htmlInputElm);
+        hiddenInputLabel(htmlLabelElm);
+    }
+}
+
+function resetAllLoginInputs() {
+    loginMailInput.value = "";
+    loginPasswordInput.value = "";
+}
+
+function resetAllRegisterInputs() {
+    registerMailInput.value = "";
+    registerPasswordConfirmInput.value = "";
+    registerPasswordInput.value = "";
+}
+
+
+
 loginWrapper.addEventListener('click', (e)=> {
     e.stopPropagation();
-    // disappearElement(mask, -99);
     if (e.target.id === "login") {
         disappearElement(registerWrapper,-100);
         disappearElement(loginWrapper, -101);
+        resetAllLoginInputs();
+        resetLoginFormStyle();
+        resetLoginControls();
+        checkLoginFormIsComplet();
     }
 })
 
 registerWrapper.addEventListener('click', (e)=> {
     e.stopPropagation();
-    // disappearElement(mask, -99);
     if (e.target.id === "register") {
         disappearElement(loginWrapper,-100);
         disappearElement(registerWrapper, -101);
+        resetAllRegisterInputs();
+        resetRegisterFormStyle();
+        resetRegisterControls();
+        checkRegisterFormIsComplet();
     }
 })
 
 loginQuit.addEventListener('click', ()=> {
-    // disappearElement(mask, -99);
     disappearElement(loginWrapper, -100);
+    resetAllLoginInputs();
+    resetLoginFormStyle();
+    resetLoginControls();
+    checkLoginFormIsComplet();
 })
 
 registerQuit.addEventListener('click', ()=> {
-    // disappearElement(mask, -99);
     disappearElement(registerWrapper,-100);
+    resetAllRegisterInputs();
+    resetRegisterFormStyle();
+    resetRegisterControls();
+    checkRegisterFormIsComplet();
 })
 
 loginBtn.addEventListener('click', ()=> {
-    // appearElement(mask, 99);
     disappearElement(registerWrapper, -100);
     appearElement(loginWrapper, 100);
+    resetAllRegisterInputs();
+    resetRegisterFormStyle();
+    resetRegisterControls();
+    checkRegisterFormIsComplet();
 })
 
 registerBtn.addEventListener('click', ()=> {
-    // appearElement(mask, 99);
     disappearElement(loginWrapper, -100);
     appearElement(registerWrapper, 100);
+    resetAllLoginInputs();
+    resetLoginFormStyle();
+    resetLoginControls();
+    checkLoginFormIsComplet()
 })
 
 loginLink.addEventListener('click', ()=> {
     disappearElement(registerWrapper, -100);
     appearElement(loginWrapper, 100);
+    resetAllRegisterInputs();
+    resetRegisterFormStyle();
+    resetRegisterControls();
+    checkRegisterFormIsComplet();
 })
 
 registerLink.addEventListener('click', ()=> {
     disappearElement(loginWrapper, -100);
     appearElement(registerWrapper, 100);
+    resetAllLoginInputs();
+    resetLoginFormStyle();
+    resetLoginControls();
+    checkLoginFormIsComplet();
 })
 
+/*
+    Login form
+*/ 
+
+// Gestion animation mail login form
 loginMailInput.addEventListener("click", () => {
-    loginLabelInputMail.style.top = '3px';
-    loginMailInput.placeholder = "Ex: xyz@mail.fr";
-    loginMailInput.addEventListener("focusout", () => {
-        if (loginMailInput.value) {
-            loginLabelInputMail.style.top = '3px';
-        }
-        else{
-            loginMailInput.placeholder = "";
-            loginLabelInputMail.style.top = '70px';
-        }
-    })
+    displayInputLabel(loginLabelInputMail);
+    displayInputPlaceholder(loginMailInput, allPlaceholderTxt["mail"]);
+})
+loginMailInput.addEventListener("focus", (e) => {
+    displayInputLabel(loginLabelInputMail);
+    displayInputPlaceholder(loginMailInput, allPlaceholderTxt["mail"]);
+})
+loginMailInput.addEventListener("focusout", () => {
+    animInput(
+        loginMailInput, 
+        loginLabelInputMail, 
+        loginMailInput.value
+    );
 })
 
+// Gestion animation mot de passe login form
 loginPasswordInput.addEventListener("click", () => {
-    loginLabelInputPassword.style.top = '3px';
-    loginPasswordInput.placeholder = "Ex: Tototutu@27841";
-    loginPasswordInput.addEventListener("focusout", () => {
-        if (loginPasswordInput.value) {
-            loginLabelInputPassword.style.top = '3px';
-        }
-        else{
-            loginPasswordInput.placeholder = "";
-            loginLabelInputPassword.style.top = '70px';
-        }
-    })
+    displayInputLabel(loginLabelInputPassword);
+    displayInputPlaceholder(loginPasswordInput, allPlaceholderTxt["pwd"]);
+})
+loginPasswordInput.addEventListener("focus", (e) => {
+    displayInputLabel(loginLabelInputPassword);
+    displayInputPlaceholder(loginPasswordInput, allPlaceholderTxt["pwd"]);
+})
+loginPasswordInput.addEventListener("focusout", (e) => {
+    console.log(e.target.value);
+    animInput(
+        loginPasswordInput, 
+        loginLabelInputPassword, 
+        loginPasswordInput.value
+    );
 })
 
+/*
+    Register form
+*/ 
+
+// Gestion animation mail register form
 registerMailInput.addEventListener("click", () => {
-    registerLabelInputMail.style.top = '3px';
-    registerMailInput.placeholder = "Ex: xyz@mail.fr";
-    registerMailInput.addEventListener("focusout", () => {
-        if (registerMailInput.value) {
-            registerLabelInputMail.style.top = '3px';
-        }
-        else{
-            registerMailInput.placeholder = "";
-            registerLabelInputMail.style.top = '70px';
-        }
-    })
+    displayInputLabel(registerLabelInputMail);
+    displayInputPlaceholder(registerMailInput, allPlaceholderTxt["mail"]);
+})
+registerMailInput.addEventListener("focus", (e) => {
+    displayInputLabel(registerLabelInputMail);
+    displayInputPlaceholder(registerMailInput, allPlaceholderTxt["mail"]);
+})
+registerMailInput.addEventListener("focusout", () => {
+    animInput(
+        registerMailInput, 
+        registerLabelInputMail, 
+        registerMailInput.value != ""
+    );
 })
 
+// Gestion animation mot de passe register form
 registerPasswordInput.addEventListener("click", () => {
-    registerLabelInputPassword.style.top = '3px';
-    registerPasswordInput.placeholder = "Ex: Tototutu@27841";
-    registerPasswordInput.addEventListener("focusout", () => {
-        if (registerPasswordInput.value) {
-            registerLabelInputPassword.style.top = '3px';
-        }
-        else{
-            registerPasswordInput.placeholder = "";
-            registerLabelInputPassword.style.top = '70px';
-        }
-    })
+    displayInputLabel(registerLabelInputPassword);
+    displayInputPlaceholder(registerPasswordInput, allPlaceholderTxt["pwd"]);
+})
+registerPasswordInput.addEventListener("focus", (e) => {
+    displayInputLabel(registerLabelInputPassword);
+    displayInputPlaceholder(registerPasswordInput, allPlaceholderTxt["pwd"]);
+})
+registerPasswordInput.addEventListener("focusout", () => {
+    animInput(
+        registerPasswordInput, 
+        registerLabelInputPassword, 
+        registerPasswordInput.value != ""
+    );
 })
 
+// Gestion animation confirmation mot de passe register form
 registerPasswordConfirmInput.addEventListener("click", () => {
-    registerLabelInputPasswordConfirm.style.top = '3px';
-    registerPasswordConfirmInput.placeholder = "Ex: Tototutu@27841";
-    registerPasswordConfirmInput.addEventListener("focusout", () => {
-        if (registerPasswordConfirmInput.value) {
-            registerLabelInputPasswordConfirm.style.top = '3px';
-        }
-        else{
-            registerPasswordConfirmInput.placeholder = "";
-            registerLabelInputPasswordConfirm.style.top = '70px';
-        }
-    })
+    displayInputLabel(registerLabelInputPasswordConfirm);
+    displayInputPlaceholder(registerPasswordConfirmInput, allPlaceholderTxt["pwd"]);
+})
+registerPasswordConfirmInput.addEventListener("focus", (e) => {
+    displayInputLabel(registerLabelInputPasswordConfirm);
+    displayInputPlaceholder(registerPasswordConfirmInput, allPlaceholderTxt["pwd"]);
+})
+registerPasswordConfirmInput.addEventListener("focusout", () => {
+    animInput(
+        registerPasswordConfirmInput, 
+        registerLabelInputPasswordConfirm, 
+        registerPasswordConfirmInput.value != ""
+    );
 })
 
-function isEmpty(input) {
-    return input.value.trim() === '';
-}
 
-const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-const pwd = /^[a-zA-Z0-9\\?\\@\\#\\&\\!]{8,16}$/u;
-let inputControlerMail = false;
-let inputControlerPwd = false;
-
-// Pour le control formulaire complet register
-let inputControlerRMail = false;
-let inputControlerRPwd = false;
-let inputControlerRcPwd = false;
-
-const checkLoginFormIsComplet = () => {
-    if (inputControlerMail && inputControlerPwd) {
-        document.getElementById("valid-login").removeAttribute("disabled");
-    } else {
-        document.getElementById("valid-login").setAttribute("disabled", true);
-    }
-}
-
-const checkRegisterFormIsComplet = () => {
-    if (inputControlerRMail && inputControlerRPwd 
-         && (inputControlerRPwd === inputControlerRcPwd)) {
-        document.getElementById("valid-register").removeAttribute("disabled");
-    } else {
-        document.getElementById("valid-register").setAttribute("disabled", true);
-    }
-}
-
-const loginDiv = document.querySelector(".login__input");
 
 loginMailInput.addEventListener("input", function(e) {
     lmailIcon.style.opacity = 0;
@@ -230,12 +372,10 @@ loginPasswordInput.addEventListener("input", (e) => {
     inputControlerPwd = pwd.test(e.target.value);
     if (inputControlerPwd) {
         loginPasswordInput.style.borderBottom = '2px solid green';
-        //emailIcon.style.color = 'green';
         invalidLpwd.style.opacity = 0;
         validLpwd.style.opacity = 1;
     } else {
         loginPasswordInput.style.borderBottom = '2px solid red';
-        //emailIcon.style.color = 'red';
         validLpwd.style.opacity = 0;
         invalidLpwd.style.opacity = 1;
     }
@@ -280,7 +420,7 @@ registerPasswordConfirmInput.addEventListener("input", (e) => {
     e.stopPropagation();
     e.preventDefault();
     rcpwdIcon.style.opacity = 0;
-    inputControlerRcPwd = pwd.test(e.target.value);
+    inputControlerRcPwd = registerPasswordInput.value === e.target.value;
     if (inputControlerRcPwd) {
         registerPasswordConfirmInput.style.borderBottom = '2px solid green';
         invalidRcpwd.style.opacity = 0;

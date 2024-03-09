@@ -15,3 +15,9 @@
         @content;
     }
 }
+
+@mixin mobile-only-landscape {
+    @media screen and (max-width: 719px) and (orientation:landscape) {
+        @content;
+    }
+}

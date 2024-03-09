@@ -54,6 +54,7 @@ class LvlAlgoPresenter {
             this._view.bindDropZones(this.handleDropZones);
             this._view.bindDropNodes(this.handleDropNodes);
             this._view.bindClickStart(this.handleClickStart);
+            this._view.bindWindowResize(this.handleResize);
         })
         .catch(err => {
             console.log(err);
@@ -62,6 +63,12 @@ class LvlAlgoPresenter {
         /* 
             PENSER A AFFICHER UN MESSAGE D'ERREUR /!\ 
         */
+    }
+
+    handleResize = _ => {
+        this._view.eraseMap();
+        this._view.resizeMap();
+        drawGrid(this._view.map, this._view.mapCtx, this._view.caseSize);
     }
 
     /**

@@ -68,8 +68,9 @@ fetch("./backend/verifSession.php", { method: 'get' })
         let btn_logout = document.body.querySelector("#logout__btn");
 
         btn_logout.addEventListener('click', () => {
-            fetch("./backend/logout.php")
-            .then(location.reload())
+            location.href = "./backend/logout.php";
+            // fetch("./backend/logout.php")
+            // .then(location.reload())
         });
     }
 })

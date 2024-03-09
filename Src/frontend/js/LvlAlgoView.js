@@ -34,6 +34,12 @@ class LvlAlgoView {
         eraseCanvas(this._map, this._mapCtx);
     }
 
+    resizeMap() {
+        this._map.width = window.innerWidth*.3;
+        this._map.height = window.innerHeight;
+        this._caseSize = this._map.width*.1;
+    }
+
     /**
      * @description ...
      */
@@ -186,6 +192,20 @@ class LvlAlgoView {
             handerClickStart(e);
         })
     } 
+
+    /**
+     * 
+     * @param {*} handlerResize 
+     */
+    bindWindowResize(handlerResize) {
+        window.addEventListener("resize", (e) => {
+            if (window.innerHeight < window.innerWidth) {
+                console.log("mobile-landscape");
+            } else {
+                handlerResize();
+            }
+        })
+    }   
 
     /**
      * @description ...
