@@ -7,31 +7,37 @@
         
         <link rel="stylesheet" href="./frontend/css/style.css">
         <!-- <link rel="stylesheet" href="./frontend/css/prefixed/style.css"> -->
-        <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/background.jpg" type="image/jpg">
         <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/symboles.png" type="image/png">
         <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/perso.png" type="image/png">
         <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/mapBorder.png" type="image/png">
         <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/mapGround.png" type="image/png">
     </head>
     <body id="level-body">
-        <img id="bg-img" src="./frontend/img/background.jpg" alt="" srcset="">
-        <canvas id="map"></canvas>
-        <img id="map__border" src="./frontend/img/mapBorder.png" alt="" srcset="">
-        <canvas id="draw"></canvas>
-        <div id="graphic-nodes__wrapper"></div>
-        <div id="graphic-dropzone__wrapper"></div>
-        <img id="perso" src="./frontend/img/perso.png" alt="" srcset="">
-        <footer id="level-footer">
-            <div id="t2" class="txt__wrapper">
-                <p id="txt"></p>
-                <button id="txt__btn">&rarr;</button>
-            </div>
-            <nav id="level-nav">
-                <button id="start" disabled>Exécuter</button>
-                <a href="./" id="exit">Quitter</a>
-            </nav>
-        </footer>
-        
+        <div id="game-zone">
+            <header id="level-header">
+                <p id="title-1">Les instructions</p>
+                <div id="graphic-nodes__wrapper"></div>
+            </header>
+            <p id="title-2">L'arbre d'instructions</p>
+            <canvas id="draw"></canvas>
+            <div id="graphic-dropzone__wrapper"></div>
+            <img id="perso" src="./frontend/img/perso.png" alt="Sorcier vêtu de rouge">
+            <footer id="level-footer">
+                <div id="t2" class="txt__wrapper">
+                    <p id="txt"></p>
+                    <button title="Afficher la suite" id="txt__btn">&rarr;</button>
+                </div>
+                <nav id="level-nav">
+                    <button id="start" disabled>Exécuter</button>
+                    <a href="./" id="exit">Quitter</a>
+                </nav>
+            </footer>
+        </div>
+        <div id="map-zone">
+            <p id="title-3">Visualisation de l'exécution</p>
+            <canvas id="map"></canvas>
+            <img id="map__border" src="./frontend/img/mapBorder.png" alt="Cadre en bois">
+        </div>
 
         <!-- Scripts js-->
         <script src="./frontend/js/Utilities.js"></script>

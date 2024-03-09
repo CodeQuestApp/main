@@ -54,21 +54,11 @@ class LvlAlgoPresenter {
             this._view.bindDropZones(this.handleDropZones);
             this._view.bindDropNodes(this.handleDropNodes);
             this._view.bindClickStart(this.handleClickStart);
-            this._view.bindWindowResize(this.handleResize);
         })
         .catch(err => {
             console.log(err);
             window.location = "./";
         }); 
-        /* 
-            PENSER A AFFICHER UN MESSAGE D'ERREUR /!\ 
-        */
-    }
-
-    handleResize = _ => {
-        this._view.eraseMap();
-        this._view.resizeMap();
-        drawGrid(this._view.map, this._view.mapCtx, this._view.caseSize);
     }
 
     /**
@@ -103,6 +93,14 @@ class LvlAlgoPresenter {
      * @param {*} val 
      */
     handleDropZones = val => {
+        setTimeout(() => {
+            if (this._view.graphicNodesIsEmpty) {
+                this._view.enableStartBtn()
+            } else {
+                this._view.disableStartBtn();
+            }
+        },300)
+
         if (this._view.addElementOnZone(val, this._movedNodeId, this._movedNodeWrapperId)) {
             if (this._view.graphicNodesIsEmpty) {
                 this._view.enableStartBtn(); 
@@ -128,6 +126,8 @@ class LvlAlgoPresenter {
             drawGrid(this._view.map, this._view.mapCtx, this._view.caseSize);
             this._model.character.resetPosition();
         }
+
+        this._view.disableStartBtn();
 
         this._view.addElementOnNodesWrapper(
             this._movedNodeId, 

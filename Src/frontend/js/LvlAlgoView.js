@@ -16,7 +16,7 @@ class LvlAlgoView {
         this._map.lineWidth = 1;
 
         this._margin = 8;
-        this._dropZoneSize = 42; 
+        this._dropZoneSize = window.innerWidth*.035; 
         this._caseSize = this._map.width*.1;
     }
 
@@ -69,6 +69,7 @@ class LvlAlgoView {
         
         dropZone.style.left = `${(Number(dropZone.style.left.split("px")[0])+18) - (width/2)}px`;
         dropZone.style.top = `${(Number(dropZone.style.top.split("px")[0])+18) - (height/2)}px`;
+        dropZone.style.outline = "2px solid #1c1c1c";
     }
 
     /**
@@ -80,6 +81,7 @@ class LvlAlgoView {
 
         currentNodeWrapper.style.left = currentNodeWrapper.getAttribute("data-x");
         currentNodeWrapper.style.top = currentNodeWrapper.getAttribute("data-y");
+        currentNodeWrapper.style.outline = "2px solid #1c1c1c";
         
         this._allGraphicNodes.appendChild(currentNode);
     }
@@ -104,6 +106,9 @@ class LvlAlgoView {
             if (nodeWrapperId !== zoneId) {
                 currentNodeWrapper.style.left = currentNodeWrapper.getAttribute("data-x");
                 currentNodeWrapper.style.top = currentNodeWrapper.getAttribute("data-y");
+                if (currentNodeWrapper.id !== "graphic-nodes__wrapper") {
+                    currentNodeWrapper.style.outline = "2px solid #1c1c1c";
+                }
             }
             this.centerDropZone(dropZone, currentNode);
             dropZone.appendChild(currentNode);
@@ -175,11 +180,23 @@ class LvlAlgoView {
      */
     bindDropZones(handlerDropZones) {
         for (const dropZone of this._allGraphicDropZones.children) {
+            dropZone.addEventListener("dragover", (e) => {
+                dropZone.style.transform = "scale(1.12)";
+                dropZone.style.filter = "brightness(1.4)";
+            })
+            dropZone.addEventListener("dragleave", (e) => {
+                dropZone.style.transform = "scale(1)";
+                dropZone.style.filter = "brightness(1)";
+            })
             dropZone.addEventListener("drop", function(e) {
                 e.preventDefault(); 
                 e.stopPropagation();
                 handlerDropZones(e.target.id);
+                dropZone.style.outline = "none";
+                dropZone.style.transform = "scale(1)";
+                dropZone.style.filter = "brightness(1)";
             });
+
         }
     }
 
@@ -190,20 +207,6 @@ class LvlAlgoView {
     bindClickStart(handerClickStart) {
         this._startAnimBtn.addEventListener("click", function(e) {
             handerClickStart(e);
-        })
-    } 
-
-    /**
-     * 
-     * @param {*} handlerResize 
-     */
-    bindWindowResize(handlerResize) {
-        window.addEventListener("resize", (e) => {
-            if (window.innerHeight < window.innerWidth) {
-                console.log("mobile-landscape");
-            } else {
-                handlerResize();
-            }
         })
     }   
 
@@ -244,7 +247,7 @@ class LvlAlgoView {
     createGraphicDropZone(x, y, id) {
         // Création de la zone de drop et paramétrage de ses attributs
         let dropZone = document.createElement("div");
-        dropZone.setAttribute("class", "dropZone");
+        dropZone.setAttribute("class", "dropZone notdrop");
         dropZone.setAttribute("id", `dz-${id}`);
         dropZone.setAttribute("data-x",`${(x - (this._dropZoneSize/2))}px`);
         dropZone.setAttribute("data-y",`${y - (this._dropZoneSize/2)}px`);
@@ -252,7 +255,8 @@ class LvlAlgoView {
         // Placer les dropzones sur l'interface
         dropZone.style.top = `${(y - (this._dropZoneSize/2))}px`;
         dropZone.style.left = `${(x - (this._dropZoneSize/2))}px`;
-
+        dropZone.style.minWidth = `${this._dropZoneSize}px`;
+        dropZone.style.minHeight = `${this._dropZoneSize}px`;
         // Ajouter à allGraphicDropZones la zone de drop
         this._allGraphicDropZones.appendChild(dropZone);
     }

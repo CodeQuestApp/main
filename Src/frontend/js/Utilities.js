@@ -104,16 +104,16 @@ function drawLinkBetweenNodes(ctx, nodeArray, node) {
             // Simple decomposition
             drawLine(
                 ctx,
-                ((node.allCoord[i] + (node.clickArea[i]/2|0)) - DRAWING_MARGIN_1), 
+                node.x - DRAWING_MARGIN_1, 
                 node.y + (node.height/2|0) + DRAWING_MARGIN_1,
                 nodeArray[node.output[i][0]].x - DRAWING_MARGIN_1, 
                 (nodeArray[node.output[i][0]].y - (nodeArray[node.output[i][0]].height/2|0) + DRAWING_MARGIN_1)
             );
 
-            if (node.type !== 204 && node.type !== 206) {
+            if (node.type === 208) {
                 drawLine(
                     ctx,
-                    (node.allCoord[i] + (node.clickArea[i]/2|0)) + DRAWING_MARGIN_1, 
+                    node.x + DRAWING_MARGIN_1, 
                     node.y + (node.height/2|0) + DRAWING_MARGIN_1,
                     nodeArray[node.output[i][0]].x + DRAWING_MARGIN_1, 
                     (
@@ -140,17 +140,17 @@ function drawLinkBetweenNodes(ctx, nodeArray, node) {
             } else {
                 drawLine(
                     ctx,
-                    (node.allCoord[i] + (node.clickArea[i]/2|0)) - DRAWING_MARGIN_1, 
+                    node.x - DRAWING_MARGIN_1, 
                     node.y + (node.height/2|0) + DRAWING_MARGIN_1,
-                    (node.allCoord[i] + (node.clickArea[i]/2|0)) - DRAWING_MARGIN_1, 
+                    node.x - DRAWING_MARGIN_1, 
                     node.y + (node.height/2|0) + (DRAWING_MARGIN_1 * 10)
                 );
 
                 drawLine(
                     ctx,
-                    (node.allCoord[i] + (node.clickArea[i]/2|0)) + DRAWING_MARGIN_1, 
+                    node.x + DRAWING_MARGIN_1, 
                     node.y + (node.height/2|0) + DRAWING_MARGIN_1,
-                    (node.allCoord[i] + (node.clickArea[i]/2|0)) + DRAWING_MARGIN_1, 
+                    node.x + DRAWING_MARGIN_1, 
                     node.y + (node.height/2|0) + (DRAWING_MARGIN_1 * 10)
                 );
 
@@ -189,7 +189,8 @@ function drawLinkBetweenNodes(ctx, nodeArray, node) {
  */
 function transformDataFromBD(data) {
     return {
-        id: data.id,x: Number(data.coordX),y: Number(data.coordY),
+        id: data.id,x: (((window.innerWidth*.88)*Number(data.coordX))/1440)|0,
+        y: (((window.innerHeight)*Number(data.coordY))/790)|0,
         txt: JSON.parse(data.texte),type: data.type,
         height: Number(data.hauteur),width: Number(data.largeur),
         output: JSON.parse(data.sortie),allCoord: JSON.parse(data.coords),
