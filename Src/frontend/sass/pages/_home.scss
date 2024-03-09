@@ -12,11 +12,20 @@
     display: flex;
     flex-wrap: wrap;
     width: 90%;
+    height: fit-content;
     justify-content: center;
     gap: 4%;
     @include mobile-only {
         gap: 1%;
     }
+}
+
+#item__model {
+    position: absolute;
+}
+
+.item, .inaccessible {
+    position: relative;
 }
 
 
@@ -85,6 +94,10 @@
     filter: brightness(80%) blur(2px) grayscale(30%);
 }
 
+.inaccessible:hover {
+    animation: shake .3s ease-in-out;
+}
+
 .lock{
     width: 15em;
     height: 19.2em;
@@ -102,4 +115,9 @@
     width: 200px;
     position: absolute;
     pointer-events: none;
+}
+
+.item__title {
+    color: #ffffc7;
+    text-align: center;
 }

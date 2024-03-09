@@ -1,23 +1,37 @@
+
+#mask{
+    display: none;
+}
+
+#register {
+    display: none;
+}
 #login, #register{
-    position: absolute;
-    background: url("../img/login-wrapper.png") no-repeat;
-    background-size: 100% 100%;
-    padding: 1% 0 0 0;
-    $height:50vh;
-    $width:20vw;
-    height: calc(var($height) - 1%);
-    width: $width;
-    top: 13%;
-    left: calc(50% - $width/2);
-    border-radius: 20px;
+    position: fixed;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__content {
+        background: url("../img/login-wrapper.png") no-repeat;
+        background-size: 100% 100%;
+        padding: 1% 0 0 0;
+        height: fit-content;
+        max-width: 400px;
+        border-radius: 20px;
+        position: relative;
+    }
     &__close{
         background: transparent;
         color: #ffffff;
         border: none;
         font-size: 1.5em;
-        position: relative;
+        position: absolute;
         top: 4%;
-        left: 90%;
+        right: 30px;
         transition: ease .1s;
         &:hover{
             transform: scale(1.2);
@@ -58,14 +72,6 @@
                 text-shadow: none;
             }
         }
-        i{
-            position: relative;
-            top: 39px;
-            left: 95%;
-            color: $brown-color;
-            text-shadow: none;
-            z-index: 150;
-        }
         button{
             height: 50px;
             width: 100%;
@@ -78,10 +84,11 @@
             color: whitesmoke;
         }
         label{
-            position: relative;
-            top: -32px;
+            position: absolute;
+            top: 70px;
+            left: 0;
             transition: ease .2s;
-            z-index: -5516;
+            // z-index: -5516;
             color: $brown-color;
             text-shadow: none;
             font-weight: bold;
@@ -100,10 +107,63 @@
     }
 }
 
-#mask{
-    position: absolute;
-    background-color: rgba($color: #000000, $alpha: 0.4);
+.login__input, .register__input {
+    position: relative;
+    overflow: hidden;
+    height: 70px;
     width: 100%;
-    height: 100%;
-    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: end;
+}
+
+#lmail-icon-wrapper, 
+#lpwd-icon-wrapper,
+#rmail-icon-wrapper, 
+#rpwd-icon-wrapper,
+#rcpwd-icon-wrapper {
+    position: absolute;
+    bottom: 0;
+    right: 2px;
+    color: $brown-color;
+    text-shadow: none;
+    z-index: 150;
+    width: 25px;
+    height: 50px;
+    & i {
+        position: absolute;
+        left: 0;
+        top: 20px;
+        text-shadow: none;
+      font-weight: bold;
+    }
+}
+#lmail-icon, #lpwd-icon,
+#rmail-icon, #rpwd-icon, #rcpwd-icon {
+    opacity: 1;
+    z-index: 1;
+    color: $brown-color;
+}
+#valid-lmail, #valid-lpwd,
+#valid-rmail, #valid-rpwd, #valid-rcpwd {
+    opacity: 0;
+    z-index: 2;
+    color: green;
+}
+#invalid-lmail, #invalid-lpwd,
+#invalid-rmail, #invalid-rpwd, #invalid-rcpwd {
+    opacity: 0;
+    z-index: 3;
+    color: red;
+}
+
+#valid-login, #valid-register {
+    transition: transform .3s ease-in-out;
+}
+#valid-login:not(:disabled):hover,
+#valid-register:not(:disabled):hover {
+    transform: scale(1.05);
+}
+#valid-login:disabled,
+#valid-register:disabled {
+    opacity: .4;
 }

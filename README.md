@@ -18,6 +18,7 @@ de consolider les connaissances d’un profil intermédiaire et de challenger le
 
 ## Tester le prototype via Docker
 `docker-compose up -d`
+***L'application est disponible sur localhost:8000***
 
 ## Lien vers la documentation
 [Documentation](https://codequestapp.github.io/main/)

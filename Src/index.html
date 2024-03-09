@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeQuestApp</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./frontend/css/style.css">
     <!-- <link rel="stylesheet" href="./frontend/css/prefixed/style.css"> -->
     <meta name="description" content="CodeQuestApp est un jeu ludique pour apprendre les concepts de l'informatique">
     <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/backgroundHeader.png" type="image/png">
-    <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/levelBg.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
@@ -27,51 +27,80 @@
     </header>
     <img src="./frontend/img/backgroundHeader.png" class="header__img" alt="Dessin de château">
 
-    <!-- Login wrapper -->
-    <div id="login" style="z-index: -100;opacity: 0;">
-        <button id="login__close" class="quit">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <form action="backend/connexion.php" method="post" id="login__form">
-            <h2>Connexion</h2>
-            <div class="login__input">
-                <i class="fa-solid fa-envelope" id="mail-icon"></i>
-                <input type="text" name="login-email" onkeydown="if(event.keyCode==32) return false;" id="login__input__email" placeholder="">
-                <label class="form-label" for="login-email" id="label__login__email">Email (obligatoire)</label>
-            </div>
-            <div class="login__input">
-                <i class="fa-solid fa-key"></i>
-                <input type="password" name="login-password" onkeydown="if(event.keyCode==32) return false;" id="login__input__password">
-                <label class="form-labe" for="login-password" id="label__login__password">Mot de Passe (obligatoire)</label>
-            </div>
-            <button id="valid-login" type="submit" class="login-register-btn">Se connecter</button>
-            <p>Pas encore inscrit ? <a href="#" id="register__link">Inscris toi !</a></p> 
-        </form>
-    </div>
+    
     <!-- Register wrapper -->
     <div id="register" style="z-index: -100;opacity: 0;">
-        <button id="register__close" class="quit">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <form action="backend/inscription.php" method="post" id="register__form">
-            <h2>Inscription</h2>
-            <div class="register__input">
-                <i class="fa-solid fa-envelope"></i>
-                <input type="text" name="register-email" onkeydown="if(event.keyCode==32) return false;" id="register__input__email">
-                <label class="form-label" for="register-email" id="label__register__email">Email (obligatoire)</label>
-            </div>
-            <div class="register__input">
-                <i class="fa-solid fa-key"></i>
-                <input type="password" name="register-password" onkeydown="if(event.keyCode==32) return false;" id="register__input__password" placeholder="">
-                <label class="form-label" for="register-password" id="label__register__password">Mot de Passe (obligatoire)</label>
-            </div>
-            <div class="register__login">
-                <button type="submit" class="login-register-btn">S'inscrire</button>
-                <p>Déjà inscrit ? <a href="#" id="login__link">Connecte toi !</a></p> 
-            </div>
-        </form>
+        <div id="register__content">
+            <button id="register__close" class="quit">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <form action="backend/inscription.php" method="post" id="register__form">
+                <h2>Inscription</h2>
+                <div class="register__input">
+                    <div id="rmail-icon-wrapper">
+                        <i class="fa-regular fa-envelope" id="rmail-icon"></i>
+                        <i class="fa-regular fa-circle-check" id="valid-rmail"></i>
+                        <i class="fa-regular fa-circle-xmark" id="invalid-rmail"></i>
+                    </div>
+                    <input type="text" name="register-email" id="register__input__email">
+                    <label class="form-label" for="register-email" id="label__register__email">Email (obligatoire)</label>
+                </div>
+                <div class="register__input">
+                    <div id="rpwd-icon-wrapper">
+                        <i class="fa-solid fa-key" id="rpwd-icon"></i>
+                        <i class="fa-regular fa-circle-check" id="valid-rpwd"></i>
+                        <i class="fa-regular fa-circle-xmark" id="invalid-rpwd"></i>
+                    </div>
+                    <input type="password" name="register-password" id="register__input__password" placeholder="">
+                    <label class="form-label" for="register-password" id="label__register__password">Mot de Passe (obligatoire)</label>
+                </div>
+                <div class="register__input">
+                    <div id="rcpwd-icon-wrapper">
+                        <i class="fa-solid fa-key" id="rcpwd-icon"></i>
+                        <i class="fa-regular fa-circle-check" id="valid-rcpwd"></i>
+                        <i class="fa-regular fa-circle-xmark" id="invalid-rcpwd"></i>
+                    </div>
+                    <input type="password-confirm" name="register-password-confirm" id="register__input__password-confirm" placeholder="">
+                    <label class="form-label" for="register-password-confirm" id="label__register__password-confirm">Mot de Passe (obligatoire)</label>
+                </div>
+                <div class="register__login">
+                    <button id="valid-register" type="submit" class="login-register-btn" disabled>S'inscrire</button>
+                    <p>Déjà inscrit ? <a href="#" id="login__link">Connecte toi !</a></p> 
+                </div>
+            </form>
+        </div>
     </div>
-    <div id="mask" style="z-index: -100;opacity: 0;"></div>
+    <!-- Login wrapper -->
+    <div id="login" style="z-index: -100;opacity: 0;">
+        <div id="login__content">
+            <button id="login__close" class="quit">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <form action="backend/connexion.php" method="post" id="login__form">
+                <h2>Connexion</h2>
+                <div class="login__input">
+                    <div id="lmail-icon-wrapper">
+                        <i class="fa-regular fa-envelope" id="lmail-icon"></i>
+                        <i class="fa-regular fa-circle-check" id="valid-lmail"></i>
+                        <i class="fa-regular fa-circle-xmark" id="invalid-lmail"></i>
+                    </div>
+                    <input type="text" name="login-email" id="login__input__email" placeholder="">
+                    <label class="form-label" for="login-email" id="label__login__email">Email (obligatoire)</label>
+                </div>
+                <div class="login__input">
+                    <div id="lpwd-icon-wrapper">
+                        <i class="fa-solid fa-key" id="lpwd-icon"></i>
+                        <i class="fa-regular fa-circle-check" id="valid-lpwd"></i>
+                        <i class="fa-regular fa-circle-xmark" id="invalid-lpwd"></i>
+                    </div>
+                    <input type="password" name="login-password" id="login__input__password">
+                    <label class="form-label" for="login-password" id="label__login__password">Mot de Passe (obligatoire)</label>
+                </div>
+                <button id="valid-login" type="submit" class="login-register-btn" disabled>Se connecter</button>
+                <p>Pas encore inscrit ? <a href="#" id="register__link">Inscris toi !</a></p> 
+            </form>
+        </div>
+    </div>
     <!-- Main content -->
     <main id="main">
         <!-- Cartes niveaux wrapper -->

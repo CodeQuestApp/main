@@ -45,6 +45,8 @@ const createLevelElement = (level) => {
             
         }
         document.getElementById("section").appendChild(copy);
+        document.getElementById("level" + element.id)
+                .addEventListener("click", (e) => e.preventDefault());
     });
 }
 
