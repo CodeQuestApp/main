@@ -61,3 +61,13 @@
         }
     }
 }
+
+#logout__btn {
+    width: 40%;
+    @include tablet-only {
+        width: 50%;
+    }
+    @include mobile-only {
+        width: 50%;
+    }
+}

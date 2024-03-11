@@ -210,13 +210,6 @@ class Issue extends Node {
             }
         }
 
-        this._context.strokeRect(
-            4 + dataSize, 
-            4, 
-            (this.size[1])|0, 
-            this.height
-        );
-
         for (let i = 0; i < this.txt[1].length; i++) {
             this._context.fillText(
                 `${this.txt[1][i]}`, 
@@ -385,13 +378,6 @@ class Switch extends Node {
      * Draw the node on canvas context.
      */
     draw() {
-        this._context.strokeRect(
-            (this.x - ((this.width)/2))|0, 
-            (this.y - (this.height/2))|0, 
-            this.width,
-            this.height
-        );
-
         for (let j = 0; j < this.allCoord.length; j++) {
             for (let i = 0; i < this.txt[j].length; i++) {
                 this._context.fillText(

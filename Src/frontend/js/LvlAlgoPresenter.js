@@ -93,6 +93,7 @@ class LvlAlgoPresenter {
      * @param {*} val 
      */
     handleDropZones = val => {
+        
         setTimeout(() => {
             if (this._view.graphicNodesIsEmpty) {
                 this._view.enableStartBtn()
@@ -101,12 +102,12 @@ class LvlAlgoPresenter {
             }
         },300)
 
-        if (this._view.addElementOnZone(val, this._movedNodeId, this._movedNodeWrapperId)) {
+        if (this._view.addElementOnZone(val.target.id, this._movedNodeId, this._movedNodeWrapperId)) {
             if (this._view.graphicNodesIsEmpty) {
                 this._view.enableStartBtn(); 
             }
 
-            let zoneId = val.split("-")[1];
+            let zoneId = val.target.id.split("-")[1];
             let nodeId = this._movedNodeId.split("-")[1];
 
             if (zoneId !== nodeId) {

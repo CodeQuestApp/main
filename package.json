@@ -6,7 +6,7 @@
   "scripts": {
     "jsdoc": "jsdoc -c jsdoc.json",
     "sass": "sass --watch ./Src/frontend/sass/main.scss:Src/frontend/css/style.css --style compressed",
-    "prefix": "postcss ./Src/frontend/css/style.css --use autoprefixer -d Src/frontend/css/prefixed/"
+    "prefix": "postcss ./Src/frontend/css/style.css --use autoprefixer -d Src/frontend/css-prefixed/"
   },
   "author": "",
   "license": "ISC",

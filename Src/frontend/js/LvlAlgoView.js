@@ -191,8 +191,9 @@ class LvlAlgoView {
             dropZone.addEventListener("drop", function(e) {
                 e.preventDefault(); 
                 e.stopPropagation();
-                handlerDropZones(e.target.id);
-                dropZone.style.outline = "none";
+                if (dropZone.children.length === 0) {
+                    handlerDropZones(e);
+                }
                 dropZone.style.transform = "scale(1)";
                 dropZone.style.filter = "brightness(1)";
             });

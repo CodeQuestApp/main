@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeQuestApp</title>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="./frontend/css/style.css">
-    <!-- <link rel="stylesheet" href="./frontend/css/prefixed/style.css"> -->
+    <!-- <link rel="stylesheet" href="./frontend/css/style.css"> -->
+    <link rel="stylesheet" href="./frontend/css-prefixed/style.css">
     <meta name="description" content="CodeQuestApp est un jeu ludique pour apprendre les concepts de l'informatique">
     <link rel="preload" fetchpriority="high" as="image" href="./frontend/img/backgroundHeader.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +36,7 @@
             </button>
             <form action="backend/inscription.php" method="post" id="register__form">
                 <h2>Inscription</h2>
-                <div class="register__input">
+                <div id="rmail-wrapper" class="register__input">
                     <div id="rmail-icon-wrapper">
                         <i class="fa-regular fa-envelope" id="rmail-icon"></i>
                         <i class="fa-regular fa-circle-check" id="valid-rmail"></i>
@@ -45,7 +45,7 @@
                     <input type="text" name="register-email" id="register__input__email">
                     <label class="form-label" for="register-email" id="label__register__email">Email (obligatoire)</label>
                 </div>
-                <div class="register__input">
+                <div id="rpwd-wrapper" class="register__input">
                     <div id="rpwd-icon-wrapper">
                         <i class="fa-solid fa-key" id="rpwd-icon"></i>
                         <i class="fa-regular fa-circle-check" id="valid-rpwd"></i>
@@ -54,7 +54,7 @@
                     <input type="password" name="register-password" id="register__input__password" placeholder="">
                     <label class="form-label" for="register-password" id="label__register__password">Mot de Passe (obligatoire)</label>
                 </div>
-                <div class="register__input">
+                <div id="rcpwd-wrapper" class="register__input">
                     <div id="rcpwd-icon-wrapper">
                         <i class="fa-solid fa-key" id="rcpwd-icon"></i>
                         <i class="fa-regular fa-circle-check" id="valid-rcpwd"></i>
@@ -78,7 +78,7 @@
             </button>
             <form action="backend/connexion.php" method="post" id="login__form">
                 <h2>Connexion</h2>
-                <div class="login__input">
+                <div id="lmail-wrapper" class="login__input">
                     <div id="lmail-icon-wrapper">
                         <i class="fa-regular fa-envelope" id="lmail-icon"></i>
                         <i class="fa-regular fa-circle-check" id="valid-lmail"></i>
@@ -87,7 +87,7 @@
                     <input type="text" name="login-email" id="login__input__email" placeholder="">
                     <label class="form-label" for="login-email" id="label__login__email">Email (obligatoire)</label>
                 </div>
-                <div class="login__input">
+                <div id="lpwd-wrapper" class="login__input">
                     <div id="lpwd-icon-wrapper">
                         <i class="fa-solid fa-key" id="lpwd-icon"></i>
                         <i class="fa-regular fa-circle-check" id="valid-lpwd"></i>

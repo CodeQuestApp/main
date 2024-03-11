@@ -18,12 +18,6 @@ class Assignment extends Node {
      * Draw the node on canvas context.
      */
     draw() {
-        this._context.strokeRect(
-            4, 4, 
-            (this.size[0])|0, 
-            this.height
-        );
-
         for (let i = 0; i < this.txt[0].length; i++) {
             this._context.fillText(
                 `${this.txt[0][i]}`, 

@@ -146,6 +146,7 @@
 }
 
 .graphicNode {
+    border-radius: .6em;
     background-color: $graphic-node-clr;
     z-index: 3;
     cursor: pointer;

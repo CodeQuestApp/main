@@ -72,7 +72,7 @@ function displayInputLabel(htmlLabelElm) {
 }
 
 function hiddenInputLabel(htmlLabelElm) {
-    htmlLabelElm.style.top = '70px';
+    htmlLabelElm.style.top = '35px';
 }
 
 function resetLoginControls() {
@@ -258,7 +258,7 @@ registerLink.addEventListener('click', ()=> {
 */ 
 
 // Gestion animation mail login form
-loginMailInput.addEventListener("click", () => {
+document.getElementById("lmail-wrapper").addEventListener("click", (e) => {
     displayInputLabel(loginLabelInputMail);
     displayInputPlaceholder(loginMailInput, allPlaceholderTxt["mail"]);
 })
@@ -275,7 +275,7 @@ loginMailInput.addEventListener("focusout", () => {
 })
 
 // Gestion animation mot de passe login form
-loginPasswordInput.addEventListener("click", () => {
+document.getElementById("lpwd-wrapper").addEventListener("click", (e) => {
     displayInputLabel(loginLabelInputPassword);
     displayInputPlaceholder(loginPasswordInput, allPlaceholderTxt["pwd"]);
 })
@@ -284,7 +284,6 @@ loginPasswordInput.addEventListener("focus", (e) => {
     displayInputPlaceholder(loginPasswordInput, allPlaceholderTxt["pwd"]);
 })
 loginPasswordInput.addEventListener("focusout", (e) => {
-    console.log(e.target.value);
     animInput(
         loginPasswordInput, 
         loginLabelInputPassword, 
@@ -297,7 +296,7 @@ loginPasswordInput.addEventListener("focusout", (e) => {
 */ 
 
 // Gestion animation mail register form
-registerMailInput.addEventListener("click", () => {
+document.getElementById("rmail-wrapper").addEventListener("click", (e) => {
     displayInputLabel(registerLabelInputMail);
     displayInputPlaceholder(registerMailInput, allPlaceholderTxt["mail"]);
 })
@@ -314,7 +313,7 @@ registerMailInput.addEventListener("focusout", () => {
 })
 
 // Gestion animation mot de passe register form
-registerPasswordInput.addEventListener("click", () => {
+document.getElementById("rpwd-wrapper").addEventListener("click", (e) => {
     displayInputLabel(registerLabelInputPassword);
     displayInputPlaceholder(registerPasswordInput, allPlaceholderTxt["pwd"]);
 })
@@ -331,7 +330,7 @@ registerPasswordInput.addEventListener("focusout", () => {
 })
 
 // Gestion animation confirmation mot de passe register form
-registerPasswordConfirmInput.addEventListener("click", () => {
+document.getElementById("rcpwd-wrapper").addEventListener("click", (e) => {
     displayInputLabel(registerLabelInputPasswordConfirm);
     displayInputPlaceholder(registerPasswordConfirmInput, allPlaceholderTxt["pwd"]);
 })
