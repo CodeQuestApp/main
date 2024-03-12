@@ -48,7 +48,7 @@ function getNiveaux() {
         while ( mysqli_stmt_fetch($resultat)){      //  
             $item = new stdClass();                 //  Ajout des informations
             $item->id =  $id;                       //  des niveaux indisponibles
-            $item->family = utf8_encode($nom);      //  dans la liste accessible 
+            $item->family = $nom;      //  dans la liste accessible 
             $item->difficulty = $difficulte;        //  de l'objet Niveau
             $item->theme = $nom_theme[$id_theme];   //
             array_push($Niveau->accessible,$item);  //
@@ -70,7 +70,7 @@ function getNiveaux() {
         while ( mysqli_stmt_fetch($resultat)){      //  
             $item = new stdClass();                 //  Ajout des informations
             $item->id =  $id;                       //  des niveaux indisponibles
-            $item->family = utf8_encode($nom);      //  dans la liste bloque de
+            $item->family = $nom;      //  dans la liste bloque de
             $item->difficulty = $difficulte;        //  l'objet Niveau
             $item->theme = $nom_theme[$id_theme];   //
             array_push($Niveau->bloque,$item);  //
@@ -93,7 +93,7 @@ function getNiveaux() {
         while ( mysqli_stmt_fetch($resultat)){     //  
             $item = new stdClass();                         //  Ajout des informations
             $item->id =  $id;                      //  des niveaux indisponibles
-            $item->family = utf8_encode($nom);     //  dans la liste bloque de
+            $item->family = $nom;     //  dans la liste bloque de
             $item->difficulty = $difficulte;        //  l'objet Niveau
             $item->theme = $nom_theme[$id_theme]; //
             array_push($Niveau->bloque,$item);              //
