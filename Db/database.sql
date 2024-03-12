@@ -218,7 +218,7 @@ CREATE TABLE `SOMMET` (
 --
 
 INSERT INTO `SOMMET` (`id`, `type`, `coordX`, `coordY`, `texte`, `hauteur`, `largeur`, `taille`, `fonction`, `valeur`, `sortie`, `coords`, `zoneClick`) VALUES
-(1, 'issue', 548, 212, '[[\"\"],[\"Atteindre le coffre\"],[\"\"]]', 32, 106, '[0,106,0]', '', 3, '[[1,2,4,5]]', '[495]', '[106]'),
+(1, 'issue', 548, 212, '[[\"\"],[\"Atteindre le coffre\"],[\"\"]]', 32, 170, '[0,106,0]', '', 3, '[[1,2,4,5]]', '[495]', '[106]'),
 (2, 'assignment', 293, 413, '[[\"Avancer de\",\"3 cases\"]]', 48, 105, '[105]', 'move', 3, '[[]]', '[241]', '[105]'),
 (3, 'loop', 462, 407, '[[\"Répéter 5\",\"fois\"]]', 36, 46, '[46]', 'repeat', 5, '[[3]]', '[439]', '[46]'),
 (4, 'assignment', 462, 545, '[[\"Avancer de\",\"1 case\"]]', 48, 105, '[105]', 'move', 1, '[[]]', '[410]', '[105]'),

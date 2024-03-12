@@ -29,7 +29,7 @@ function getNodes($id) {
             $resultat = mysqli_query($connexion, $requete);      // exécution de la requête
     
             $ligne = mysqli_fetch_assoc($resultat); // Récupération du texte
-            $algo->txt = utf8_encode($ligne['texte']);    // du theme demandé
+            $algo->txt = $ligne['texte'];    // du theme demandé
     
             $nodes = array();
             
@@ -43,7 +43,7 @@ function getNodes($id) {
                 $res->setFetchMode(PDO::FETCH_OBJ);
     
                 while ($tuple = $res->fetch()) {
-                    $tuple->texte = utf8_encode($tuple->texte);
+                    $tuple->texte = $tuple->texte;
                     array_push($nodes,$tuple); // Ajout des infos dans $nodes (liste des noeuds)
                 }
                 

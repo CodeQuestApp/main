@@ -1,9 +1,9 @@
 <?php
 
-    $user = "adumolie_bd";                       //
-    $pass = "adumolie_bd";                       //  Infos pour la connexion 
-    $bdd = "adumolie_bd";                        //  à la BD
-    $host = "lakartxela.iutbayonne.univ-pau.fr"; //
+    $user = "351424_bd";                          //
+    $pass = "codequestapp_bd";                      //  Infos pour la connexion 
+    $bdd = "codequestapp_bd";                     //  à la BD
+    $host = "mysql-codequestapp.alwaysdata.net"; // Pour alwaysdata
         
     $connexion = mysqli_connect($host, $user, $pass, $bdd); // connexion à la BD
 
