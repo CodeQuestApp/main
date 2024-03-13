@@ -16,7 +16,7 @@ USE adumolie_bd;
 
 CREATE TABLE `ALGORITHME` (
   `id` int(11) NOT NULL,
-  `texte` varchar(500) NOT NULL
+  `texte` varchar(1000) NOT NULL
 ) ;
 
 --
