@@ -24,7 +24,10 @@ CREATE TABLE `ALGORITHME` (
 --
 
 INSERT INTO `ALGORITHME` (`id`, `texte`) VALUES
-(1, 'Bienvenue sur CodeQuest, je m\'appelle Algorithmx et je suis là pour t\'aider et t\'accompagner tout au long de cette aventure.\nPlace les cases dans les dropZone pour aider la personnage à trouver le coffre.'),
+(1, 'Bienvenue sur CodeQuest, je m'appelle Algorithmix et je suis là pour t'aider et t'accompagner tout au long de cette aventure.
+Pour permettre au chevalier Executix d'atteindre le coffre, il te faudra reconstruire l'arbre d'instruction.
+Cet arbre se construit de la manière suivante : déplace avec ta souris les instructions dans l'arbre afin de reconstituer le parcours d'Executix. Une fois ton arbre complété tu peux visualiser son exécution en appuyant sur le bouton Exécuter. Tu pourras ainsi voir si Executix arrive bien au coffre.
+Bonne chance !'),
 (2, 'En utilisant les boucles imbriquées aide le prince à trouver sa princesse perdue'),
 (3, 'Là il va falloir écrire le code optimal en python pour pouvoir trouver le trésor dans une durée très courte'),
 (4, 'Bienvenue sur CodeQuest, je m\'appelle Algorithmx et je suis là pout t\'aider et t\'accompagner tout au long de cette aventure.\r\nPlace les cases dans les dropZone pour aider la personnage à trouver le coffre.');
